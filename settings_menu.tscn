@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkxs7234lkbq5"]
+
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_7kcl3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qrdi"]
+font_size = 65
+
+[node name="settings_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7kcl3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = -950.0
+text = "Settings"
+label_settings = SubResource("LabelSettings_0qrdi")
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 200.0
+offset_right = -710.0
+offset_bottom = -730.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 65
+
+[node name="fullscreen_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 500.0
+offset_right = -710.0
+offset_bottom = -430.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 55
+text = "Fullscreen On/Off"
+
+[node name="back_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 800.0
+offset_right = -710.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Back"
+
+[connection signal="item_selected" from="Panel/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Panel/fullscreen_button" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="Panel/back_button" to="." method="_on_back_button_pressed"]

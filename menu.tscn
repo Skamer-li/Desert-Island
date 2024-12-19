@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://7tk348075wa8"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_yqoaq"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqoaq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="host_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 150.0
+offset_right = -710.0
+offset_bottom = -780.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 65
+text = "Host"
+
+[node name="join_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 360.0
+offset_right = -710.0
+offset_bottom = -570.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 65
+text = "Join"
+
+[node name="settings_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 570.0
+offset_right = -710.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Settings"
+
+[node name="exit_button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 780.0
+offset_right = -710.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Exit"
+
+[connection signal="pressed" from="Panel/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Panel/exit_button" to="." method="_on_exit_button_pressed"]
