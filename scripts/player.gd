@@ -24,6 +24,7 @@ func _ready():
 	fate_coins = 1
 	character_card = "Hero_name"
 	ally_card = "Hero_name"
+	enemy_card = "Hero_name"
 	items = []
 
 	emit_signal("stats_updated")
