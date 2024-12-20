@@ -17,10 +17,21 @@ var hp_loss: int = 1  # hunger penalty
 
 # Function to initialize player stats
 func _ready():
+<<<<<<< HEAD
 	player.modify_food_coins(4, 0)
 	player.modify_food_points(food_coins[0] * 1 + food_coins[1] * 4)
 	player.modify_ally_card("Hero_name")
 	player.modify_enemy_card("Hero_name")
+=======
+	food_required = 1
+	food_points = 10
+	food_coins = [4, 0]
+	health_points = 1
+	fate_coins = 1
+	character_card = "Hero_name"
+	ally_card = "Hero_name"
+	enemy_card = "Hero_name"
+>>>>>>> adc0e3fc3b13f38c0b6874eec2c728d5f0e4e9a2
 	items = []
 
 	emit_signal("stats_updated")
