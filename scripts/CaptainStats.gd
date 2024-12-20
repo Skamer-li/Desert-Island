@@ -7,6 +7,7 @@ func _init(): # unique stats
 	var food_required: int = base_strenghts
 	var health_points: int = base_strenghts
 	var character_name: String = "Captain"
+	var enemy_card: String = "Hero name"
 	
 	
 	
