@@ -1,12 +1,12 @@
 extends Node2D  
-
+var player = $Player
+var captain = CaptainStats.new()
+player.set_character(captain)
 # character stats variables
-var food_required: int = 0  # how many points of food your character eats each loop (depends on char_card)
-var food_coins: Array = [4, 0]  # amount of food coins in array, 0 - 1p and 1 - 4p
+var food_coins: Array = []  # amount of food coins in array, 0 - 1p and 1 - 4p
 var food_points: int = food_coins[0] # how many points of food you have
 var health_points: int = 1  # HP based on character card (depends on char card)
 var fate_coins: int = 1  # amount of fate coins (skulls)
-var character_card: String = "None"  # name and class of character (depends on this str we set all optional and basic stats and innate abilities)
 var ally_card: String = "None"  # random ally character
 var enemy_card: String = "None" # random enemy card
 var items: Array = []  # first idea of inventory (items)
@@ -17,6 +17,12 @@ var hp_loss: int = 1  # hunger penalty
 
 # Function to initialize player stats
 func _ready():
+<<<<<<< HEAD
+	player.modify_food_coins(4, 0)
+	player.modify_food_points(food_coins[0] * 1 + food_coins[1] * 4)
+	player.modify_ally_card("Hero_name")
+	player.modify_enemy_card("Hero_name")
+=======
 	food_required = 1
 	food_points = 10
 	food_coins = [4, 0]
@@ -25,6 +31,7 @@ func _ready():
 	character_card = "Hero_name"
 	ally_card = "Hero_name"
 	enemy_card = "Hero_name"
+>>>>>>> adc0e3fc3b13f38c0b6874eec2c728d5f0e4e9a2
 	items = []
 
 	emit_signal("stats_updated")
