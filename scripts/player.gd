@@ -1,7 +1,7 @@
 extends Node2D  
-var player = $Player
-var captain = CaptainStats.new()
-player.set_character(captain)
+#var player = $Player
+#var captain = CaptainStats.new()
+#player.set_character(captain)
 # character stats variables
 var food_coins: Array = []  # amount of food coins in array, 0 - 1p and 1 - 4p
 var food_points: int = food_coins[0] # how many points of food you have
@@ -17,21 +17,9 @@ var hp_loss: int = 1  # hunger penalty
 
 # Function to initialize player stats
 func _ready():
-<<<<<<< HEAD
-	player.modify_food_coins(4, 0)
-	player.modify_food_points(food_coins[0] * 1 + food_coins[1] * 4)
-	player.modify_ally_card("Hero_name")
-	player.modify_enemy_card("Hero_name")
-=======
-	food_required = 1
-	food_points = 10
-	food_coins = [4, 0]
-	health_points = 1
-	fate_coins = 1
-	character_card = "Hero_name"
-	ally_card = "Hero_name"
-	enemy_card = "Hero_name"
->>>>>>> adc0e3fc3b13f38c0b6874eec2c728d5f0e4e9a2
-	items = []
+	#player.modify_food_coins(4, 0)
+	#player.modify_food_points(food_coins[0] * 1 + food_coins[1] * 4)
+	#player.modify_ally_card("Hero_name")
+	#player.modify_enemy_card("Hero_name")
 
 	emit_signal("stats_updated")
