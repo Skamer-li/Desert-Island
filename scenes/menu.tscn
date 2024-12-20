@@ -80,5 +80,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 65
 text = "Exit"
 
+[connection signal="pressed" from="Panel/host_button" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Panel/join_button" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="Panel/settings_button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/exit_button" to="." method="_on_exit_button_pressed"]

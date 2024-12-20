@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://blw2b15k1jiyb"]
+
+[ext_resource type="Script" path="res://scripts/waiting_room.gd" id="1_3yv7k"]
+
+[node name="waiting_room" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3yv7k")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 1, 0.988235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = -950.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Waiting room"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="Players" type="Node2D" parent="."]
+top_level = true
+position = Vector2(72, 185)

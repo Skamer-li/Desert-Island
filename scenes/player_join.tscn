@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcmplxf4ilh1m"]
+
+[ext_resource type="Texture2D" uid="uid://c7ehemvploa57" path="res://sprites/Grey-Box.jpeg" id="1_2dl27"]
+[ext_resource type="Script" path="res://scripts/multiplayer/player_join.gd" id="1_gxqmn"]
+
+[node name="player_join" type="Sprite2D"]
+position = Vector2(627, 161)
+scale = Vector2(1, 0.247104)
+texture = ExtResource("1_2dl27")
+script = ExtResource("1_gxqmn")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -397.0
+offset_top = -259.0
+offset_right = -397.0
+offset_bottom = -259.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true

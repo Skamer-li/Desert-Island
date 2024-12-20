@@ -1,6 +1,7 @@
 extends Control
 
-@onready var resolutions_option_button = $Panel/OptionButton
+@onready var resolutions_option_button = $Panel/resolutions_option_button
+@onready var window_mode_option_button = $Panel/window_mode_option_button
 
 var resolutions = {
 	"3840x2160": Vector2i(3840,2160),
@@ -14,35 +15,54 @@ var resolutions = {
 	"800x600": Vector2i(800,600)
 }
 
+const window_modes : Array[String] = [
+	"Full-Screen", 
+	"Windowed"
+]
+
 func _ready():
 	add_resolutions()
+	add_window_modes()
 	update_button_values()
 
-func add_resolutions():
-	for r in resolutions:
-		resolutions_option_button.add_item(r)
+func add_resolutions() -> void:
+	# Add items inside resolutions option button
+	for i in resolutions:
+		resolutions_option_button.add_item(i)
 
-func update_button_values():
+func update_button_values() -> void:
+	# Update string inside resolutions option button box
 	var window_size_string = str(get_window().size.x, "x", get_window().size.y)
 	var resolutions_index = resolutions.keys().find(window_size_string)
 	resolutions_option_button.selected = resolutions_index	
+	
+	if (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN):
+		window_mode_option_button.selected = 0
+	elif (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED):
+		window_mode_option_button.selected = 1
 
-func _on_option_button_item_selected(index: int) -> void:
+func _on_resolutions_option_button_item_selected(index: int) -> void:
 	var key = resolutions_option_button.get_item_text(index)
 	get_window().set_size(resolutions[key])
 	center_window()
 	
-func center_window():
+func center_window() -> void:
+	# Center window after resolution change
 	var screen_center = DisplayServer.screen_get_position() + DisplayServer.screen_get_size() / 2
 	var window_size = get_window().get_size_with_decorations()
 	get_window().set_position(screen_center - window_size / 2)
 
+func add_window_modes() -> void:
+	# Add items inside window mode option button
+	for i in window_modes:
+		window_mode_option_button.add_item(i)
+
+func _on_window_mode_option_button_item_selected(index: int) -> void:
+	match index:
+		0:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		1:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
-
-func _on_fullscreen_button_pressed() -> void:
-	if (DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN):
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	print(str(get_window().size.x, "x", get_window().size.y))
