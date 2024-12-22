@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcmplxf4ilh1m"]
+[gd_scene load_steps=3 format=3 uid="uid://bmvi3e757odtl"]
 
 [ext_resource type="Texture2D" uid="uid://c7ehemvploa57" path="res://sprites/Grey-Box.jpeg" id="1_2dl27"]
 [ext_resource type="Script" path="res://scripts/multiplayer/player_join.gd" id="1_gxqmn"]
