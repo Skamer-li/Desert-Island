@@ -34,6 +34,18 @@ text = "Waiting room"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="start_button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_top = 905.0
+offset_right = -710.0
+offset_bottom = -25.0
+theme_override_font_sizes/font_size = 65
+text = "Start Game"
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
 spawn_path = NodePath("../Players")
@@ -42,3 +54,5 @@ spawn_limit = 2
 [node name="Players" type="Node2D" parent="."]
 top_level = true
 position = Vector2(72, 185)
+
+[connection signal="pressed" from="Panel/start_button" to="." method="_on_start_button_pressed"]

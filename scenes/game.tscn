@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://brrf54ngtwahm"]
+
+[node name="game" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 34.0
+offset_top = 158.0
+offset_right = 1874.0
+offset_bottom = 976.0
+theme_override_font_sizes/font_size = 600
+text = "Empty"

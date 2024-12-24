@@ -1,12 +1,10 @@
 extends Node
 
-var status
-
 const SERVER_PORT = 8080
 const SERVER_IP = "127.0.0.1"
 
+var status
 var multiplayer_join_scene = preload("res://scenes/player_join.tscn")
-
 var player_spawn_node
 
 func become_host() -> void:
@@ -15,12 +13,17 @@ func become_host() -> void:
 	player_spawn_node = get_tree().get_current_scene().get_node("Players")
 	
 	var server_peer = ENetMultiplayerPeer.new()
-	server_peer.create_server(SERVER_PORT)
-	
+	var error = server_peer.create_server(SERVER_PORT, 6)
+	if (error != OK):
+		print("Failed to host: " + error)
+		return
+		
 	multiplayer.multiplayer_peer = server_peer
 	
 	multiplayer.peer_connected.connect(add_player_to_game)
 	multiplayer.peer_disconnected.connect(delete_player)
+	
+	add_player_to_game(1)
 	
 func join() -> void:
 	print("Joining")
@@ -41,3 +44,6 @@ func add_player_to_game(id: int):
 	
 func delete_player(id: int) -> void:
 	print("Player %s left the game!" % id)
+	if not player_spawn_node.has_node(str(id)):
+		return
+	player_spawn_node.get_node(str(id)).queue_free()

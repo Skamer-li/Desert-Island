@@ -1,22 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmvi3e757odtl"]
 
-[ext_resource type="Texture2D" uid="uid://c7ehemvploa57" path="res://sprites/Grey-Box.jpeg" id="1_2dl27"]
+[ext_resource type="Texture2D" uid="uid://crvv6o70vsqr5" path="res://sprites/stickman.png" id="1_7o406"]
 [ext_resource type="Script" path="res://scripts/multiplayer/player_join.gd" id="1_gxqmn"]
 
 [node name="player_join" type="Sprite2D"]
-position = Vector2(627, 161)
-scale = Vector2(1, 0.247104)
-texture = ExtResource("1_2dl27")
+position = Vector2(753, 638)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_7o406")
 script = ExtResource("1_gxqmn")
 
 [node name="Label" type="Label" parent="."]
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.135
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -397.0
-offset_top = -259.0
-offset_right = -397.0
-offset_bottom = -259.0
+offset_left = -650.0
+offset_top = -960.8
+offset_right = -650.0
+offset_bottom = -2937.0
 grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+theme_override_font_sizes/font_size = 150
+text = "Player 1
+"
+horizontal_alignment = 1
+vertical_alignment = 1
