@@ -15,7 +15,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	get_input_axis()
-	
+	var amount_of_players = MultiplayerManager.count_players()
+	if amount_of_players >= 3 and MultiplayerManager.status == "Host":
+		WaitingRoom.start_button.show()
 	if (axis.x > 0):
 		player.position.x += SPEED
 	elif (axis.x < 0):
