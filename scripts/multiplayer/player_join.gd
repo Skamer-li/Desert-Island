@@ -3,6 +3,7 @@ extends Sprite2D
 @export var SPEED = 25
 
 @onready var player = $"."
+@onready var label = $Label
 @onready var axis = Vector2.ZERO
 
 @export var player_id := 1:
@@ -10,7 +11,7 @@ extends Sprite2D
 		player_id = id
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	label.text = MultiplayerManager.user_name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

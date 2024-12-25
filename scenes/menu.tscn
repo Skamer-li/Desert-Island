@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csy2k32qiquny"]
+[gd_scene load_steps=3 format=3 uid="uid://csy2k32qiquny"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_csmal"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_airte"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -80,7 +81,65 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 65
 text = "Exit"
 
+[node name="name_background" type="Sprite2D" parent="."]
+position = Vector2(360, 240)
+texture = ExtResource("2_airte")
+centered = false
+
+[node name="Label" type="Label" parent="name_background"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -262.5
+offset_top = 25.0
+offset_right = 262.5
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 65
+text = "Enter your name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="username" type="LineEdit" parent="name_background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = 200.0
+offset_right = -200.0
+offset_bottom = -250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+
+[node name="ok_button" type="Button" parent="name_background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 475.0
+offset_top = 425.0
+offset_right = -475.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Ok"
+
+[node name="close_button" type="Button" parent="name_background"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = 123.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 65
+text = "X"
+
 [connection signal="pressed" from="Panel/host_button" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Panel/join_button" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="Panel/settings_button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="name_background/ok_button" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="name_background/close_button" to="." method="_on_close_button_pressed"]
