@@ -1,14 +1,18 @@
 extends Control
 
 @onready var start_button = $Panel/start_button
+var players_connected
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	start_button.visible = false
 	if (MultiplayerManager.status == "Host"):
 		MultiplayerManager.become_host()
-		start_button.visible = true
 	elif (MultiplayerManager.status == "Client"):
 		MultiplayerManager.join()
-		start_button.visible = false
+			
+func _process(delta: float) -> void:
+	if MultiplayerManager.peers_connected >= 3:
+		start_button.visible = true
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
@@ -18,4 +22,3 @@ func start_game() -> void:
 
 func _on_start_button_pressed() -> void:
 	start_game.rpc()
-	
