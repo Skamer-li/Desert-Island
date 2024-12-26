@@ -45,7 +45,7 @@ offset_bottom = -705.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 65
-text = "Resolutions"
+text = "Resolution"
 horizontal_alignment = 1
 vertical_alignment = 1
 

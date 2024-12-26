@@ -4,29 +4,37 @@ extends Sprite2D
 
 @onready var player = $"."
 @onready var label = $Label
-@onready var axis = Vector2.ZERO
+@onready var input_synchronizer = $input_synchronizer
+@onready var axis_current = Vector2.ZERO
 
 @export var player_id := 1:
 	set(id):
 		player_id = id
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	label.text = MultiplayerManager.user_name
+		$input_synchronizer.set_multiplayer_authority(id)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+@export var player_name = "Sigma"
+
+func _ready() -> void:
+	player_name = MultiplayerManager.user_name
+	label.text = player_name
+
 func _process(delta: float) -> void:
-	get_input_axis()
+	#Gets input and changes of client 
+	axis_current = input_synchronizer.axis
+	player_name = input_synchronizer.player_name
 	
-	if (axis.x > 0):
+	#Just host can apply changes 
+	if multiplayer.is_server():
+		apply_movement()
+		label.text = player_name
+	
+func apply_movement() -> void:
+	if (axis_current.x > 0):
 		player.position.x += SPEED
-	elif (axis.x < 0):
+	elif (axis_current.x < 0):
 		player.position.x -= SPEED
 	
-	if (axis.y > 0):
+	if (axis_current.y > 0):
 		player.position.y -= SPEED
-	elif (axis.y < 0):
+	elif (axis_current.y < 0):
 		player.position.y += SPEED
-
-func get_input_axis() -> void:
-	axis.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	axis.y = int(Input.is_action_pressed("move_up")) - int(Input.is_action_pressed("move_down"))

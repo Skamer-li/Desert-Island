@@ -2,7 +2,7 @@ extends Control
 
 @onready var start_button = $Panel/start_button
 var players_connected
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	start_button.hide()
 	if (MultiplayerManager.status == "Host"):

@@ -21,7 +21,6 @@ func become_host() -> void:
 		return
 		
 	multiplayer.multiplayer_peer = server_peer
-	
 	multiplayer.peer_connected.connect(add_player_to_game)
 	multiplayer.peer_disconnected.connect(delete_player)
 	
@@ -35,9 +34,7 @@ func join() -> void:
 	
 	multiplayer.multiplayer_peer = client_peer
 	
-func add_player_to_game(id: int):
-	#send_user_information(user_name, id)
-	
+func add_player_to_game(id: int):	
 	var player_to_add = multiplayer_join_scene.instantiate()
 	player_to_add.player_id = id
 	player_to_add.name = str(id)
@@ -52,14 +49,3 @@ func delete_player(id: int) -> void:
 	player_spawn_node.get_node(str(id)).queue_free()
 	peers_connected = multiplayer.get_peers().size()
 	
-#@rpc("any_peer")
-#func send_user_information(name, id) -> void:
-	#if !GameManager.Players.has(id):
-		#GameManager.Players[id] = {
-			#"name" : name, 
-			#"id" : id,
-			#"dublons" : 0
-		#}
-	#if multiplayer.is_server():
-		#for i in GameManager.Players:
-			#send_user_information.rpc(GameManager.Players[i].name, i)
