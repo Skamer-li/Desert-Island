@@ -4,7 +4,7 @@ extends Control
 var players_connected
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_button.visible = false
+	start_button.hide()
 	if (MultiplayerManager.status == "Host"):
 		MultiplayerManager.become_host()
 	elif (MultiplayerManager.status == "Client"):
@@ -12,7 +12,7 @@ func _ready() -> void:
 			
 func _process(delta: float) -> void:
 	if MultiplayerManager.peers_connected >= 3:
-		start_button.visible = true
+		start_button.show()
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
