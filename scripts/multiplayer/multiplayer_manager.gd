@@ -26,7 +26,7 @@ func become_host() -> void:
 	multiplayer.peer_disconnected.connect(delete_player)
 	
 	add_player_to_game(1)
-	
+
 func join() -> void:
 	print("Player %s joined the game!" % user_name)
 	
