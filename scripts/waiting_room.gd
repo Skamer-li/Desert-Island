@@ -13,9 +13,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if MultiplayerManager.peers_connected >= 3:
 		start_button.show()
+	else:
+		start_button.hide()
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
+	MultiplayerManager.is_in_game = 1
 	var scene = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()

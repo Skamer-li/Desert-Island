@@ -49,7 +49,7 @@ text = "Start Game"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
 spawn_path = NodePath("../Players")
-spawn_limit = 4
+spawn_limit = 6
 
 [node name="Players" type="Node2D" parent="."]
 top_level = true

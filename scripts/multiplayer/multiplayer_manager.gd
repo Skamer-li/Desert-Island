@@ -8,6 +8,7 @@ var user_name
 var multiplayer_join_scene = preload("res://scenes/player_join.tscn")
 var player_spawn_node
 var peers_connected = 0
+var is_in_game = 0
 
 func become_host() -> void:
 	print("%s is the host now" % user_name)
@@ -41,6 +42,8 @@ func add_player_to_game(id: int):
 	
 	player_spawn_node.add_child(player_to_add, true)
 	peers_connected = multiplayer.get_peers().size()
+	
+	GameManager.players_id.append(id)
 	
 func delete_player(id: int) -> void:
 	print("Player %s left the game!" % id)

@@ -1,6 +1,6 @@
 extends Node
 
-var Players = {}
+var players_id: Array[int] = []
 
 func _ready() -> void:
 	pass
