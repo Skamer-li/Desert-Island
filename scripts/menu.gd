@@ -14,11 +14,13 @@ func _ready() -> void:
 
 func _on_host_button_pressed() -> void:
 	name_panel.show()
+	username.grab_focus()
 	disable_buttons()
 	current_status = "Host"
 
 func _on_join_button_pressed() -> void:
 	name_panel.show()
+	username.grab_focus()
 	disable_buttons()
 	current_status = "Client"
 
@@ -39,6 +41,7 @@ func _on_ok_button_pressed() -> void:
 
 func _on_close_button_pressed() -> void:
 	name_panel.hide()
+	username.clear()
 	enable_buttons()
 	
 func disable_buttons() -> void:

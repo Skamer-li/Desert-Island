@@ -6,22 +6,12 @@
 script = ExtResource("1_4etc6")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = 34.0
-offset_top = 158.0
-offset_right = 1874.0
-offset_bottom = 976.0
-theme_override_font_sizes/font_size = 600
-text = "Empty"
-
-[node name="Button" type="Button" parent="."]
-visible = false
-offset_left = 562.0
-offset_top = 282.0
-offset_right = 1062.0
-offset_bottom = 782.0
-theme_override_font_sizes/font_size = 100
-text = "PUSH"
+offset_left = 48.0
+offset_top = 46.0
+offset_right = 356.0
+offset_bottom = 124.0
+theme_override_font_sizes/font_size = 50
+text = "Ready 0/4"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
