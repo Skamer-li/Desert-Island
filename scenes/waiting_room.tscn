@@ -71,7 +71,7 @@ theme_override_font_sizes/font_size = 65
 text = "Ok"
 
 [node name="error" type="Label" parent="Panel/error_background"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 259.0
