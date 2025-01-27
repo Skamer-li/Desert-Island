@@ -50,14 +50,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="error_background" type="Sprite2D" parent="Panel"]
-visible = false
-z_index = 1
+z_index = 2
 position = Vector2(480, 300)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_3uwd0")
 centered = false
 
 [node name="ok_button" type="Button" parent="Panel/error_background"]
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -71,6 +71,7 @@ theme_override_font_sizes/font_size = 65
 text = "Ok"
 
 [node name="error" type="Label" parent="Panel/error_background"]
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
