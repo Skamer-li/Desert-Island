@@ -2,6 +2,7 @@ extends Control
 
 @onready var start_button = $Panel/start_button
 @onready var error_background = $Panel/error_background
+
 var players_connected
 
 func _ready() -> void:

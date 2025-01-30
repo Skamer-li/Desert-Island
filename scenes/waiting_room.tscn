@@ -50,6 +50,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="error_background" type="Sprite2D" parent="Panel"]
+visible = false
 z_index = 2
 position = Vector2(480, 300)
 scale = Vector2(0.8, 0.8)
