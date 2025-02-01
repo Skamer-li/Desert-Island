@@ -99,4 +99,3 @@ func refresh_positions() -> void:
 			_:
 				current_player.position = Vector2.ZERO
 		pos += 1
-	

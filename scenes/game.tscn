@@ -11,7 +11,7 @@ offset_top = 46.0
 offset_right = 356.0
 offset_bottom = 124.0
 theme_override_font_sizes/font_size = 50
-text = "Ready 0/4"
+text = "Name"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
