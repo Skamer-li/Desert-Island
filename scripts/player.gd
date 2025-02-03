@@ -1,6 +1,6 @@
 extends Node2D  
 
-@export var character_data: CharacterData
+#@export var character_data: CharacterData
 @onready var game = get_tree().get_first_node_in_group("game")
 
 var food_coins: Array = []  # amount of food coins in array, 0 - 1p and 1 - 4p
@@ -28,20 +28,20 @@ func _loop():
 	update_food()
 	update_day(1)
 	
-func use_special_ability():
-	match character_data.character_name:
-		"Explorer":
-			_explorer_ability()
-		"Doctor":
-			_doctor_ability()
-		"Cook":
-			_cook_ability()
-		"Captain":
-			_captain_ability()
-		"Hunter":
-			_hunter_ability()
-		"Engineer":
-			_engineer_ability()
+#func use_special_ability():
+#	match character_data.character_name:
+#		"Explorer":
+#			_explorer_ability()
+#		"Doctor":
+#			_doctor_ability()
+#		"Cook":
+#			_cook_ability()
+#		"Captain":
+#			_captain_ability()
+#		"Hunter":
+#			_hunter_ability()
+#		"Engineer":
+#			_engineer_ability()
 	
 func update_day(day):
 	day_counter_label.text = "Day: " + str(day)
