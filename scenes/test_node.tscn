@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhp0bl3ngoax2"]
-
-[ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="1_33rf2"]
-
-[node name="test_node" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_33rf2")

@@ -18,7 +18,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#Gets input and changes of client 
 	player_name = input_synchronizer.player_name
-	
 	#Just host can apply changes 
 	if multiplayer.is_server():
 		label.text = player_name
