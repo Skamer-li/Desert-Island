@@ -34,7 +34,7 @@ func update_button_values() -> void:
 	# Update string inside resolutions option button box
 	var window_size_string = str(get_window().size.x, "x", get_window().size.y)
 	var resolutions_index = resolutions.keys().find(window_size_string)
-	resolutions_option_button.selected = resolutions_index	
+	resolutions_option_button.selected = resolutions_index
 	
 	if (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN):
 		window_mode_option_button.selected = 0
@@ -45,6 +45,7 @@ func _on_resolutions_option_button_item_selected(index: int) -> void:
 	var key = resolutions_option_button.get_item_text(index)
 	get_window().set_size(resolutions[key])
 	center_window()
+	print(str(get_window().size.x, "x", get_window().size.y))
 	
 func center_window() -> void:
 	# Center window after resolution change

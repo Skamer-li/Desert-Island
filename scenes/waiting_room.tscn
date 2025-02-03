@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://clnwg431vtqrv"]
+[gd_scene load_steps=3 format=3 uid="uid://clnwg431vtqrv"]
 
 [ext_resource type="Script" path="res://scripts/waiting_room.gd" id="1_3yv7k"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_3uwd0"]
 
 [node name="waiting_room" type="Control"]
 layout_mode = 3
@@ -20,20 +21,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 40.0
-offset_bottom = -950.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 65
-text = "Waiting room"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="start_button" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
@@ -46,13 +33,88 @@ offset_bottom = -25.0
 theme_override_font_sizes/font_size = 65
 text = "Start Game"
 
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 18.0
+offset_right = -1.0
+offset_bottom = -972.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Waiting room"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="error_background" type="Sprite2D" parent="Panel"]
+visible = false
+z_index = 2
+position = Vector2(480, 300)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_3uwd0")
+centered = false
+
+[node name="ok_button" type="Button" parent="Panel/error_background"]
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 475.0
+offset_top = 402.5
+offset_right = -475.0
+offset_bottom = -72.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Ok"
+
+[node name="error" type="Label" parent="Panel/error_background"]
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 259.0
+offset_top = 93.5
+offset_right = -259.0
+offset_bottom = -283.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Failed to connect:
+Too many players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/join.tscn")
 spawn_path = NodePath("../Players")
-spawn_limit = 4
+spawn_limit = 6
 
 [node name="Players" type="Node2D" parent="."]
 top_level = true
-position = Vector2(72, 185)
+
+[node name="spawn_spots" type="Node2D" parent="."]
+
+[node name="spot_1" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 200)
+
+[node name="spot_2" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 320)
+
+[node name="spot_3" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 440)
+
+[node name="spot_4" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 560)
+
+[node name="spot_5" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 680)
+
+[node name="spot_6" type="Node2D" parent="spawn_spots"]
+position = Vector2(960, 800)
 
 [connection signal="pressed" from="Panel/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Panel/error_background/ok_button" to="." method="_on_ok_button_pressed"]

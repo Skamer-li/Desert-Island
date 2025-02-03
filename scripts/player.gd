@@ -1,17 +1,18 @@
 extends Node2D  
 
+<<<<<<< HEAD
 #@export var character_data: CharacterData
 @onready var game = get_tree().get_first_node_in_group("game")
 
+=======
+>>>>>>> 59bd4739c9bb0b10349af9ba6566cda15749b6c9
 var food_coins: Array = []  # amount of food coins in array, 0 - 1p and 1 - 4p
 var food_points: int = food_coins[0] # how many points of food you have
 var health_points: int = 1  # HP based on character card (depends on char card)
 var fate_coins: int = 1  # amount of fate coins (skulls)
 var ally_card: String = "None"  # random ally character
 var enemy_card: String = "None" # random enemy card
-var items: Dictionary = {
-	
-} 
+var items: Array = []  # first idea of inventory (items)
 var food_points_loop: int = 2  # amount of food consumption each loop
 var hp_loss: int = 1  # hunger penalty
 
@@ -28,6 +29,7 @@ func _loop():
 	update_food()
 	update_day(1)
 	
+<<<<<<< HEAD
 #func use_special_ability():
 #	match character_data.character_name:
 #		"Explorer":
@@ -43,6 +45,8 @@ func _loop():
 #		"Engineer":
 #			_engineer_ability()
 	
+=======
+>>>>>>> 59bd4739c9bb0b10349af9ba6566cda15749b6c9
 func update_day(day):
 	day_counter_label.text = "Day: " + str(day)
 	

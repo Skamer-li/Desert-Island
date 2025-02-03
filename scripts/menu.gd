@@ -2,6 +2,10 @@ extends Control
 
 @onready var name_panel = $name_background
 @onready var username = $name_background/username
+@onready var host_button = $Panel/host_button
+@onready var join_button = $Panel/join_button
+@onready var settings_button = $Panel/settings_button
+@onready var exit_button = $Panel/exit_button
 
 var current_status
 
@@ -10,10 +14,14 @@ func _ready() -> void:
 
 func _on_host_button_pressed() -> void:
 	name_panel.show()
+	username.grab_focus()
+	disable_buttons()
 	current_status = "Host"
 
 func _on_join_button_pressed() -> void:
 	name_panel.show()
+	username.grab_focus()
+	disable_buttons()
 	current_status = "Client"
 
 func _on_settings_button_pressed() -> void:
@@ -33,3 +41,17 @@ func _on_ok_button_pressed() -> void:
 
 func _on_close_button_pressed() -> void:
 	name_panel.hide()
+	username.clear()
+	enable_buttons()
+	
+func disable_buttons() -> void:
+	host_button.disabled = true
+	join_button.disabled = true
+	settings_button.disabled = true
+	exit_button.disabled = true
+
+func enable_buttons() -> void:
+	host_button.disabled = false
+	join_button.disabled = false
+	settings_button.disabled = false
+	exit_button.disabled = false
