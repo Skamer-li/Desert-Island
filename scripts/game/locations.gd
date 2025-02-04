@@ -1,11 +1,11 @@
 extends Node2D
 
-@onready var beach = $beach
-@onready var jungle = $jungle
-@onready var swamp = $swamp
-@onready var spring = $spring
-@onready var hill = $hill
-@onready var cave = $cave
+@onready var beach = $Beach
+@onready var jungle = $Jungle
+@onready var swamp = $Swamp
+@onready var spring = $Spring
+@onready var hill = $Hill
+@onready var cave = $Cave
 
 var active_players
 

@@ -8,14 +8,12 @@ var multiplayer_player = preload("res://scenes/player_game.tscn")
 
 var spawn = 0
 var count = 0
+var players_in_game = 0
+
+signal players_are_ready
 
 func _ready() -> void:
 	if multiplayer.is_server():
-		for id in GameManager.players_id:
-			if (id != 1):
-				send_from_client.rpc_id(id)
-			else:
-				GameManager.players_name.append(MultiplayerManager.user_name)
 		match(GameManager.players_id.size()):
 			4:
 				GameManager.roles.erase("The Kid")
@@ -29,14 +27,22 @@ func _ready() -> void:
 				pass
 		GameManager.roles.shuffle()
 		GameManager.locations.shuffle()
+	in_game.rpc()
 	
 func _process(delta: float) -> void:
+	pass
+
+@rpc ("any_peer", "call_local", "reliable")
+func in_game():
 	if multiplayer.is_server():
-		if spawn == 0:
+		players_in_game += 1
+		
+		if players_in_game == len(GameManager.players_id):
 			for id in GameManager.players_id:
 				spawn_player(id)
 				count += 1
-			spawn = 1
+			players_are_ready.emit()
+		
 
 func spawn_player(id: int):
 	var player_to_add = multiplayer_player.instantiate()
@@ -45,14 +51,7 @@ func spawn_player(id: int):
 	player_to_add.fate_amount = 0
 	player_to_add.wound_amount = 0
 	player_to_add.current_location = GameManager.locations[count]
-	player_to_add.player_name = GameManager.roles[count]
+	player_to_add.player_name = GameManager.players_name[count]
+	player_to_add.character_name = GameManager.roles[count]
 	player_to_add.name = GameManager.roles[count]
 	player_spawn_node.add_child(player_to_add, true)
-
-@rpc
-func send_from_client() -> void:
-	send_name.rpc_id(1, MultiplayerManager.user_name)
-
-@rpc ("any_peer")
-func send_name(name: String) -> void:
-	GameManager.players_name.append(name)

@@ -68,6 +68,7 @@ func add_player_to_game(id: int):
 				current_player.position = Vector2.ZERO
 			
 		GameManager.players_id.append(id)
+		
 	
 func delete_player(id: int) -> void:
 	print("Player %s left the game!" % id)
@@ -99,3 +100,7 @@ func refresh_positions() -> void:
 			_:
 				current_player.position = Vector2.ZERO
 		pos += 1
+
+@rpc("any_peer")
+func send_name(name: String) -> void:
+	GameManager.players_name.append(name)

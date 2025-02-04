@@ -1,20 +1,26 @@
 extends MultiplayerSynchronizer
 
 #This script detects input and changes of client and synchronizes it with host
-@onready var axis = Vector2.ZERO
+@export var player_name = "Name"
 
-var player_name
+var count = 0
 
 func _ready() -> void:
-	player_name = MultiplayerManager.user_name
 	get_input_axis()
 	if get_multiplayer_authority() != multiplayer.get_unique_id():
 		set_process(false)
 		set_physics_process(false)
+	player_name = MultiplayerManager.user_name
+	if is_multiplayer_authority():
+			send_player_name.rpc_id(1, player_name)
 
 func _process(delta: float) -> void:
-	get_input_axis()
+	pass
 
 func get_input_axis() -> void:
-	axis.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	axis.y = int(Input.is_action_pressed("move_up")) - int(Input.is_action_pressed("move_down"))
+	pass
+
+@rpc("authority", "call_local")
+func send_player_name(name: String):
+	if multiplayer.is_server():
+		GameManager.players_name.append(name)

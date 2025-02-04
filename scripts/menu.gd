@@ -55,4 +55,3 @@ func enable_buttons() -> void:
 	join_button.disabled = false
 	settings_button.disabled = false
 	exit_button.disabled = false
-	
