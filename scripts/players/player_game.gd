@@ -22,6 +22,10 @@ var node_ready = false
 @export var player_id := 1:
 	set(id):
 		player_id = id
+@export var friend_name = "Name":
+	set = _set_friend_name
+@export var enemy_name = "Name":
+	set = _set_enemy_name
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
@@ -74,6 +78,41 @@ func _set_character_name(value: String) -> void:
 		_:
 			print("Error character name set")
 
+func _set_friend_name(value: String):
+	friend_name = value
+	match(friend_name):
+		"Cherpack":
+			$friend.texture = load("res://sprites/friends/cherpack_f.png")
+		"First Mate":
+			$friend.texture = load("res://sprites/friends/first_mate_f.png")
+		"Snob":
+			$friend.texture = load("res://sprites/friends/snob_f.png")
+		"The Captain":
+			$friend.texture = load("res://sprites/friends/the_captain_f.png")
+		"Milady":
+			$friend.texture = load("res://sprites/friends/milady_f.png")
+		"The Kid":
+			$friend.texture = load("res://sprites/friends/the_kid_f.png")
+		_:
+			print("Error character name set")
+
+func _set_enemy_name(value: String):
+	enemy_name = value
+	match(enemy_name):
+		"Cherpack":
+			$enemy.texture = load("res://sprites/enemies/cherpack_e.png")
+		"First Mate":
+			$enemy.texture = load("res://sprites/enemies/first_mate_e.png")
+		"Snob":
+			$enemy.texture = load("res://sprites/enemies/snob_e.png")
+		"The Captain":
+			$enemy.texture = load("res://sprites/enemies/the_captain_e.png")
+		"Milady":
+			$enemy.texture = load("res://sprites/enemies/milady_e.png")
+		"The Kid":
+			$enemy.texture = load("res://sprites/enemies/the_kid_e.png")
+		_:
+			print("Error character name set")
 
 func _on_button_pressed() -> void:
 	if not multiplayer.is_server():
