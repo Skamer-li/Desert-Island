@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyy8su1qg8l8i"]
+[gd_scene load_steps=6 format=3 uid="uid://cyy8su1qg8l8i"]
 
-[ext_resource type="Texture2D" uid="uid://bo8rssssiu7fq" path="res://sprites/Heart.webp" id="1_04cd2"]
-[ext_resource type="Texture2D" uid="uid://62p4ckwqdmm3" path="res://sprites/skull.jpg" id="2_sl7r8"]
-[ext_resource type="Texture2D" uid="uid://begg1o31qw80g" path="res://sprites/ship.jpg" id="2_x1837"]
-[ext_resource type="Texture2D" uid="uid://b762a5vj4ae52" path="res://sprites/fish.webp" id="3_dpjbi"]
+[ext_resource type="Texture2D" uid="uid://cy58e1yghljjk" path="res://sprites/tokens/wound_token.png" id="1_lean7"]
+[ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="2_r50ow"]
+[ext_resource type="Texture2D" uid="uid://cx4gtgn87gyi1" path="res://sprites/tokens/fate_token.png" id="3_elkin"]
+[ext_resource type="Texture2D" uid="uid://b5xgndpciy6b7" path="res://sprites/tokens/food_token.png" id="4_la6pg"]
+[ext_resource type="Texture2D" uid="uid://2lxqpglrvy2o" path="res://sprites/characters/the_captain.png" id="5_x3i1d"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -41,23 +42,25 @@ theme_override_font_sizes/font_size = 40
 [node name="HP_Container" type="HBoxContainer" parent="PlayerHUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.61
-anchor_right = 0.083
-anchor_bottom = 0.675
-offset_top = 1.20001
-offset_right = 0.639969
-offset_bottom = 1.00006
+anchor_left = 0.021
+anchor_top = 0.764
+anchor_right = 0.161
+anchor_bottom = 0.847
+offset_left = -0.320004
+offset_top = -0.120056
+offset_right = 0.879974
+offset_bottom = 0.239929
 grow_vertical = 2
 
-[node name="HP_Icon" type="TextureRect" parent="PlayerHUD/HP_Container"]
+[node name="Damage_Icon" type="TextureRect" parent="PlayerHUD/HP_Container"]
 layout_mode = 2
 tooltip_text = "icon
 "
-texture = ExtResource("1_04cd2")
+texture = ExtResource("1_lean7")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="HPValueLabel" type="Label" parent="PlayerHUD/HP_Container"]
+[node name="Damge_takenLabel" type="Label" parent="PlayerHUD/HP_Container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "  "
@@ -65,19 +68,21 @@ text = "  "
 [node name="Ships_Container" type="HBoxContainer" parent="PlayerHUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.065
-anchor_right = 0.083
-anchor_bottom = 0.13
-offset_top = -0.200005
-offset_right = 0.639984
-offset_bottom = -0.400009
+anchor_left = 0.021
+anchor_top = 0.079
+anchor_right = 0.161
+anchor_bottom = 0.162
+offset_left = -0.320004
+offset_top = -0.320007
+offset_right = 0.879974
+offset_bottom = 0.0399933
 grow_vertical = 2
 
 [node name="Ship_Icon" type="TextureRect" parent="PlayerHUD/Ships_Container"]
 layout_mode = 2
 tooltip_text = "icon
 "
-texture = ExtResource("2_x1837")
+texture = ExtResource("2_r50ow")
 expand_mode = 3
 stretch_mode = 5
 
@@ -89,12 +94,14 @@ text = "  "
 [node name="Fate_Container" type="HBoxContainer" parent="PlayerHUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.544
-anchor_right = 0.083
-anchor_bottom = 0.609
-offset_top = 2.47998
-offset_right = 0.639969
-offset_bottom = 2.27997
+anchor_left = 0.017
+anchor_top = 0.667
+anchor_right = 0.161
+anchor_bottom = 0.75
+offset_left = 7.36
+offset_top = -0.360046
+offset_right = 0.879974
+offset_bottom = -6.10352e-05
 grow_vertical = 2
 pivot_offset = Vector2(0, 5)
 
@@ -102,7 +109,7 @@ pivot_offset = Vector2(0, 5)
 layout_mode = 2
 tooltip_text = "icon
 "
-texture = ExtResource("2_sl7r8")
+texture = ExtResource("3_elkin")
 expand_mode = 3
 stretch_mode = 5
 
@@ -114,12 +121,14 @@ text = "  "
 [node name="Food_Container" type="HBoxContainer" parent="PlayerHUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.675
-anchor_right = 0.083
-anchor_bottom = 0.74
-offset_top = 1.0
-offset_right = 0.639969
-offset_bottom = 0.799988
+anchor_left = 0.021
+anchor_top = 0.861
+anchor_right = 0.161
+anchor_bottom = 0.944
+offset_left = -0.320004
+offset_top = 0.119934
+offset_right = 0.879974
+offset_bottom = 0.479919
 grow_vertical = 2
 pivot_offset = Vector2(0, 5)
 
@@ -127,7 +136,7 @@ pivot_offset = Vector2(0, 5)
 layout_mode = 2
 tooltip_text = "icon
 "
-texture = ExtResource("3_dpjbi")
+texture = ExtResource("4_la6pg")
 expand_mode = 3
 stretch_mode = 5
 
@@ -135,3 +144,15 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "  "
+
+[node name="HeroCard_Container" type="HBoxContainer" parent="PlayerHUD"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 695.0
+offset_right = 635.0
+offset_bottom = 1030.0
+
+[node name="Hero_CardImage" type="TextureRect" parent="PlayerHUD/HeroCard_Container"]
+layout_mode = 2
+texture = ExtResource("5_x3i1d")
+expand_mode = 3
