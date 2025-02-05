@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyy8su1qg8l8i"]
+[gd_scene load_steps=9 format=3 uid="uid://cyy8su1qg8l8i"]
 
 [ext_resource type="Texture2D" uid="uid://cy58e1yghljjk" path="res://sprites/tokens/wound_token.png" id="1_lean7"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="2_r50ow"]
 [ext_resource type="Texture2D" uid="uid://cx4gtgn87gyi1" path="res://sprites/tokens/fate_token.png" id="3_elkin"]
 [ext_resource type="Texture2D" uid="uid://b5xgndpciy6b7" path="res://sprites/tokens/food_token.png" id="4_la6pg"]
 [ext_resource type="Texture2D" uid="uid://2lxqpglrvy2o" path="res://sprites/characters/the_captain.png" id="5_x3i1d"]
+[ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="6_yfu7l"]
+[ext_resource type="Texture2D" uid="uid://dxjkw0kbi47nd" path="res://sprites/friends/first_mate_f.png" id="7_pxjer"]
+[ext_resource type="Texture2D" uid="uid://luwwv6wljanr" path="res://sprites/enemies/the_kid_e.png" id="8_js7nv"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -15,20 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="PlayerHeroLabel" type="Label" parent="PlayerHUD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.917
-anchor_right = 1.0
-anchor_bottom = 0.065
-offset_left = -0.640137
-offset_bottom = -0.200005
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 40
-text = "Player 1"
-visible_characters = 0
-visible_ratio = 0.0
 
 [node name="DayCounterLabel" type="Label" parent="PlayerHUD"]
 layout_mode = 1
@@ -146,13 +135,87 @@ theme_override_font_sizes/font_size = 40
 text = "  "
 
 [node name="HeroCard_Container" type="HBoxContainer" parent="PlayerHUD"]
-layout_mode = 0
-offset_left = 365.0
-offset_top = 695.0
-offset_right = 635.0
-offset_bottom = 1030.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19
+anchor_top = 0.644
+anchor_right = 0.313
+anchor_bottom = 0.954
+offset_left = 0.199982
+offset_top = -0.520081
+offset_right = 0.039978
+offset_bottom = -0.320068
 
 [node name="Hero_CardImage" type="TextureRect" parent="PlayerHUD/HeroCard_Container"]
 layout_mode = 2
 texture = ExtResource("5_x3i1d")
 expand_mode = 3
+
+[node name="Active_Items" type="HBoxContainer" parent="PlayerHUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.331
+anchor_top = 0.769
+anchor_right = 0.709
+anchor_bottom = 0.954
+offset_left = 0.479919
+offset_top = -0.520081
+offset_right = -0.280151
+offset_bottom = -0.320068
+
+[node name="Item1" type="TextureRect" parent="PlayerHUD/Active_Items"]
+layout_mode = 2
+texture = ExtResource("6_yfu7l")
+expand_mode = 3
+
+[node name="Item2" type="TextureRect" parent="PlayerHUD/Active_Items"]
+layout_mode = 2
+texture = ExtResource("6_yfu7l")
+expand_mode = 3
+
+[node name="Item3" type="TextureRect" parent="PlayerHUD/Active_Items"]
+layout_mode = 2
+texture = ExtResource("6_yfu7l")
+expand_mode = 3
+
+[node name="Item4" type="TextureRect" parent="PlayerHUD/Active_Items"]
+layout_mode = 2
+texture = ExtResource("6_yfu7l")
+expand_mode = 3
+
+[node name="Item5" type="TextureRect" parent="PlayerHUD/Active_Items"]
+layout_mode = 2
+texture = ExtResource("6_yfu7l")
+expand_mode = 3
+
+[node name="Friend_EnemyContainer" type="HBoxContainer" parent="PlayerHUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.331
+anchor_top = 0.569
+anchor_right = 0.482
+anchor_bottom = 0.755
+offset_left = 0.479919
+offset_top = 0.47998
+offset_right = 0.559937
+offset_bottom = -0.400085
+
+[node name="Friend_Image" type="TextureRect" parent="PlayerHUD/Friend_EnemyContainer"]
+layout_mode = 2
+texture = ExtResource("7_pxjer")
+expand_mode = 3
+
+[node name="Enemy_Image" type="TextureRect" parent="PlayerHUD/Friend_EnemyContainer"]
+layout_mode = 2
+texture = ExtResource("8_js7nv")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerHUD"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 615.0
+offset_right = 601.0
+offset_bottom = 678.0
+
+[node name="TextureButton" type="TextureButton" parent="PlayerHUD/VBoxContainer"]
+layout_mode = 2
