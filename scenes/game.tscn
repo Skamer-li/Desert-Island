@@ -1,21 +1,199 @@
-[gd_scene load_steps=2 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=19 format=3 uid="uid://brrf54ngtwahm"]
 
-[ext_resource type="Script" path="res://scripts/game_main.gd" id="1_4etc6"]
+[ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
+[ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
+[ext_resource type="Texture2D" uid="uid://bxi4suqbjdpv5" path="res://sprites/locations/beach.png" id="3_ni66g"]
+[ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
+[ext_resource type="Texture2D" uid="uid://bmvenjaj6410o" path="res://sprites/locations/jungle.png" id="4_q5ewn"]
+[ext_resource type="Texture2D" uid="uid://bfywa2x4xexhu" path="res://sprites/locations/swamp.png" id="5_oguup"]
+[ext_resource type="Texture2D" uid="uid://b6qwsxine1bff" path="res://sprites/locations/spring.png" id="6_ytntd"]
+[ext_resource type="Texture2D" uid="uid://c0p6ydeefeipp" path="res://sprites/locations/hill.png" id="7_vs6rm"]
+[ext_resource type="Texture2D" uid="uid://cr8r5exqcpqve" path="res://sprites/locations/cave.png" id="8_0o7vf"]
+[ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
+[ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="10_tc5u3"]
+[ext_resource type="Texture2D" uid="uid://mx5yfmbcp0w4" path="res://sprites/characters/first_mate.png" id="11_jidwk"]
+[ext_resource type="Texture2D" uid="uid://d0wkaff6o7phd" path="res://sprites/characters/milady.png" id="12_ftixk"]
+[ext_resource type="Texture2D" uid="uid://dno33m8sluonv" path="res://sprites/characters/snob.png" id="13_gywy7"]
+[ext_resource type="Texture2D" uid="uid://2lxqpglrvy2o" path="res://sprites/characters/the_captain.png" id="14_532ra"]
+[ext_resource type="Texture2D" uid="uid://btl7jkduo1cqv" path="res://sprites/characters/the_kid.png" id="15_tct1p"]
+[ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="16_2inb7"]
+[ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 48.0
-offset_top = 46.0
-offset_right = 356.0
-offset_bottom = 124.0
-theme_override_font_sizes/font_size = 50
-text = "Name"
+[node name="shuffle" type="Node2D" parent="."]
+script = ExtResource("2_3xe86")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/player_join.tscn")
-spawn_path = NodePath("../players_list")
+_spawnable_scenes = PackedStringArray("res://scenes/player_game.tscn")
+spawn_path = NodePath("../players")
 spawn_limit = 6
 
-[node name="players_list" type="Node2D" parent="."]
+[node name="players" type="Node2D" parent="."]
+
+[node name="locations" type="Node2D" parent="."]
+script = ExtResource("3_yc610")
+
+[node name="Beach" type="Sprite2D" parent="locations"]
+position = Vector2(385.125, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_ni66g")
+
+[node name="Jungle" type="Sprite2D" parent="locations"]
+position = Vector2(610.125, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_q5ewn")
+
+[node name="Swamp" type="Sprite2D" parent="locations"]
+position = Vector2(835.125, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_oguup")
+
+[node name="Spring" type="Sprite2D" parent="locations"]
+position = Vector2(1060.13, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_ytntd")
+
+[node name="Hill" type="Sprite2D" parent="locations"]
+position = Vector2(1285.13, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_vs6rm")
+
+[node name="Cave" type="Sprite2D" parent="locations"]
+position = Vector2(1510.13, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_0o7vf")
+
+[node name="characters" type="Node2D" parent="."]
+script = ExtResource("10_i1y1d")
+
+[node name="cherpack" type="Sprite2D" parent="characters"]
+position = Vector2(1510.13, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("10_tc5u3")
+
+[node name="cherpack_player" type="Label" parent="characters/cherpack"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="first_mate" type="Sprite2D" parent="characters"]
+position = Vector2(1285.13, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_jidwk")
+
+[node name="first_mate_player" type="Label" parent="characters/first_mate"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="milady" type="Sprite2D" parent="characters"]
+position = Vector2(1060.13, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("12_ftixk")
+
+[node name="milady_player" type="Label" parent="characters/milady"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="snob" type="Sprite2D" parent="characters"]
+position = Vector2(835.125, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("13_gywy7")
+
+[node name="snob_player" type="Label" parent="characters/snob"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="the_captain" type="Sprite2D" parent="characters"]
+position = Vector2(610.125, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("14_532ra")
+
+[node name="the_captain_player" type="Label" parent="characters/the_captain"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="the_kid" type="Sprite2D" parent="characters"]
+position = Vector2(385.125, 225.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("15_tct1p")
+
+[node name="the_kid_player" type="Label" parent="characters/the_kid"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -686.0
+offset_top = -650.0
+offset_right = -67.0
+offset_bottom = -547.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="items" type="Node2D" parent="."]
+
+[node name="item" type="Sprite2D" parent="items"]
+position = Vector2(160.125, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("16_2inb7")
+
+[node name="fate_cards" type="Node2D" parent="."]
+
+[node name="fate" type="Sprite2D" parent="fate_cards"]
+position = Vector2(1735.13, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("17_2bao7")
+
+[connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
