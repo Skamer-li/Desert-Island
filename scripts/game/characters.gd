@@ -17,25 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func change_location(character_name: String, location_name: String):
-	if multiplayer.is_server():
-		match(character_name):
-			"Cherpack":
-				$cherpack.position.x = locations.get_node(location_name).position.x
-				print(locations.get_node(location_name).position.x)
-			"First Mate":
-				$first_mate.position.x = locations.get_node(location_name).position.x
-			"Milady":
-				$milady.position.x = locations.get_node(location_name).position.x
-			"Snob":
-				$snob.position.x = locations.get_node(location_name).position.x
-			"The Captain":
-				$the_captain.position.x = locations.get_node(location_name).position.x
-			"The Kid":
-				$the_kid.position.x = locations.get_node(location_name).position.x
-			_:
-				print("There is no such name")
-
 func _on_shuffle_players_are_ready() -> void:
 	if multiplayer.is_server():
 		if player_spawn_node.get_node_or_null("Cherpack") != null:

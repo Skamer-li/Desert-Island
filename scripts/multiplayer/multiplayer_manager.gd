@@ -75,7 +75,9 @@ func delete_player(id: int) -> void:
 	if not player_spawn_node.has_node(str(id)):
 		return
 	player_spawn_node.get_node(str(id)).queue_free()
+	var name_to_erase = GameManager.players_name[GameManager.players_id.find(id, 0)]
 	GameManager.players_id.erase(id)
+	GameManager.players_name.erase(name_to_erase)
 	refresh_positions()
 	peers_connected = multiplayer.get_peers().size()
 
