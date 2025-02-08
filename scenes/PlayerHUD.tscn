@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="7_7i106"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73sx1"]
-radius = 360.0
+radius = 1100.0
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -156,11 +156,12 @@ texture = ExtResource("5_x3i1d")
 expand_mode = 3
 
 [node name="Hand" type="Node2D" parent="PlayerHUD"]
-position = Vector2(978, 1080)
-rotation = -0.897099
+position = Vector2(980, 2000)
+rotation = -0.179769
 script = ExtResource("6_dwvn6")
-hand_radius = 360
-card_angle = -90.0
+hand_radius = 1100
+angle_limit = null
+max_card_spread_angle = null
 
 [node name="DebugShape" type="CollisionShape2D" parent="PlayerHUD/Hand"]
 shape = SubResource("CircleShape2D_73sx1")
@@ -168,8 +169,8 @@ shape = SubResource("CircleShape2D_73sx1")
 [node name="StaticBody2D" type="StaticBody2D" parent="PlayerHUD/Hand"]
 
 [node name="TextureRect" type="TextureRect" parent="PlayerHUD/Hand/StaticBody2D"]
-offset_top = -360.0
+offset_top = -1100.0
 offset_right = 106.663
-offset_bottom = -209.0
+offset_bottom = -949.0
 texture = ExtResource("7_7i106")
 expand_mode = 3
