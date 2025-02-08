@@ -55,6 +55,7 @@ func spawn_player(id: int):
 	player_to_add.food_amount = 4
 	player_to_add.fate_amount = 0
 	player_to_add.wound_amount = 0
+	player_to_add.cards_amount = 1
 	player_to_add.current_location = GameManager.locations[count]
 	player_to_add.player_name = GameManager.players_name[count]
 	player_to_add.character_name = GameManager.roles[count]

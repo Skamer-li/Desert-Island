@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=20 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://btl7jkduo1cqv" path="res://sprites/characters/the_kid.png" id="15_tct1p"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="16_2inb7"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
+[ext_resource type="PackedScene" uid="uid://but1d8epoxtc8" path="res://scenes/items/bananas.tscn" id="18_rm74r"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -188,6 +189,9 @@ vertical_alignment = 1
 position = Vector2(160.125, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("16_2inb7")
+
+[node name="bananas" parent="items" instance=ExtResource("18_rm74r")]
+visible = false
 
 [node name="fate_cards" type="Node2D" parent="."]
 

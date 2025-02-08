@@ -11,7 +11,7 @@ extends Node2D
 @onready var the_kid_player = $the_kid/the_kid_player
 
 func _ready() -> void:
-	pass
+	$".".visible = false
 
 
 func _process(delta: float) -> void:
@@ -41,6 +41,12 @@ func _on_shuffle_players_are_ready() -> void:
 			send_location_position.rpc("The Kid", locations.get_node(player_spawn_node.get_node("The Kid").current_location).position.x)
 		else:
 			hide_character.rpc("The Kid")
+		set_cards_visible.rpc()
+		$"../items/bananas".get_node("card").set_card_owner = "Cherpack"
+
+@rpc ("any_peer", "call_local")
+func set_cards_visible():
+	$".".visible = true
 @rpc ("any_peer", "call_local")
 func hide_character(character_name: String):
 	match(character_name):
@@ -72,20 +78,20 @@ func send_player_name(character_name: String, player_name: String):
 				print("There is no such name")
 
 @rpc ("any_peer", "call_local")
-func send_location_position(character_name: String, position: int):
+func send_location_position(character_name: String, location_position: int):
 	match(character_name):
 			"Cherpack":
-				$cherpack.position.x = position
+				$cherpack.position.x = location_position
 			"First Mate":
-				$first_mate.position.x = position
+				$first_mate.position.x = location_position
 			"Milady":
-				$milady.position.x = position
+				$milady.position.x = location_position
 			"Snob":
-				$snob.position.x = position
+				$snob.position.x = location_position
 			"The Captain":
-				$the_captain.position.x = position
+				$the_captain.position.x = location_position
 			"The Kid":
-				$the_kid.position.x = position
+				$the_kid.position.x = location_position
 			_:
 				print("There is no such name")
 		

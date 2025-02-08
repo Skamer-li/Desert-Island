@@ -5,14 +5,14 @@ extends Node2D
 @onready var wound_label = $wound/wound_amount
 @onready var character_sprite = $character
 
-var node_ready = false
-
 @export var food_amount = 4:
 	set = _set_food
 @export var fate_amount = 0:
 	set = _set_fate
 @export var wound_amount = 0:
 	set = _set_wound
+@export var cards_amount = 0:
+	set = _set_cards
 @export var current_location = "Beach":
 	set = _set_location
 @export var player_name = "Name":
@@ -33,26 +33,24 @@ func _ready() -> void:
 	food_label.text = str(food_amount)
 	fate_label.text = str(fate_amount)
 	wound_label.text = str(wound_amount)
-	
-	node_ready = true
 
 func _process(delta: float) -> void:
 	pass
 	
 func _set_food(value: int) -> void:
 	food_amount = value
-	if node_ready == true:
-		food_label.text = str(food_amount)
+	$food/food_amount.text = str(food_amount)
+
+func _set_cards(value: int) -> void:
+	cards_amount = value
 	
 func _set_fate(value: int) -> void:
 	fate_amount = value
-	if node_ready == true:
-		fate_label.text = str(fate_amount)
+	$fate/fate_amount.text = str(fate_amount)
 
 func _set_wound(value: int) -> void:
 	wound_amount = value
-	if node_ready == true:
-		wound_label.text = str(wound_amount)
+	$wound/wound_amount.text = str(wound_amount)
 
 func _set_location(value: String) -> void:
 	current_location = value
@@ -78,7 +76,7 @@ func _set_character_name(value: String) -> void:
 		_:
 			print("Error character name set")
 
-func _set_friend_name(value: String):
+func _set_friend_name(value: String) -> void:
 	friend_name = value
 	match(friend_name):
 		"Cherpack":
@@ -96,7 +94,7 @@ func _set_friend_name(value: String):
 		_:
 			print("Error character name set")
 
-func _set_enemy_name(value: String):
+func _set_enemy_name(value: String) -> void:
 	enemy_name = value
 	match(enemy_name):
 		"Cherpack":

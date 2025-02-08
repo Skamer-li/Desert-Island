@@ -45,6 +45,9 @@ script = ExtResource("1_bnbqo")
 replication_config = SubResource("SceneReplicationConfig_eqsqn")
 script = ExtResource("2_7semf")
 
+[node name="inventory" type="Node2D" parent="."]
+position = Vector2(585, 882)
+
 [node name="character" type="Sprite2D" parent="."]
 z_index = 3
 position = Vector2(176, 847)
