@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm5pl8hedq13a"]
+
+[ext_resource type="Script" path="res://scripts/items/chamber_pot.gd" id="1_hxf75"]
+[ext_resource type="Script" path="res://scripts/items/card.gd" id="1_qebry"]
+[ext_resource type="Texture2D" uid="uid://cugmbhsppiry" path="res://sprites/items/chamber_pot.png" id="2_eo1xn"]
+
+[node name="chamber_pot" type="Node2D"]
+script = ExtResource("1_hxf75")
+
+[node name="card" type="Node" parent="."]
+script = ExtResource("1_qebry")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_eo1xn")

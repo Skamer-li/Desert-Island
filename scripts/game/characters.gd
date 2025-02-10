@@ -42,7 +42,9 @@ func _on_shuffle_players_are_ready() -> void:
 		else:
 			hide_character.rpc("The Kid")
 		set_cards_visible.rpc()
-		$"../items/bananas".get_node("card").set_card_owner = "Cherpack"
+		for item in $"../items".get_children():
+			if (item.name != "item"):
+				item.get_node("card").set_card_owner = "Cherpack"
 
 @rpc ("any_peer", "call_local")
 func set_cards_visible():

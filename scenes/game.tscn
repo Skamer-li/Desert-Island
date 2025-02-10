@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -19,6 +19,14 @@
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="16_2inb7"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="PackedScene" uid="uid://but1d8epoxtc8" path="res://scenes/items/bananas.tscn" id="18_rm74r"]
+[ext_resource type="PackedScene" uid="uid://crtfixqxip3td" path="res://scenes/items/coconut.tscn" id="19_girsj"]
+[ext_resource type="PackedScene" uid="uid://ci80ynfvkr6tc" path="res://scenes/items/crabs.tscn" id="20_istvf"]
+[ext_resource type="PackedScene" uid="uid://bdiuvcyjiif13" path="res://scenes/items/roasted_iguana.tscn" id="21_wyif5"]
+[ext_resource type="PackedScene" uid="uid://cvkexx43bwb5y" path="res://scenes/items/sprats.tscn" id="22_34ytk"]
+[ext_resource type="PackedScene" uid="uid://bjcqi35p52634" path="res://scenes/items/candelabrum.tscn" id="23_v732b"]
+[ext_resource type="PackedScene" uid="uid://cm5pl8hedq13a" path="res://scenes/items/chamber_pot.tscn" id="24_f4nyy"]
+[ext_resource type="PackedScene" uid="uid://cbgdnws18okx4" path="res://scenes/items/cup.tscn" id="25_sitmw"]
+[ext_resource type="PackedScene" uid="uid://cds6niir5lk7h" path="res://scenes/items/doubloons.tscn" id="26_urj7a"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -191,6 +199,30 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("16_2inb7")
 
 [node name="bananas" parent="items" instance=ExtResource("18_rm74r")]
+visible = false
+
+[node name="coconut" parent="items" instance=ExtResource("19_girsj")]
+visible = false
+
+[node name="crabs" parent="items" instance=ExtResource("20_istvf")]
+visible = false
+
+[node name="roasted_iguana" parent="items" instance=ExtResource("21_wyif5")]
+visible = false
+
+[node name="sprats" parent="items" instance=ExtResource("22_34ytk")]
+visible = false
+
+[node name="candelabrum" parent="items" instance=ExtResource("23_v732b")]
+visible = false
+
+[node name="chamber_pot" parent="items" instance=ExtResource("24_f4nyy")]
+visible = false
+
+[node name="cup" parent="items" instance=ExtResource("25_sitmw")]
+visible = false
+
+[node name="doubloons" parent="items" instance=ExtResource("26_urj7a")]
 visible = false
 
 [node name="fate_cards" type="Node2D" parent="."]

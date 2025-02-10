@@ -20,4 +20,4 @@ offset_top = 43.0
 offset_right = 37.0
 offset_bottom = 92.0
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="card" method="_on_button_pressed"]

@@ -11,8 +11,6 @@ extends Node2D
 	set = _set_fate
 @export var wound_amount = 0:
 	set = _set_wound
-@export var cards_amount = 0:
-	set = _set_cards
 @export var current_location = "Beach":
 	set = _set_location
 @export var player_name = "Name":
@@ -26,6 +24,8 @@ extends Node2D
 	set = _set_friend_name
 @export var enemy_name = "Name":
 	set = _set_enemy_name
+@export var base_strength = 0
+@export var inventory: Array[String] = []
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
@@ -40,9 +40,6 @@ func _process(delta: float) -> void:
 func _set_food(value: int) -> void:
 	food_amount = value
 	$food/food_amount.text = str(food_amount)
-
-func _set_cards(value: int) -> void:
-	cards_amount = value
 	
 func _set_fate(value: int) -> void:
 	fate_amount = value
@@ -63,18 +60,27 @@ func _set_character_name(value: String) -> void:
 	match(character_name):
 		"Cherpack":
 			$character.texture = load("res://sprites/characters/cherpack.png")
+			base_strength = 6
 		"First Mate":
 			$character.texture = load("res://sprites/characters/first_mate.png")
+			base_strength = 8
 		"Snob":
 			$character.texture = load("res://sprites/characters/snob.png")
+			base_strength = 5
 		"The Captain":
 			$character.texture = load("res://sprites/characters/the_captain.png")
+			base_strength = 7
 		"Milady":
 			$character.texture = load("res://sprites/characters/milady.png")
+			base_strength = 4
 		"The Kid":
 			$character.texture = load("res://sprites/characters/the_kid.png")
+			base_strength = 4
 		_:
 			print("Error character name set")
+			
+func death():
+	pass
 
 func _set_friend_name(value: String) -> void:
 	friend_name = value

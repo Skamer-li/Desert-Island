@@ -160,8 +160,6 @@ position = Vector2(980, 2000)
 rotation = -0.179769
 script = ExtResource("6_dwvn6")
 hand_radius = 1100
-angle_limit = null
-max_card_spread_angle = null
 
 [node name="DebugShape" type="CollisionShape2D" parent="PlayerHUD/Hand"]
 shape = SubResource("CircleShape2D_73sx1")
