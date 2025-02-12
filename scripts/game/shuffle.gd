@@ -33,9 +33,6 @@ func _ready() -> void:
 		GameManager.enemies.shuffle()
 		GameManager.locations.shuffle()
 	in_game.rpc()
-	
-func _process(delta: float) -> void:
-	pass
 
 @rpc ("any_peer", "call_local", "reliable")
 func in_game():

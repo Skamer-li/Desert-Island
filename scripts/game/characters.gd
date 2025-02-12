@@ -13,10 +13,6 @@ extends Node2D
 func _ready() -> void:
 	$".".visible = false
 
-
-func _process(delta: float) -> void:
-	pass
-
 func _on_shuffle_players_are_ready() -> void:
 	if multiplayer.is_server():
 		if player_spawn_node.get_node_or_null("Cherpack") != null:
@@ -45,6 +41,7 @@ func _on_shuffle_players_are_ready() -> void:
 		for item in $"../items".get_children():
 			if (item.name != "item"):
 				item.get_node("card").set_card_owner = "Cherpack"
+				item.get_node("card").set_card_owner = "Snob"
 
 @rpc ("any_peer", "call_local")
 func set_cards_visible():

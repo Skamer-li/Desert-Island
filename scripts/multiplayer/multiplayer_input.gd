@@ -6,7 +6,6 @@ extends MultiplayerSynchronizer
 var count = 0
 
 func _ready() -> void:
-	get_input_axis()
 	if get_multiplayer_authority() != multiplayer.get_unique_id():
 		set_process(false)
 		set_physics_process(false)
@@ -14,11 +13,6 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 			send_player_name.rpc_id(1, player_name)
 
-func _process(delta: float) -> void:
-	pass
-
-func get_input_axis() -> void:
-	pass
 
 @rpc("authority", "call_local")
 func send_player_name(name: String):

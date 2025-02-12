@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=31 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -27,6 +27,9 @@
 [ext_resource type="PackedScene" uid="uid://cm5pl8hedq13a" path="res://scenes/items/chamber_pot.tscn" id="24_f4nyy"]
 [ext_resource type="PackedScene" uid="uid://cbgdnws18okx4" path="res://scenes/items/cup.tscn" id="25_sitmw"]
 [ext_resource type="PackedScene" uid="uid://cds6niir5lk7h" path="res://scenes/items/doubloons.tscn" id="26_urj7a"]
+[ext_resource type="PackedScene" uid="uid://cmjl86d25x2cx" path="res://scenes/items/medicine.tscn" id="27_qdxro"]
+[ext_resource type="Script" path="res://scripts/game/actions.gd" id="29_rg4j1"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -225,6 +228,9 @@ visible = false
 [node name="doubloons" parent="items" instance=ExtResource("26_urj7a")]
 visible = false
 
+[node name="medicine" parent="items" instance=ExtResource("27_qdxro")]
+visible = false
+
 [node name="fate_cards" type="Node2D" parent="."]
 
 [node name="fate" type="Sprite2D" parent="fate_cards"]
@@ -232,4 +238,33 @@ position = Vector2(1735.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
 
+[node name="actions" type="Node2D" parent="."]
+visible = false
+script = ExtResource("29_rg4j1")
+
+[node name="bg" type="Sprite2D" parent="actions"]
+position = Vector2(1470, 819)
+scale = Vector2(0.323333, 0.323333)
+texture = ExtResource("30_7whwj")
+
+[node name="h_c" type="Button" parent="actions/bg"]
+offset_left = -491.753
+offset_top = -167.01
+offset_right = 488.247
+offset_bottom = -15.0103
+theme_override_font_sizes/font_size = 100
+text = "Hit Cherpack"
+
+[node name="h_m" type="Button" parent="actions/bg"]
+offset_left = -501.031
+offset_top = 46.3918
+offset_right = 478.969
+offset_bottom = 198.392
+theme_override_font_sizes/font_size = 100
+text = "Hit Milady"
+
+[connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
+[connection signal="action_finished" from="actions" to="." method="_on_actions_action_finished"]
+[connection signal="pressed" from="actions/bg/h_c" to="actions" method="_on_h_c_pressed"]
+[connection signal="pressed" from="actions/bg/h_m" to="actions" method="_on_h_m_pressed"]

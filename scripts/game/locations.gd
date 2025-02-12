@@ -19,9 +19,6 @@ func _ready() -> void:
 			else:
 				locations_adjustment.rpc_id(id, active_players)
 
-func _process(delta: float) -> void:
-	pass
-
 @rpc 
 func locations_adjustment(players_amount: int):
 	match(players_amount):
