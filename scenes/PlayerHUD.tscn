@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyy8su1qg8l8i"]
+[gd_scene load_steps=8 format=3 uid="uid://cyy8su1qg8l8i"]
 
 [ext_resource type="Texture2D" uid="uid://cy58e1yghljjk" path="res://sprites/tokens/wound_token.png" id="1_lean7"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="2_r50ow"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b5xgndpciy6b7" path="res://sprites/tokens/food_token.png" id="4_la6pg"]
 [ext_resource type="Texture2D" uid="uid://2lxqpglrvy2o" path="res://sprites/characters/the_captain.png" id="5_x3i1d"]
 [ext_resource type="Script" path="res://scenes/hand.gd" id="6_dwvn6"]
-[ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="7_7i106"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73sx1"]
 radius = 1100.0
@@ -163,12 +162,3 @@ hand_radius = 1100
 
 [node name="DebugShape" type="CollisionShape2D" parent="PlayerHUD/Hand"]
 shape = SubResource("CircleShape2D_73sx1")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="PlayerHUD/Hand"]
-
-[node name="TextureRect" type="TextureRect" parent="PlayerHUD/Hand/StaticBody2D"]
-offset_top = -1100.0
-offset_right = 106.663
-offset_bottom = -949.0
-texture = ExtResource("7_7i106")
-expand_mode = 3
