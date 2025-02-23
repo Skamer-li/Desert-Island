@@ -7,9 +7,3 @@ var roles = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid
 var locations = ["Beach", "Jungle", "Swamp", "Spring", "Hill", "Cave"]
 var friends = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid"]
 var enemies = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid"]
-
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
-	pass

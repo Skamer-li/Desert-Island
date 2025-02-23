@@ -43,6 +43,9 @@ properties/9/replication_mode = 1
 properties/10/path = NodePath(".:wound_amount")
 properties/10/spawn = true
 properties/10/replication_mode = 1
+properties/11/path = NodePath(".:is_dead")
+properties/11/spawn = true
+properties/11/replication_mode = 1
 
 [node name="player_game" type="Node2D"]
 script = ExtResource("1_bnbqo")

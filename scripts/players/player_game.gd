@@ -26,6 +26,7 @@ extends Node2D
 	set = _set_enemy_name
 @export var base_strength = 0
 @export var inventory: Array[String] = []
+@export var is_dead = false
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
@@ -33,9 +34,6 @@ func _ready() -> void:
 	food_label.text = str(food_amount)
 	fate_label.text = str(fate_amount)
 	wound_label.text = str(wound_amount)
-
-func _process(delta: float) -> void:
-	pass
 	
 func _set_food(value: int) -> void:
 	food_amount = value
@@ -46,6 +44,8 @@ func _set_fate(value: int) -> void:
 	$fate/fate_amount.text = str(fate_amount)
 
 func _set_wound(value: int) -> void:
+	if (value < 0):
+		value = 0
 	wound_amount = value
 	$wound/wound_amount.text = str(wound_amount)
 
