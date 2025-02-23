@@ -13,26 +13,24 @@ var hand : Array = []
 const item_library_path = "res://scenes/items/"
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		load_items_from_library()
-
-func load_items_from_library():
-	var dir = DirAccess.open(item_library_path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".tscn"):
-				var item_scene = load(item_library_path + file_name)
-				if item_scene:
-					var item_instance = item_scene.instantiate() as Node2D
-					add_child(item_instance)
-				file_name = dir.get_next() 
+	add_card("bananas.tscn")
+	add_card("coconut.tscn")
 		
-func add_card(card, Node2D):
-	hand.push_back(card)
-	add_child(card)
-	reposition_cards()
+func add_card(card_name: String):
+	var card = load_card(card_name)
+	if card:
+		hand.push_back(card)
+		add_child(card)
+		reposition_cards()
+
+func load_card(card_name: String) -> Node2D:
+	var path = item_library_path + card_name
+	if ResourceLoader.exists(path):
+		var packed_scene = ResourceLoader.load(path)
+		return packed_scene.instantiate() as Node2D
+	else:
+		push_error("Card scene not found: " + path)
+		return null
 
 func reposition_cards():
 	var card_spread = min(angle_limit / hand.size(), max_card_spread_angle)
