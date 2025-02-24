@@ -6,15 +6,31 @@ class_name Hand extends Node2D
 @export var angle_limit: float = 25
 @export var max_card_spread_angle: float = 5
 
-@onready var test_card = $StaticBody2D/TextureRect
 @onready var collision_shape: CollisionShape2D = $DebugShape
 
 var hand : Array = []
 
-func add_card(card, Node2D):
-	hand.push_back(card)
-	add_child(card)
-	reposition_cards()
+const item_library_path = "res://scenes/items/"
+
+func _ready() -> void:
+	add_card("bananas.tscn")
+	add_card("coconut.tscn")
+		
+func add_card(card_name: String):
+	var card = load_card(card_name)
+	if card:
+		hand.push_back(card)
+		add_child(card)
+		reposition_cards()
+
+func load_card(card_name: String) -> Node2D:
+	var path = item_library_path + card_name
+	if ResourceLoader.exists(path):
+		var packed_scene = ResourceLoader.load(path)
+		return packed_scene.instantiate() as Node2D
+	else:
+		push_error("Card scene not found: " + path)
+		return null
 
 func reposition_cards():
 	var card_spread = min(angle_limit / hand.size(), max_card_spread_angle)
@@ -28,21 +44,12 @@ func get_card_position(angle_in_deg: float) -> Vector2:
 	var y: float = hand_radius * sin(deg_to_rad(angle_in_deg))
 	
 	return Vector2(int(x), int(y))
-	pass
-
+	
 func update_card_transform(card: Node2D, angle_in_drag: float):
 	card.set_position(get_card_position(angle_in_drag))
 	card.set_rotation(deg_to_rad(angle_in_drag + 90))
 
-func _ready() -> void:
-	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if (collision_shape.shape as CircleShape2D).radius != hand_radius:
 		(collision_shape.shape as CircleShape2D).set_radius(hand_radius)
-		
-	test_card.set_position(get_card_position(card_angle))
-	test_card.set_rotation(deg_to_rad(card_angle + 90)) #center cards later
-	
