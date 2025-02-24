@@ -14,6 +14,8 @@ func _ready() -> void:
 	$".".visible = false
 
 func _on_shuffle_players_are_ready() -> void:
+	#setting player names and card positions 
+	
 	if multiplayer.is_server():
 		if player_spawn_node.get_node_or_null("Cherpack") != null:
 			send_player_name.rpc("Cherpack", player_spawn_node.get_node("Cherpack").player_name)
@@ -38,6 +40,8 @@ func _on_shuffle_players_are_ready() -> void:
 		else:
 			hide_character.rpc("The Kid")
 		set_cards_visible.rpc()
+		
+		
 		for item in $"../items".get_children():
 			if (item.name != "item"):
 				item.get_node("card").set_card_owner = "Cherpack"
@@ -46,6 +50,7 @@ func _on_shuffle_players_are_ready() -> void:
 @rpc ("any_peer", "call_local")
 func set_cards_visible():
 	$".".visible = true
+	
 @rpc ("any_peer", "call_local")
 func hide_character(character_name: String):
 	match(character_name):

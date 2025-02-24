@@ -1,39 +1,46 @@
 extends Node2D
 
-@onready var food_label = $food/food_amount
-@onready var fate_label = $fate/fate_amount
-@onready var wound_label = $wound/wound_amount
-@onready var character_sprite = $character
-
 @export var food_amount = 4:
 	set = _set_food
+	
 @export var fate_amount = 0:
 	set = _set_fate
+	
 @export var wound_amount = 0:
 	set = _set_wound
+	
 @export var current_location = "Beach":
 	set = _set_location
+	
 @export var player_name = "Name":
 	set = _set_player_name
+	
 @export var character_name = "Name":
 	set = _set_character_name
+	
 @export var player_id := 1:
 	set(id):
 		player_id = id
+		
 @export var friend_name = "Name":
 	set = _set_friend_name
+	
 @export var enemy_name = "Name":
 	set = _set_enemy_name
+	
 @export var base_strength = 0
+@export var fight_strength = 0
 @export var inventory: Array[String] = []
+@export var inventory_activated: Array[String] = []
 @export var is_dead = false
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
 		self.hide()
-	food_label.text = str(food_amount)
-	fate_label.text = str(fate_amount)
-	wound_label.text = str(wound_amount)
+		
+	$food/food_amount.text = str(food_amount)
+	$fate/fate_amount.text = str(fate_amount)
+	$wound/wound_amount.text = str(wound_amount)
 	
 func _set_food(value: int) -> void:
 	food_amount = value
@@ -57,6 +64,7 @@ func _set_player_name(value: String) -> void:
 
 func _set_character_name(value: String) -> void:
 	character_name = value
+	
 	match(character_name):
 		"Cherpack":
 			$character.texture = load("res://sprites/characters/cherpack.png")
@@ -84,6 +92,7 @@ func death():
 
 func _set_friend_name(value: String) -> void:
 	friend_name = value
+	
 	match(friend_name):
 		"Cherpack":
 			$friend.texture = load("res://sprites/friends/cherpack_f.png")
@@ -102,6 +111,7 @@ func _set_friend_name(value: String) -> void:
 
 func _set_enemy_name(value: String) -> void:
 	enemy_name = value
+	
 	match(enemy_name):
 		"Cherpack":
 			$enemy.texture = load("res://sprites/enemies/cherpack_e.png")

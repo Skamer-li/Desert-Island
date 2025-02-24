@@ -48,6 +48,7 @@ func in_game():
 
 func spawn_player(id: int):
 	var player_to_add = multiplayer_player.instantiate()
+	
 	player_to_add.player_id = id
 	player_to_add.food_amount = 4
 	player_to_add.fate_amount = 0
@@ -58,4 +59,5 @@ func spawn_player(id: int):
 	player_to_add.friend_name = GameManager.friends[count]
 	player_to_add.enemy_name = GameManager.enemies[count]
 	player_to_add.name = GameManager.roles[count]
+	
 	player_spawn_node.add_child(player_to_add, true)

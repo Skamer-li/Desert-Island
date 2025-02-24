@@ -69,7 +69,6 @@ func add_player_to_game(id: int):
 			
 		GameManager.players_id.append(id)
 		
-	
 func delete_player(id: int) -> void:
 	print("Player %s left the game!" % id)
 	if not player_spawn_node.has_node(str(id)):

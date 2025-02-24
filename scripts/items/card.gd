@@ -3,7 +3,7 @@ extends Node
 @export var set_card_owner = "Name":
 	set = _set_card_owner
 @export var card_owner = "Name"
-@export var activated = false
+var can_be_activated = false
 
 func _set_card_owner(value: String):
 	set_card_owner = value
@@ -19,11 +19,13 @@ func give_card_to_player(player_name: String):
 func _on_button_pressed() -> void:
 	if multiplayer.is_server():
 		self.get_parent().item_use()
-		delete_card()
+		if !can_be_activated:
+			delete_card()
 	else:
 		self.get_parent().item_use.rpc_id(1)
-		delete_card()
-		delete_card.rpc_id(1)
+		if !can_be_activated:
+			delete_card()
+			delete_card.rpc_id(1)
 
 @rpc ("any_peer")
 func delete_card():

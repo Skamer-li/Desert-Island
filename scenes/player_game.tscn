@@ -46,6 +46,12 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath(".:is_dead")
 properties/11/spawn = true
 properties/11/replication_mode = 1
+properties/12/path = NodePath(".:inventory_activated")
+properties/12/spawn = true
+properties/12/replication_mode = 1
+properties/13/path = NodePath(".:fight_strength")
+properties/13/spawn = true
+properties/13/replication_mode = 1
 
 [node name="player_game" type="Node2D"]
 script = ExtResource("1_bnbqo")
