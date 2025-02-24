@@ -9,6 +9,7 @@ script = ExtResource("1_02yh0")
 
 [node name="card" type="Node" parent="."]
 script = ExtResource("1_p0au0")
+value = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

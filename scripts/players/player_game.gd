@@ -30,18 +30,21 @@ extends Node2D
 	
 @export var base_strength = 0
 @export var fight_strength = 0
+
+@export var forage_food_amplification = 0
+@export var hunger_food_amount = 0
+
+@export var signal_fire_build = 1
+
 @export var inventory: Array[String] = []
 @export var inventory_activated: Array[String] = []
+
 @export var is_dead = false
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
 		self.hide()
 		
-	$food/food_amount.text = str(food_amount)
-	$fate/fate_amount.text = str(fate_amount)
-	$wound/wound_amount.text = str(wound_amount)
-	
 func _set_food(value: int) -> void:
 	food_amount = value
 	$food/food_amount.text = str(food_amount)

@@ -1,6 +1,6 @@
 extends Node2D
 
-var scene = preload("res://scenes/items/boarding_saber.tscn")
+var scene = preload("res://scenes/items/spear.tscn")
 
 @rpc ("any_peer")
 func item_use():

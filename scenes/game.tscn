@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=41 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -29,8 +29,17 @@
 [ext_resource type="PackedScene" uid="uid://cds6niir5lk7h" path="res://scenes/items/doubloons.tscn" id="26_urj7a"]
 [ext_resource type="PackedScene" uid="uid://cmjl86d25x2cx" path="res://scenes/items/medicine.tscn" id="27_qdxro"]
 [ext_resource type="PackedScene" uid="uid://bl4tluxriisd4" path="res://scenes/items/boarding_saber.tscn" id="28_ncelt"]
+[ext_resource type="PackedScene" uid="uid://b86mpt5iobmgg" path="res://scenes/items/blunderbass.tscn" id="29_m6xna"]
 [ext_resource type="Script" path="res://scripts/game/actions.gd" id="29_rg4j1"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
+[ext_resource type="PackedScene" uid="uid://diagxo554t6pe" path="res://scenes/items/fishing_rod.tscn" id="30_cfthn"]
+[ext_resource type="PackedScene" uid="uid://cs2sv7gly2x61" path="res://scenes/items/garden.tscn" id="31_13mfx"]
+[ext_resource type="PackedScene" uid="uid://7vgrf60remfd" path="res://scenes/items/shovel.tscn" id="32_pi25r"]
+[ext_resource type="PackedScene" uid="uid://bje2umh6vjor8" path="res://scenes/items/spear.tscn" id="33_j3b7w"]
+[ext_resource type="PackedScene" uid="uid://dwa1vof636v4o" path="res://scenes/items/tent.tscn" id="34_lotii"]
+[ext_resource type="PackedScene" uid="uid://xnlvwlavp5v7" path="res://scenes/items/trap.tscn" id="35_wi66f"]
+[ext_resource type="PackedScene" uid="uid://c2r8k4ljwqyso" path="res://scenes/items/monocle.tscn" id="36_ama51"]
+[ext_resource type="PackedScene" uid="uid://br0g02uu3ld2v" path="res://scenes/items/spotting_scope.tscn" id="37_vq3is"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -233,6 +242,33 @@ visible = false
 visible = false
 
 [node name="boarding_saber" parent="items" instance=ExtResource("28_ncelt")]
+visible = false
+
+[node name="blunderbass" parent="items" instance=ExtResource("29_m6xna")]
+visible = false
+
+[node name="fishing_rod" parent="items" instance=ExtResource("30_cfthn")]
+visible = false
+
+[node name="garden" parent="items" instance=ExtResource("31_13mfx")]
+visible = false
+
+[node name="shovel" parent="items" instance=ExtResource("32_pi25r")]
+visible = false
+
+[node name="spear" parent="items" instance=ExtResource("33_j3b7w")]
+visible = false
+
+[node name="tent" parent="items" instance=ExtResource("34_lotii")]
+visible = false
+
+[node name="trap" parent="items" instance=ExtResource("35_wi66f")]
+visible = false
+
+[node name="monocle" parent="items" instance=ExtResource("36_ama51")]
+visible = false
+
+[node name="spotting_scope" parent="items" instance=ExtResource("37_vq3is")]
 visible = false
 
 [node name="fate_cards" type="Node2D" parent="."]

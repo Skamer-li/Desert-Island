@@ -52,6 +52,15 @@ properties/12/replication_mode = 1
 properties/13/path = NodePath(".:fight_strength")
 properties/13/spawn = true
 properties/13/replication_mode = 1
+properties/14/path = NodePath(".:forage_food_amplification")
+properties/14/spawn = true
+properties/14/replication_mode = 1
+properties/15/path = NodePath(".:hunger_food_amount")
+properties/15/spawn = true
+properties/15/replication_mode = 1
+properties/16/path = NodePath(".:signal_fire_build")
+properties/16/spawn = true
+properties/16/replication_mode = 1
 
 [node name="player_game" type="Node2D"]
 script = ExtResource("1_bnbqo")

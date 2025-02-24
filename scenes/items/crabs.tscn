@@ -9,6 +9,7 @@ script = ExtResource("1_e61xy")
 
 [node name="card" type="Node" parent="."]
 script = ExtResource("2_grfq4")
+food_gain = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

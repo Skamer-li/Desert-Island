@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://7vgrf60remfd"]
+
+[ext_resource type="Script" path="res://scripts/items/shovel.gd" id="1_x5hp3"]
+[ext_resource type="Script" path="res://scripts/items/card.gd" id="2_0xbeq"]
+[ext_resource type="Texture2D" uid="uid://c3bjkwro1kwwb" path="res://sprites/items/shovel.png" id="3_egxbd"]
+
+[node name="shovel" type="Node2D"]
+script = ExtResource("1_x5hp3")
+
+[node name="card" type="Node" parent="."]
+script = ExtResource("2_0xbeq")
+food_amplification = 2
+damage = 2
+can_be_activated = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_egxbd")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -38.0
+offset_top = 43.0
+offset_right = 37.0
+offset_bottom = 92.0
+
+[connection signal="pressed" from="Button" to="card" method="_on_button_pressed"]

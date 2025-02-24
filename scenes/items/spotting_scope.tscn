@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://br0g02uu3ld2v"]
+
+[ext_resource type="Script" path="res://scripts/items/spotting_scope.gd" id="1_h3sq5"]
+[ext_resource type="Script" path="res://scripts/items/card.gd" id="2_5xvnr"]
+[ext_resource type="Texture2D" uid="uid://0y8inje388f7" path="res://sprites/items/spotting_scope.png" id="3_jmf11"]
+
+[node name="spotting_scope" type="Node2D"]
+script = ExtResource("1_h3sq5")
+
+[node name="card" type="Node" parent="."]
+script = ExtResource("2_5xvnr")
+value = 2
+build_amplification = 1
+can_be_activated = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_jmf11")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -38.0
+offset_top = 43.0
+offset_right = 37.0
+offset_bottom = 92.0
+
+[connection signal="pressed" from="Button" to="card" method="_on_button_pressed"]

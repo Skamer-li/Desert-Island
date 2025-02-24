@@ -9,6 +9,8 @@ script = ExtResource("1_amhix")
 
 [node name="card" type="Node" parent="."]
 script = ExtResource("2_4gfeu")
+damage = 4
+can_be_activated = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
