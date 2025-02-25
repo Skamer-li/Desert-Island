@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=43 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -40,6 +40,8 @@
 [ext_resource type="PackedScene" uid="uid://xnlvwlavp5v7" path="res://scenes/items/trap.tscn" id="35_wi66f"]
 [ext_resource type="PackedScene" uid="uid://c2r8k4ljwqyso" path="res://scenes/items/monocle.tscn" id="36_ama51"]
 [ext_resource type="PackedScene" uid="uid://br0g02uu3ld2v" path="res://scenes/items/spotting_scope.tscn" id="37_vq3is"]
+[ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
+[ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -303,8 +305,107 @@ offset_bottom = 198.392
 theme_override_font_sizes/font_size = 100
 text = "Hit Milady"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="cards_dealing" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(960, 540)
+scale = Vector2(1.29667, 1.29667)
+texture = ExtResource("30_7whwj")
+script = ExtResource("41_p35d8")
+
+[node name="cards" type="Node2D" parent="CanvasLayer/cards_dealing"]
+
+[node name="card1" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = -515.167
+offset_top = -16.1952
+offset_right = 245.833
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="card2" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = -340.167
+offset_top = -16.1954
+offset_right = 420.833
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="card3" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = -165.167
+offset_top = -16.1954
+offset_right = 595.833
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="card4" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = 9.83287
+offset_top = -16.1954
+offset_right = 770.833
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="card5" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = 184.833
+offset_top = -16.1954
+offset_right = 945.833
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="card6" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+offset_left = 359.833
+offset_top = -16.1954
+offset_right = 1120.83
+offset_bottom = 1057.8
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("42_2at1j")
+
+[node name="Label" type="Label" parent="CanvasLayer/cards_dealing"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.97
+offset_left = -203.599
+offset_top = -298.458
+offset_right = -1009.6
+offset_bottom = -811.458
+theme_override_font_sizes/font_size = 50
+text = "Choose card for:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="character_name" type="Label" parent="CanvasLayer/cards_dealing"]
+offset_left = -127.249
+offset_top = -235.219
+offset_right = 110.751
+offset_bottom = -166.219
+theme_override_font_sizes/font_size = 50
+text = "Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player_name" type="Label" parent="CanvasLayer/cards_dealing"]
+offset_left = -127.249
+offset_top = -172.751
+offset_right = 110.751
+offset_bottom = -103.751
+theme_override_font_sizes/font_size = 50
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
 [connection signal="action_finished" from="actions" to="." method="_on_actions_action_finished"]
 [connection signal="pressed" from="actions/bg/h_c" to="actions" method="_on_h_c_pressed"]
 [connection signal="pressed" from="actions/bg/h_m" to="actions" method="_on_h_m_pressed"]
+[connection signal="cards_dealing_finished" from="CanvasLayer/cards_dealing" to="." method="_on_cards_dealing_cards_dealing_finished"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card1" to="CanvasLayer/cards_dealing" method="_on_card_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card2" to="CanvasLayer/cards_dealing" method="_on_card_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card3" to="CanvasLayer/cards_dealing" method="_on_card_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card4" to="CanvasLayer/cards_dealing" method="_on_card_4_pressed"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card5" to="CanvasLayer/cards_dealing" method="_on_card_5_pressed"]
+[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card6" to="CanvasLayer/cards_dealing" method="_on_card_6_pressed"]

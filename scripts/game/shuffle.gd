@@ -32,6 +32,7 @@ func _ready() -> void:
 		GameManager.friends.shuffle()
 		GameManager.enemies.shuffle()
 		GameManager.locations.shuffle()
+		GameManager.items.shuffle()
 	in_game.rpc()
 
 @rpc ("any_peer", "call_local", "reliable")

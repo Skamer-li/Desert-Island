@@ -8,6 +8,7 @@ var game_end = false
 func _ready() -> void:
 	$actions.hide()
 
+@rpc ("any_peer")
 func game_loop():
 	while(!game_end):
 		current_turn += 1
@@ -30,13 +31,14 @@ func game_loop():
 				continue
 		
 		current_player_id = player_id_on_location(current_location)
-		
 		if (current_player_id == 0):
 			continue
 		elif (current_player_id == 1):
-			show_actions()
+			#show_actions()
+			$CanvasLayer/cards_dealing.set_cards_to_deal(GameManager.items)
 		else:
-			show_actions.rpc_id(current_player_id)
+			#show_actions.rpc_id(current_player_id)
+			$CanvasLayer/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 		
 		return
 	
@@ -54,5 +56,10 @@ func _on_actions_action_finished() -> void:
 	game_loop()
 
 func _on_shuffle_players_are_ready() -> void:
+	game_loop()
+
+func _on_cards_dealing_cards_dealing_finished() -> void:
 	if multiplayer.is_server():
 		game_loop()
+	else:
+		game_loop.rpc_id(1)
