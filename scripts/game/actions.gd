@@ -20,5 +20,5 @@ func _on_h_m_pressed() -> void:
 
 @rpc ("any_peer")
 func deal_damage(character: String):
-	$"../players".get_node(character).wound_amount += 1
+	$"../../players".get_node(character).wound_amount += 1
 	action_finished.emit()

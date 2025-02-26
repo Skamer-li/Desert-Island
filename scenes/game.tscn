@@ -280,43 +280,18 @@ position = Vector2(1735.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
 
-[node name="actions" type="Node2D" parent="."]
-visible = false
-script = ExtResource("29_rg4j1")
+[node name="actions" type="CanvasLayer" parent="."]
 
-[node name="bg" type="Sprite2D" parent="actions"]
-position = Vector2(1470, 819)
-scale = Vector2(0.323333, 0.323333)
-texture = ExtResource("30_7whwj")
-
-[node name="h_c" type="Button" parent="actions/bg"]
-offset_left = -491.753
-offset_top = -167.01
-offset_right = 488.247
-offset_bottom = -15.0103
-theme_override_font_sizes/font_size = 100
-text = "Hit Cherpack"
-
-[node name="h_m" type="Button" parent="actions/bg"]
-offset_left = -501.031
-offset_top = 46.3918
-offset_right = 478.969
-offset_bottom = 198.392
-theme_override_font_sizes/font_size = 100
-text = "Hit Milady"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="cards_dealing" type="Sprite2D" parent="CanvasLayer"]
+[node name="cards_dealing" type="Sprite2D" parent="actions"]
 visible = false
 position = Vector2(960, 540)
 scale = Vector2(1.29667, 1.29667)
 texture = ExtResource("30_7whwj")
 script = ExtResource("41_p35d8")
 
-[node name="cards" type="Node2D" parent="CanvasLayer/cards_dealing"]
+[node name="cards" type="Node2D" parent="actions/cards_dealing"]
 
-[node name="card1" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card1" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = -515.167
 offset_top = -16.1952
 offset_right = 245.833
@@ -324,7 +299,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="card2" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card2" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = -340.167
 offset_top = -16.1954
 offset_right = 420.833
@@ -332,7 +307,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="card3" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card3" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = -165.167
 offset_top = -16.1954
 offset_right = 595.833
@@ -340,7 +315,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="card4" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card4" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = 9.83287
 offset_top = -16.1954
 offset_right = 770.833
@@ -348,7 +323,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="card5" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card5" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = 184.833
 offset_top = -16.1954
 offset_right = 945.833
@@ -356,7 +331,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="card6" type="Button" parent="CanvasLayer/cards_dealing/cards"]
+[node name="card6" type="Button" parent="actions/cards_dealing/cards"]
 offset_left = 359.833
 offset_top = -16.1954
 offset_right = 1120.83
@@ -364,7 +339,7 @@ offset_bottom = 1057.8
 scale = Vector2(0.2, 0.2)
 icon = ExtResource("42_2at1j")
 
-[node name="Label" type="Label" parent="CanvasLayer/cards_dealing"]
+[node name="Label" type="Label" parent="actions/cards_dealing"]
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.97
@@ -377,7 +352,7 @@ text = "Choose card for:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="character_name" type="Label" parent="CanvasLayer/cards_dealing"]
+[node name="character_name" type="Label" parent="actions/cards_dealing"]
 offset_left = -127.249
 offset_top = -235.219
 offset_right = 110.751
@@ -387,7 +362,7 @@ text = "Character"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="player_name" type="Label" parent="CanvasLayer/cards_dealing"]
+[node name="player_name" type="Label" parent="actions/cards_dealing"]
 offset_left = -127.249
 offset_top = -172.751
 offset_right = 110.751
@@ -397,15 +372,40 @@ text = "Player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="basic_actions" type="Node2D" parent="actions"]
+visible = false
+script = ExtResource("29_rg4j1")
+
+[node name="bg" type="Sprite2D" parent="actions/basic_actions"]
+position = Vector2(1470, 819)
+scale = Vector2(0.323333, 0.323333)
+texture = ExtResource("30_7whwj")
+
+[node name="h_c" type="Button" parent="actions/basic_actions/bg"]
+offset_left = -491.753
+offset_top = -167.01
+offset_right = 488.247
+offset_bottom = -15.0103
+theme_override_font_sizes/font_size = 100
+text = "Hit Cherpack"
+
+[node name="h_m" type="Button" parent="actions/basic_actions/bg"]
+offset_left = -501.031
+offset_top = 46.3918
+offset_right = 478.969
+offset_bottom = 198.392
+theme_override_font_sizes/font_size = 100
+text = "Hit Milady"
+
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
-[connection signal="action_finished" from="actions" to="." method="_on_actions_action_finished"]
-[connection signal="pressed" from="actions/bg/h_c" to="actions" method="_on_h_c_pressed"]
-[connection signal="pressed" from="actions/bg/h_m" to="actions" method="_on_h_m_pressed"]
-[connection signal="cards_dealing_finished" from="CanvasLayer/cards_dealing" to="." method="_on_cards_dealing_cards_dealing_finished"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card1" to="CanvasLayer/cards_dealing" method="_on_card_1_pressed"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card2" to="CanvasLayer/cards_dealing" method="_on_card_2_pressed"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card3" to="CanvasLayer/cards_dealing" method="_on_card_3_pressed"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card4" to="CanvasLayer/cards_dealing" method="_on_card_4_pressed"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card5" to="CanvasLayer/cards_dealing" method="_on_card_5_pressed"]
-[connection signal="pressed" from="CanvasLayer/cards_dealing/cards/card6" to="CanvasLayer/cards_dealing" method="_on_card_6_pressed"]
+[connection signal="cards_dealing_finished" from="actions/cards_dealing" to="." method="_on_cards_dealing_cards_dealing_finished"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card1" to="actions/cards_dealing" method="_on_card_1_pressed"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card2" to="actions/cards_dealing" method="_on_card_2_pressed"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card3" to="actions/cards_dealing" method="_on_card_3_pressed"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card4" to="actions/cards_dealing" method="_on_card_4_pressed"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card5" to="actions/cards_dealing" method="_on_card_5_pressed"]
+[connection signal="pressed" from="actions/cards_dealing/cards/card6" to="actions/cards_dealing" method="_on_card_6_pressed"]
+[connection signal="action_finished" from="actions/basic_actions" to="." method="_on_actions_action_finished"]
+[connection signal="pressed" from="actions/basic_actions/bg/h_c" to="actions/basic_actions" method="_on_h_c_pressed"]
+[connection signal="pressed" from="actions/basic_actions/bg/h_m" to="actions/basic_actions" method="_on_h_m_pressed"]

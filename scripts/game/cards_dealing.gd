@@ -20,13 +20,14 @@ func set_cards_to_deal(items_order) -> void:
 	var count = 0
 	items = items_order
 	
-	for player in $"../../players".get_children():
-		if !player.is_dead:
-			character_names.append(player.character_name)
-			player_names.append(player.player_name)
-	
+	for location in GameManager.locations:
+		for player in $"../../players".get_children():
+			if (!player.is_dead && player.current_location == location):
+				player_names.append(player.player_name)
+				character_names.append(player.character_name)
+			
 	for card in $cards.get_children():
-		if (count < character_names.size()):
+		if (count < player_names.size()):
 			card.show()
 			card.icon = $"../../items".get_node(items_order[count]).get_node("Sprite2D").texture
 			count += 1
@@ -39,6 +40,8 @@ func _set_labels(value: int) -> void:
 	player_count = value
 	if (player_count == player_names.size()):
 		player_count = 0
+		player_names.clear()
+		character_names.clear()
 		self.hide()
 		cards_dealing_finished.emit()
 	else:
@@ -48,6 +51,7 @@ func _set_labels(value: int) -> void:
 @rpc ("any_peer")
 func send_card_to_character(item_name: String, character_name: String) -> void:
 	$"../../items".get_node(item_name).get_node("card").set_card_owner = character_name
+	GameManager.items.erase(item_name)
 	
 func _on_card_1_pressed() -> void:
 	if multiplayer.is_server():

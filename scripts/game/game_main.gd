@@ -3,10 +3,9 @@ extends Node2D
 var current_turn = 0
 var current_location = "Beach"
 var current_player_id = 0
+var current_character_name = "Name"
+var cards_dealed = false
 var game_end = false
-
-func _ready() -> void:
-	$actions.hide()
 
 @rpc ("any_peer")
 func game_loop():
@@ -28,17 +27,25 @@ func game_loop():
 				current_location = "Cave"
 			_:
 				current_turn = 0
+				cards_dealed = false
 				continue
 		
 		current_player_id = player_id_on_location(current_location)
-		if (current_player_id == 0):
-			continue
-		elif (current_player_id == 1):
-			#show_actions()
-			$CanvasLayer/cards_dealing.set_cards_to_deal(GameManager.items)
-		else:
-			#show_actions.rpc_id(current_player_id)
-			$CanvasLayer/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
+		current_character_name = character_name_on_location(current_location)
+		
+		match (current_player_id):
+			0:
+				continue
+			1:
+				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
+					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
+				else:
+					show_actions()
+			_:
+				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
+					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
+				else:
+					show_actions.rpc_id(current_player_id)
 		
 		return
 	
@@ -47,10 +54,29 @@ func player_id_on_location(location: String) -> int:
 		if (player.current_location == location && player.is_dead == false):
 			return player.player_id
 	return 0
+	
+func character_name_on_location(location: String) -> String:
+	for character in $players.get_children():
+		if (character.current_location == location):
+			return character.character_name
+	return "Name"
+	
+func characters_alive() -> int:
+	var char_count = 0
+	
+	for character in $players.get_children():
+		if (character.is_dead == false):
+			char_count += 1
+			
+	return char_count
 
 @rpc
 func show_actions():
-	$actions.show()
+	$actions/basic_actions.show()
+	
+@rpc ("any_peer")
+func cards_dealed_info() -> void:
+	cards_dealed = true
 
 func _on_actions_action_finished() -> void:
 	game_loop()
@@ -60,6 +86,8 @@ func _on_shuffle_players_are_ready() -> void:
 
 func _on_cards_dealing_cards_dealing_finished() -> void:
 	if multiplayer.is_server():
-		game_loop()
+		cards_dealed_info()
+		show_actions()
 	else:
-		game_loop.rpc_id(1)
+		cards_dealed_info.rpc_id(1)
+		show_actions()
