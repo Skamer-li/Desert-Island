@@ -1,7 +1,8 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/crabs.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	self.get_parent().get_parent().food_amount += $card.food_gain
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	player.food_amount += card.food_gain

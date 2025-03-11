@@ -1,10 +1,11 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/boarding_saber.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	if !self.get_parent().get_parent().inventory_activated.has(self.name):
-		if (self.get_parent().get_parent().fight_strength < self.get_parent().get_parent().base_strength + $card.damage):
-			self.get_parent().get_parent().fight_strength = self.get_parent().get_parent().base_strength + $card.damage
-		self.get_parent().get_parent().inventory_activated.append(self.name)
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	if !player.inventory_activated.has(card.card_name):
+		if (player.fight_strength < player.base_strength + card.damage):
+			player.fight_strength = player.base_strength + card.damage
+		player.inventory_activated.append(card.card_name)

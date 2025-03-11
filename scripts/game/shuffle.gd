@@ -46,7 +46,6 @@ func in_game():
 				count += 1
 			players_are_ready.emit()
 		
-
 func spawn_player(id: int):
 	var player_to_add = multiplayer_player.instantiate()
 	

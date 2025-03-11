@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=23 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -16,32 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://dno33m8sluonv" path="res://sprites/characters/snob.png" id="13_gywy7"]
 [ext_resource type="Texture2D" uid="uid://2lxqpglrvy2o" path="res://sprites/characters/the_captain.png" id="14_532ra"]
 [ext_resource type="Texture2D" uid="uid://btl7jkduo1cqv" path="res://sprites/characters/the_kid.png" id="15_tct1p"]
-[ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="16_2inb7"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
-[ext_resource type="PackedScene" uid="uid://but1d8epoxtc8" path="res://scenes/items/bananas.tscn" id="18_rm74r"]
-[ext_resource type="PackedScene" uid="uid://crtfixqxip3td" path="res://scenes/items/coconut.tscn" id="19_girsj"]
-[ext_resource type="PackedScene" uid="uid://ci80ynfvkr6tc" path="res://scenes/items/crabs.tscn" id="20_istvf"]
-[ext_resource type="PackedScene" uid="uid://bdiuvcyjiif13" path="res://scenes/items/roasted_iguana.tscn" id="21_wyif5"]
-[ext_resource type="PackedScene" uid="uid://cvkexx43bwb5y" path="res://scenes/items/sprats.tscn" id="22_34ytk"]
-[ext_resource type="PackedScene" uid="uid://bjcqi35p52634" path="res://scenes/items/candelabrum.tscn" id="23_v732b"]
-[ext_resource type="PackedScene" uid="uid://cm5pl8hedq13a" path="res://scenes/items/chamber_pot.tscn" id="24_f4nyy"]
-[ext_resource type="PackedScene" uid="uid://cbgdnws18okx4" path="res://scenes/items/cup.tscn" id="25_sitmw"]
-[ext_resource type="PackedScene" uid="uid://cds6niir5lk7h" path="res://scenes/items/doubloons.tscn" id="26_urj7a"]
-[ext_resource type="PackedScene" uid="uid://cmjl86d25x2cx" path="res://scenes/items/medicine.tscn" id="27_qdxro"]
-[ext_resource type="PackedScene" uid="uid://bl4tluxriisd4" path="res://scenes/items/boarding_saber.tscn" id="28_ncelt"]
-[ext_resource type="PackedScene" uid="uid://b86mpt5iobmgg" path="res://scenes/items/blunderbass.tscn" id="29_m6xna"]
-[ext_resource type="Script" path="res://scripts/game/actions.gd" id="29_rg4j1"]
+[ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
-[ext_resource type="PackedScene" uid="uid://diagxo554t6pe" path="res://scenes/items/fishing_rod.tscn" id="30_cfthn"]
-[ext_resource type="PackedScene" uid="uid://cs2sv7gly2x61" path="res://scenes/items/garden.tscn" id="31_13mfx"]
-[ext_resource type="PackedScene" uid="uid://7vgrf60remfd" path="res://scenes/items/shovel.tscn" id="32_pi25r"]
-[ext_resource type="PackedScene" uid="uid://bje2umh6vjor8" path="res://scenes/items/spear.tscn" id="33_j3b7w"]
-[ext_resource type="PackedScene" uid="uid://dwa1vof636v4o" path="res://scenes/items/tent.tscn" id="34_lotii"]
-[ext_resource type="PackedScene" uid="uid://xnlvwlavp5v7" path="res://scenes/items/trap.tscn" id="35_wi66f"]
-[ext_resource type="PackedScene" uid="uid://c2r8k4ljwqyso" path="res://scenes/items/monocle.tscn" id="36_ama51"]
-[ext_resource type="PackedScene" uid="uid://br0g02uu3ld2v" path="res://scenes/items/spotting_scope.tscn" id="37_vq3is"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
+[ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="42_btaua"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -206,79 +186,7 @@ text = "Player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="items" type="Node2D" parent="."]
-
-[node name="item" type="Sprite2D" parent="items"]
-position = Vector2(160.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("16_2inb7")
-
-[node name="bananas" parent="items" instance=ExtResource("18_rm74r")]
-visible = false
-
-[node name="coconut" parent="items" instance=ExtResource("19_girsj")]
-visible = false
-
-[node name="crabs" parent="items" instance=ExtResource("20_istvf")]
-visible = false
-
-[node name="roasted_iguana" parent="items" instance=ExtResource("21_wyif5")]
-visible = false
-
-[node name="sprats" parent="items" instance=ExtResource("22_34ytk")]
-visible = false
-
-[node name="candelabrum" parent="items" instance=ExtResource("23_v732b")]
-visible = false
-
-[node name="chamber_pot" parent="items" instance=ExtResource("24_f4nyy")]
-visible = false
-
-[node name="cup" parent="items" instance=ExtResource("25_sitmw")]
-visible = false
-
-[node name="doubloons" parent="items" instance=ExtResource("26_urj7a")]
-visible = false
-
-[node name="medicine" parent="items" instance=ExtResource("27_qdxro")]
-visible = false
-
-[node name="boarding_saber" parent="items" instance=ExtResource("28_ncelt")]
-visible = false
-
-[node name="blunderbass" parent="items" instance=ExtResource("29_m6xna")]
-visible = false
-
-[node name="fishing_rod" parent="items" instance=ExtResource("30_cfthn")]
-visible = false
-
-[node name="garden" parent="items" instance=ExtResource("31_13mfx")]
-visible = false
-
-[node name="shovel" parent="items" instance=ExtResource("32_pi25r")]
-visible = false
-
-[node name="spear" parent="items" instance=ExtResource("33_j3b7w")]
-visible = false
-
-[node name="tent" parent="items" instance=ExtResource("34_lotii")]
-visible = false
-
-[node name="trap" parent="items" instance=ExtResource("35_wi66f")]
-visible = false
-
-[node name="monocle" parent="items" instance=ExtResource("36_ama51")]
-visible = false
-
-[node name="spotting_scope" parent="items" instance=ExtResource("37_vq3is")]
-visible = false
-
 [node name="fate_cards" type="Node2D" parent="."]
-
-[node name="fate" type="Sprite2D" parent="fate_cards"]
-position = Vector2(1735.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("17_2bao7")
 
 [node name="actions" type="CanvasLayer" parent="."]
 
@@ -372,30 +280,78 @@ text = "Player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="basic_actions" type="Node2D" parent="actions"]
+[node name="basic_actions" type="Sprite2D" parent="actions"]
 visible = false
-script = ExtResource("29_rg4j1")
-
-[node name="bg" type="Sprite2D" parent="actions/basic_actions"]
-position = Vector2(1470, 819)
-scale = Vector2(0.323333, 0.323333)
+position = Vector2(1618, 856)
+scale = Vector2(0.333333, 0.403333)
 texture = ExtResource("30_7whwj")
+script = ExtResource("42_btaua")
 
-[node name="h_c" type="Button" parent="actions/basic_actions/bg"]
-offset_left = -491.753
-offset_top = -167.01
-offset_right = 488.247
-offset_bottom = -15.0103
-theme_override_font_sizes/font_size = 100
-text = "Hit Cherpack"
+[node name="forage_button" type="Button" parent="actions/basic_actions"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -325.0
+offset_top = -262.397
+offset_right = -875.0
+offset_bottom = -737.397
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 65
+text = "Forage"
 
-[node name="h_m" type="Button" parent="actions/basic_actions/bg"]
-offset_left = -501.031
-offset_top = 46.3918
-offset_right = 478.969
-offset_bottom = 198.392
-theme_override_font_sizes/font_size = 100
-text = "Hit Milady"
+[node name="sfire_button" type="Button" parent="actions/basic_actions"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -325.0
+offset_top = -62.3966
+offset_right = -875.0
+offset_bottom = -537.397
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 65
+text = "Signal Fire"
+
+[node name="steal_button" type="Button" parent="actions/basic_actions"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -325.0
+offset_top = 137.603
+offset_right = -875.0
+offset_bottom = -337.397
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 65
+text = "Steal"
+
+[node name="end_turn_button" type="Button" parent="actions/basic_actions"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -325.0
+offset_top = -476.034
+offset_right = -875.0
+offset_bottom = -926.034
+theme_override_font_sizes/font_size = 65
+text = "End your turn "
+
+[node name="Items" type="Sprite2D" parent="."]
+position = Vector2(160.125, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("22_8db47")
+
+[node name="fate" type="Sprite2D" parent="."]
+position = Vector2(1735.13, 510.25)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("17_2bao7")
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
@@ -406,6 +362,8 @@ text = "Hit Milady"
 [connection signal="pressed" from="actions/cards_dealing/cards/card4" to="actions/cards_dealing" method="_on_card_4_pressed"]
 [connection signal="pressed" from="actions/cards_dealing/cards/card5" to="actions/cards_dealing" method="_on_card_5_pressed"]
 [connection signal="pressed" from="actions/cards_dealing/cards/card6" to="actions/cards_dealing" method="_on_card_6_pressed"]
-[connection signal="action_finished" from="actions/basic_actions" to="." method="_on_actions_action_finished"]
-[connection signal="pressed" from="actions/basic_actions/bg/h_c" to="actions/basic_actions" method="_on_h_c_pressed"]
-[connection signal="pressed" from="actions/basic_actions/bg/h_m" to="actions/basic_actions" method="_on_h_m_pressed"]
+[connection signal="action_finished" from="actions/basic_actions" to="." method="_on_basic_actions_action_finished"]
+[connection signal="pressed" from="actions/basic_actions/forage_button" to="actions/basic_actions" method="_on_forage_button_pressed"]
+[connection signal="pressed" from="actions/basic_actions/sfire_button" to="actions/basic_actions" method="_on_sfire_button_pressed"]
+[connection signal="pressed" from="actions/basic_actions/steal_button" to="actions/basic_actions" method="_on_steal_button_pressed"]
+[connection signal="pressed" from="actions/basic_actions/end_turn_button" to="actions/basic_actions" method="_on_end_turn_button_pressed"]

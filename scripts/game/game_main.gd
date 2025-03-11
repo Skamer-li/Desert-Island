@@ -1,5 +1,10 @@
 extends Node2D
 
+@onready var basic_actions = $actions/basic_actions
+
+@export var fate_card_value = 0
+@export var signal_fire = 0
+
 var current_turn = 0
 var current_location = "Beach"
 var current_player_id = 0
@@ -40,12 +45,12 @@ func game_loop():
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
 				else:
-					show_actions()
+					basic_actions.show_actions(current_character_name, fate_card_value)
 			_:
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
-					show_actions.rpc_id(current_player_id)
+					basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
 		return
 	
@@ -70,16 +75,19 @@ func characters_alive() -> int:
 			
 	return char_count
 
-@rpc
-func show_actions():
-	$actions/basic_actions.show()
+func swamp_food_lose():
+	if (current_location == "Swamp"):
+		var current_character = $players.get_node(current_character_name)
+		if (current_character.food_amount != 0):
+			current_character.food_amount -= 1
+
+@rpc ("any_peer")
+func show_actions_as_host():
+	basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 	
 @rpc ("any_peer")
 func cards_dealed_info() -> void:
 	cards_dealed = true
-
-func _on_actions_action_finished() -> void:
-	game_loop()
 
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
@@ -87,7 +95,12 @@ func _on_shuffle_players_are_ready() -> void:
 func _on_cards_dealing_cards_dealing_finished() -> void:
 	if multiplayer.is_server():
 		cards_dealed_info()
-		show_actions()
+		basic_actions.show_actions(current_character_name, fate_card_value)
 	else:
 		cards_dealed_info.rpc_id(1)
-		show_actions()
+		show_actions_as_host.rpc_id(1)
+
+func _on_basic_actions_action_finished() -> void:
+	swamp_food_lose()
+	print(signal_fire)
+	game_loop()

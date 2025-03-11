@@ -1,9 +1,10 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/garden.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	if !self.get_parent().get_parent().inventory_activated.has(self.name):
-		self.get_parent().get_parent().forage_food_amplification += $card.food_amplification
-		self.get_parent().get_parent().inventory_activated.append(self.name)
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	if !player.inventory_activated.has(card.card_name):
+		player.forage_food_amplification += card.food_amplification
+		player.inventory_activated.append(card.card_name)

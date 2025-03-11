@@ -1,7 +1,8 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/medicine.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	self.get_parent().get_parent().wound_amount -= $card.heal
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	player.wound_amount -= card.heal

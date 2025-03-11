@@ -1,9 +1,10 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/monocle.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	if !self.get_parent().get_parent().inventory_activated.has(self.name):
-		self.get_parent().get_parent().signal_fire_build += $card.build_amplification
-		self.get_parent().get_parent().inventory_activated.append(self.name)
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	if !player.inventory_activated.has(card.card_name):
+		player.signal_fire_build += card.build_amplification
+		player.inventory_activated.append(card.card_name)

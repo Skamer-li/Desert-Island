@@ -15,7 +15,6 @@ var count = 0
 func _ready() -> void:
 	pass
 	
-
 func _process(delta: float) -> void:
 	if multiplayer.is_server():
 		player_name = $input_synchronizer.player_name

@@ -1,13 +1,12 @@
-extends Node2D
-
-var scene = preload("res://scenes/items/shovel.tscn")
+extends Node
 
 @rpc ("any_peer")
 func item_use():
-	if !self.get_parent().get_parent().inventory_activated.has(self.name):
-		self.get_parent().get_parent().forage_food_amplification += $card.food_amplification
-		
-		if (self.get_parent().get_parent().fight_strength < self.get_parent().get_parent().base_strength + $card.damage):
-			self.get_parent().get_parent().fight_strength = self.get_parent().get_parent().base_strength + $card.damage
-		
-		self.get_parent().get_parent().inventory_activated.append(self.name)
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	if !player.inventory_activated.has(card.card_name):
+		player.forage_food_amplification += card.food_amplification
+		if (player.fight_strength < player.base_strength + card.damage):
+			player.fight_strength = player.base_strength + card.damage
+		player.inventory_activated.append(card.card_name)
