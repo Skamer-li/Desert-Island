@@ -25,6 +25,7 @@ func set_properties(data: Dictionary, owner: String):
 	food_gain = data.get("food_gain", 0)
 	damage = data.get("damage", 0)
 	value = data.get("value", 0)
+	heal = data.get("heal", 0)
 	build_amplification = data.get("build_amplification", 0)
 	can_be_activated = data.get("can_be_activated", false)
 	

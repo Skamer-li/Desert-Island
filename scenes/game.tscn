@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=24 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://btl7jkduo1cqv" path="res://sprites/characters/the_kid.png" id="15_tct1p"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
+[ext_resource type="PackedScene" uid="uid://bbkhtg5ub4j2y" path="res://scenes/character_interaction.tscn" id="23_80lat"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
@@ -352,6 +353,12 @@ texture = ExtResource("22_8db47")
 position = Vector2(1735.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
+
+[node name="character_interaction" parent="." instance=ExtResource("23_80lat")]
+offset_left = 965.0
+offset_top = 694.0
+offset_right = 965.0
+offset_bottom = 694.0
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]

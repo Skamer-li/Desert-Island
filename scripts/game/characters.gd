@@ -39,6 +39,10 @@ func _on_shuffle_players_are_ready() -> void:
 			hide_character.rpc("The Kid")
 		set_cards_visible.rpc()
 		
+		$"../character_interaction".player_node = $"../players".get_node("Snob")
+		$"../character_interaction".set_texture("Snob")
+		$"../character_interaction".set_player_name($"../character_interaction".player_node.player_name)
+		
 @rpc ("any_peer", "call_local")
 func set_cards_visible():
 	$".".visible = true

@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbkhtg5ub4j2y"]
+
+[ext_resource type="Script" path="res://scripts/game/character_interaction.gd" id="1_wnb2r"]
+[ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="2_2w4vs"]
+[ext_resource type="Shader" path="res://shaders/card.gdshader" id="2_dspgy"]
+[ext_resource type="Texture2D" uid="uid://3wk5j1r7f5qa" path="res://sprites/backpack1.png" id="4_3uti6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3s3gh"]
+shader = ExtResource("2_dspgy")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
+[node name="character_interaction" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wnb2r")
+
+[node name="char_sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3s3gh")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_2w4vs")
+
+[node name="player_name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -165.0
+offset_right = 38.5
+offset_bottom = -137.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="inventory_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 64.0
+offset_right = 579.0
+offset_bottom = 584.0
+scale = Vector2(0.05, 0.05)
+icon = ExtResource("4_3uti6")
+
+[connection signal="pressed" from="inventory_button" to="." method="_on_inventory_button_pressed"]

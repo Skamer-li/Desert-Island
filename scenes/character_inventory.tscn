@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqed7h3svxfjo"]
+
+[ext_resource type="Script" path="res://scripts/game/character_inventory.gd" id="1_op8jc"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_kkdie"]
+
+[node name="character_inventory" type="Node2D"]
+script = ExtResource("1_op8jc")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("2_kkdie")
+
+[node name="card_spawn_point" type="Node2D" parent="."]
+
+[node name="close_button" type="Button" parent="."]
+offset_left = 525.0
+offset_top = -275.0
+offset_right = 575.0
+offset_bottom = -225.0
+theme_override_font_sizes/font_size = 30
+text = "X"
+
+[connection signal="pressed" from="close_button" to="." method="_on_close_button_pressed"]

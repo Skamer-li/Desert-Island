@@ -19,7 +19,7 @@ func set_cards_to_deal(items_order) -> void:
 	var count = 0
 	items = items_order
 	
-	for location in GameManager.locations:
+	for location in GameManager.const_locations:
 		for player in $"../../players".get_children():
 			if (!player.is_dead && player.current_location == location):
 				player_names.append(player.player_name)
