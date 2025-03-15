@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_kkdie"]
 
 [node name="character_inventory" type="Node2D"]
+z_index = 1
 script = ExtResource("1_op8jc")
 
 [node name="background" type="Sprite2D" parent="."]

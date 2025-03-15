@@ -1,5 +1,7 @@
 extends Control
 
+var inventory_node_name = "inventory"
+
 @onready var inventory = preload("res://scenes/character_inventory.tscn")
 
 @export var player_node = null
@@ -25,7 +27,12 @@ func set_player_name(player_name: String):
 	$player_name.text = player_name
 
 func _on_inventory_button_pressed() -> void:
+	if (self.get_node_or_null(inventory_node_name) != null):
+		return 
+	
 	var new_inventory = inventory.instantiate()
+	new_inventory.name = inventory_node_name
+	
 	add_child(new_inventory)
 	
 	new_inventory.global_position = Vector2(1920/2, 1080/2)
@@ -37,5 +44,4 @@ func _on_inventory_button_pressed() -> void:
 	
 	for i in closed_cards_size:
 		new_inventory.add_card("closed")
-	
 	
