@@ -321,5 +321,6 @@ texture = ExtResource("17_2bao7")
 [connection signal="pressed" from="actions/basic_actions/sfire_button" to="actions/basic_actions" method="_on_sfire_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/steal_button" to="actions/basic_actions" method="_on_steal_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/end_turn_button" to="actions/basic_actions" method="_on_end_turn_button_pressed"]
+[connection signal="fate_dealing_finished" from="actions/fate_dealing" to="." method="_on_fate_dealing_fate_dealing_finished"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]

@@ -10,6 +10,7 @@ var current_location = "Beach"
 var current_player_id = 0
 var current_character_name = "Name"
 var cards_dealed = false
+var fate_dealed = 0
 var game_end = false
 
 @rpc ("any_peer")
@@ -33,6 +34,7 @@ func game_loop():
 			_:
 				current_turn = 0
 				cards_dealed = false
+				fate_dealed = 0
 				continue
 		
 		current_player_id = player_id_on_location(current_location)
@@ -44,11 +46,15 @@ func game_loop():
 			1:
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
+				elif(fate_dealed < characters_alive()):
+					$actions/fate_dealing.drawing_fate_cards()
 				else:
 					basic_actions.show_actions(current_character_name, fate_card_value)
 			_:
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
+				elif(fate_dealed < characters_alive()):
+					$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id)
 				else:
 					basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
@@ -84,23 +90,40 @@ func swamp_food_lose():
 @rpc ("any_peer")
 func show_actions_as_host():
 	basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
+
+@rpc ("any_peer")
+func draw_fate_as_host():
+	$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id)
 	
 @rpc ("any_peer")
 func cards_dealed_info() -> void:
 	cards_dealed = true
 
+@rpc ("any_peer")
+func fate_dealed_info() -> void:
+	fate_dealed +=1 
+	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 
 func _on_cards_dealing_cards_dealing_finished() -> void:
 	if multiplayer.is_server():
 		cards_dealed_info()
-		basic_actions.show_actions(current_character_name, fate_card_value)
+		$actions/fate_dealing.drawing_fate_cards()
 	else:
 		cards_dealed_info.rpc_id(1)
-		show_actions_as_host.rpc_id(1)
+		draw_fate_as_host.rpc_id(1)
 
 func _on_basic_actions_action_finished() -> void:
 	swamp_food_lose()
 	print(signal_fire)
 	game_loop()
+
+
+func _on_fate_dealing_fate_dealing_finished() -> void:
+	if multiplayer.is_server():
+		fate_dealed_info()
+		basic_actions.show_actions(current_character_name, fate_card_value)
+	else:
+		fate_dealed_info.rpc_id(1)
+		show_actions_as_host.rpc_id(1)
