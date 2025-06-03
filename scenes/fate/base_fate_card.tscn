@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://dk1c63mnuidxk"]
 
 [ext_resource type="Texture2D" uid="uid://ds876sj8f3xx2" path="res://sprites/fate cards/b_s_1_ship.png" id="1_mv4il"]
-[ext_resource type="Script" path="res://scripts/fate/basefatecard.gd" id="2_2hs0k"]
+[ext_resource type="Script" path="res://scripts/fate/base_fate_card.gd" id="2_2hs0k"]
 
 [node name="BaseFateCard" type="Node2D"]
+script = ExtResource("2_2hs0k")
 
 [node name="texture" type="Sprite2D" parent="."]
 position = Vector2(-7.62939e-06, 1.52588e-05)
 scale = Vector2(0.766932, 0.766932)
 texture = ExtResource("1_mv4il")
 
-[node name="script" type="Node" parent="."]
-script = ExtResource("2_2hs0k")
+[node name="effect" type="Node" parent="."]

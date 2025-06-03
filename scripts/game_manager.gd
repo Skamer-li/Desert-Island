@@ -36,3 +36,10 @@ var items_database = [
 	{"name": "trap", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 0, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": false}
 	
 ]
+var fate_deck = [
+	"res://sprites/fate cards/b_cap_5_boards.png","res://sprites/fate cards/b_c_6_torch.png","res://sprites/fate cards/b_fm_4_ship.png","res://sprites/fate cards/b_k_3_torch.png","res://sprites/fate cards/b_m_2_boards.png","res://sprites/fate cards/b_s_1_ship.png",
+	"res://sprites/fate cards/mk_cap_1_boards.png","res://sprites/fate cards/mk_c_2_torch.png","res://sprites/fate cards/mk_fm_6_ship.png","res://sprites/fate cards/mk_k_5_torch.png","res://sprites/fate cards/mk_m_4_boards.png","res://sprites/fate cards/mk_s_3_ship.png",
+	"res://sprites/fate cards/m_cap_6_boards.png","res://sprites/fate cards/m_c_1_torch.png","res://sprites/fate cards/m_fm_5_ship.png","res://sprites/fate cards/m_k_4_torch.png","res://sprites/fate cards/m_m_3_boards.png","res://sprites/fate cards/m_s_2_ship.png",
+	"res://sprites/fate cards/r_cap_4_boards.png","res://sprites/fate cards/r_c_5_torch.png","res://sprites/fate cards/r_fm_3_ship.png","res://sprites/fate cards/r_k_2_torch.png","res://sprites/fate cards/r_m_1_boards.png","res://sprites/fate cards/r_s_6_ship.png",
+	"res://sprites/fate cards/t_cap_3_boards.png","res://sprites/fate cards/t_c_4_torch.png","res://sprites/fate cards/t_fm_2_ship.png","res://sprites/fate cards/t_k_1_torch.png","res://sprites/fate cards/t_m_6_boards.png","res://sprites/fate cards/t_s_5_ship.png"
+]
