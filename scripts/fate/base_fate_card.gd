@@ -1,14 +1,17 @@
 extends Node
 
+@export var card_fullname = ""
 @export var card_name = ""
 @export var card_target = ""
 @export var resource = ""
 @export var number = 0
 
+
 @onready var effect = $effect
 
-func setProperties(card: String):
-	$texture.texture=load("res:"+card)
+func set_properties(card: String):
+	$texture.texture=load(card)
+	card_fullname = card
 	card = card.get_file()
 	card_name = card.get_slice("_",0)
 	card_target = card.get_slice("_",1)

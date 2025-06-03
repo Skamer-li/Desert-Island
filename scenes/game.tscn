@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=20 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -10,12 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://c0p6ydeefeipp" path="res://sprites/locations/hill.png" id="7_vs6rm"]
 [ext_resource type="Texture2D" uid="uid://cr8r5exqcpqve" path="res://sprites/locations/cave.png" id="8_0o7vf"]
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
+[ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
+[ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
 [ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="42_btaua"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vx2yp"]
+load_path = "res://.godot/imported/name_back.png-90c908a49bde1f75d1abc10de8d44486.ctex"
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_4etc6")
@@ -67,6 +72,36 @@ texture = ExtResource("8_0o7vf")
 script = ExtResource("10_i1y1d")
 
 [node name="fate_cards" type="Node2D" parent="."]
+
+[node name="FateCard" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(385.125, 630)
+
+[node name="FateCard2" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(610.125, 630)
+
+[node name="FateCard3" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(835.125, 630)
+
+[node name="FateCard4" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(1060.13, 630)
+
+[node name="FateCard5" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(1285.13, 630)
+
+[node name="FateCard6" parent="fate_cards" instance=ExtResource("15_urpy1")]
+visible = false
+z_index = -1
+position = Vector2(1510.13, 630)
 
 [node name="actions" type="CanvasLayer" parent="."]
 
@@ -223,6 +258,45 @@ offset_bottom = -926.034
 theme_override_font_sizes/font_size = 65
 text = "End your turn "
 
+[node name="fate_dealing" type="Sprite2D" parent="actions"]
+visible = false
+position = Vector2(960, 540)
+scale = Vector2(1.297, 1.297)
+texture = SubResource("CompressedTexture2D_vx2yp")
+script = ExtResource("15_q81ke")
+
+[node name="fate" type="Node2D" parent="actions/fate_dealing"]
+
+[node name="BaseFateCard" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+position = Vector2(-286.045, 0)
+
+[node name="BaseFateCard2" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+position = Vector2(252.891, 0)
+
+[node name="Button" type="Button" parent="actions/fate_dealing/fate"]
+offset_left = -382.0
+offset_top = -133.0
+offset_right = -192.0
+offset_bottom = 134.0
+flat = true
+
+[node name="Button2" type="Button" parent="actions/fate_dealing/fate"]
+offset_left = 157.0
+offset_top = -133.0
+offset_right = 347.0
+offset_bottom = 135.0
+flat = true
+
+[node name="Label" type="Label" parent="actions/fate_dealing"]
+offset_left = -308.404
+offset_top = -272.938
+offset_right = 287.596
+offset_bottom = -161.938
+theme_override_font_sizes/font_size = 60
+text = "Choose a fate card"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Items" type="Sprite2D" parent="."]
 position = Vector2(160.125, 510.25)
 scale = Vector2(0.25, 0.25)
@@ -247,3 +321,5 @@ texture = ExtResource("17_2bao7")
 [connection signal="pressed" from="actions/basic_actions/sfire_button" to="actions/basic_actions" method="_on_sfire_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/steal_button" to="actions/basic_actions" method="_on_steal_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/end_turn_button" to="actions/basic_actions" method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
+[connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]
