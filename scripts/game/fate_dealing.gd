@@ -6,7 +6,7 @@ func _ready() -> void:
 	self.hide()
 
 	
-@rpc
+@rpc("any_peer")
 func drawing_fate_cards():
 	$fate/BaseFateCard.set_properties(GameManager.fate_deck[0])
 	$fate/BaseFateCard2.set_properties(GameManager.fate_deck[1])
@@ -40,7 +40,7 @@ func place_fate(card):
 			pass
 
 
-
+@rpc("any_peer")
 func _on_button_pressed() -> void:
 	if multiplayer.is_server():
 		place_fate($fate/BaseFateCard)
@@ -51,7 +51,7 @@ func _on_button_pressed() -> void:
 	self.hide()
 	fate_dealing_finished.emit()
 
-
+@rpc("any_peer")
 func _on_button_2_pressed() -> void:
 	if multiplayer.is_server():
 		place_fate($fate/BaseFateCard2)
