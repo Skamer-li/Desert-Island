@@ -28,50 +28,7 @@ func set_cards_to_deal(items_order) -> void:
 			
 	for card in $cards.get_children():
 		if (count < player_names.size()):
-			match(items_order[count]):
-				"bananas":
-					card.icon = load("res://sprites/items/bananas.png")
-				"blunderbass":
-					card.icon = load("res://sprites/items/blunderbuss.png")
-				"boarding_saber":
-					card.icon = load("res://sprites/items/boarding_saber.png")
-				"candelabrum":
-					card.icon = load("res://sprites/items/candelabrum.png")
-				"chamber_pot":
-					card.icon = load("res://sprites/items/chamber_pot.png")
-				"coconut":
-					card.icon = load("res://sprites/items/coconut.png")
-				"crabs":
-					card.icon = load("res://sprites/items/crabs.png")
-				"cup":
-					card.icon = load("res://sprites/items/cup.png")
-				"doubloons":
-					card.icon = load("res://sprites/items/doubloons.png")
-				"fishing_rod":
-					card.icon = load("res://sprites/items/fishing_rod.png")
-				"garden":
-					card.icon = load("res://sprites/items/garden.png")
-				"medicine":
-					card.icon = load("res://sprites/items/medicine.png")
-				"monocle":
-					card.icon = load("res://sprites/items/monocle.png")
-				"roasted_iguana":
-					card.icon = load("res://sprites/items/roasted_iguana.png")
-				"shovel":
-					card.icon = load("res://sprites/items/shovel.png")
-				"spear":
-					card.icon = load("res://sprites/items/spear.png")
-				"spotting_scope":
-					card.icon = load("res://sprites/items/spotting_scope.png")
-				"sprats":
-					card.icon = load("res://sprites/items/sprats.png")
-				"tent":
-					card.icon = load("res://sprites/items/tent.png")
-				"trap":
-					card.icon = load("res://sprites/items/trap.png")
-				_:
-					pass
-					
+			card.icon = load("res://sprites/items/"+items_order[count]+".png")	
 			card.show()
 			count += 1
 	

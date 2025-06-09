@@ -33,6 +33,7 @@ func _ready() -> void:
 		GameManager.enemies.shuffle()
 		GameManager.locations.shuffle()
 		GameManager.items.shuffle()
+		GameManager.fate_deck.shuffle()
 	in_game.rpc()
 
 @rpc ("any_peer", "call_local", "reliable")
