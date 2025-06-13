@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=21 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
 [ext_resource type="Texture2D" uid="uid://bxi4suqbjdpv5" path="res://sprites/locations/beach.png" id="3_ni66g"]
 [ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
 [ext_resource type="Texture2D" uid="uid://bmvenjaj6410o" path="res://sprites/locations/jungle.png" id="4_q5ewn"]
+[ext_resource type="Script" path="res://scripts/location.gd" id="5_fhrvi"]
 [ext_resource type="Texture2D" uid="uid://bfywa2x4xexhu" path="res://sprites/locations/swamp.png" id="5_oguup"]
 [ext_resource type="Texture2D" uid="uid://b6qwsxine1bff" path="res://sprites/locations/spring.png" id="6_ytntd"]
 [ext_resource type="Texture2D" uid="uid://c0p6ydeefeipp" path="res://sprites/locations/hill.png" id="7_vs6rm"]
@@ -42,31 +43,37 @@ script = ExtResource("3_yc610")
 position = Vector2(385.125, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_ni66g")
+script = ExtResource("5_fhrvi")
 
 [node name="Jungle" type="Sprite2D" parent="locations"]
 position = Vector2(610.125, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_q5ewn")
+script = ExtResource("5_fhrvi")
 
 [node name="Swamp" type="Sprite2D" parent="locations"]
 position = Vector2(835.125, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_oguup")
+script = ExtResource("5_fhrvi")
 
 [node name="Spring" type="Sprite2D" parent="locations"]
 position = Vector2(1060.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_ytntd")
+script = ExtResource("5_fhrvi")
 
 [node name="Hill" type="Sprite2D" parent="locations"]
 position = Vector2(1285.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("7_vs6rm")
+script = ExtResource("5_fhrvi")
 
 [node name="Cave" type="Sprite2D" parent="locations"]
 position = Vector2(1510.13, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("8_0o7vf")
+script = ExtResource("5_fhrvi")
 
 [node name="characters" type="Node2D" parent="."]
 script = ExtResource("10_i1y1d")

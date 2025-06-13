@@ -86,6 +86,10 @@ func swamp_food_lose():
 		var current_character = $players.get_node(current_character_name)
 		if (current_character.food_amount != 0):
 			current_character.food_amount -= 1
+@rpc("any_peer","call_local")
+func fate_update():
+	for character in $players.get_children():
+		character.location_fate=$locations.get_node(character.current_location).fate_token_amount
 
 @rpc ("any_peer")
 func show_actions_as_host():
