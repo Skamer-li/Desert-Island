@@ -45,11 +45,29 @@ func place_fate(number, full_name):
 				$"../../fate_cards/FateCard6".show()
 		_:
 			pass
-
+@rpc("any_peer")
+func give_fate(character):
+	match(character):
+		"c":
+			$"../../players".get_node("Cherpack").fate_amount+=1
+		"cap":
+			$"../../players".get_node("The Captain").fate_amount+=1
+		"fm":
+			$"../../players".get_node("First Mate").fate_amount+=1
+		"k":
+			$"../../players".get_node("The Kid").fate_amount+=1
+		"m":
+			$"../../players".get_node("Milady").fate_amount+=1
+		"s":
+			$"../../players".get_node("Snob").fate_amount+=1
 
 @rpc("any_peer")
 func _on_button_pressed() -> void:
 	place_fate.rpc($fate/BaseFateCard.number, $fate/BaseFateCard.card_fullname)
+	if multiplayer.is_server():
+		give_fate($fate/BaseFateCard.card_target)
+	else:
+		give_fate.rpc_id(1,$fate/BaseFateCard.card_target)
 	card_to_the_back.rpc_id(1, 0)
 	self.hide()
 	fate_dealing_finished.emit()
@@ -57,6 +75,10 @@ func _on_button_pressed() -> void:
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
 	place_fate.rpc($fate/BaseFateCard2.number, $fate/BaseFateCard2.card_fullname)
+	if multiplayer.is_server():
+		give_fate($fate/BaseFateCard2.card_target)
+	else:
+		give_fate.rpc_id(1,$fate/BaseFateCard2.card_target)
 	card_to_the_back.rpc_id(1, 1)
 	self.hide()
 	fate_dealing_finished.emit()
