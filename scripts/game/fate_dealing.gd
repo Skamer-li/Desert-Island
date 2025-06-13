@@ -46,21 +46,21 @@ func place_fate(number, full_name):
 		_:
 			pass
 			
-@rpc("any_peer")
+@rpc("any_peer","call_local")
 func give_fate(character):
 	match(character):
 		"c":
-			$"../../players".get_node("Cherpack").fate_amount+=1
+			$"../../players".get_node("Cherpack").char_fate+=1
 		"cap":
-			$"../../players".get_node("The Captain").fate_amount+=1
+			$"../../players".get_node("The Captain").char_fate+=1
 		"fm":
-			$"../../players".get_node("First Mate").fate_amount+=1
+			$"../../players".get_node("First Mate").char_fate+=1
 		"k":
-			$"../../players".get_node("The Kid").fate_amount+=1
+			$"../../players".get_node("The Kid").char_fate+=1
 		"m":
-			$"../../players".get_node("Milady").fate_amount+=1
+			$"../../players".get_node("Milady").char_fate+=1
 		"s":
-			$"../../players".get_node("Snob").fate_amount+=1
+			$"../../players".get_node("Snob").char_fate+=1
 		_:
 			pass	
 @rpc("any_peer","call_local")
@@ -82,26 +82,29 @@ func add_token_location(location):
 			pass
 @rpc("any_peer")
 func _on_button_pressed() -> void:
+	$"../..".fate_card_value=$fate/BaseFateCard.number
 	place_fate.rpc($fate/BaseFateCard.number, $fate/BaseFateCard.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard.number)
+	give_fate.rpc($fate/BaseFateCard.card_target)
 	if multiplayer.is_server():
-		give_fate($fate/BaseFateCard.card_target)
+		card_to_the_back(0)
 	else:
-		give_fate.rpc_id(1,$fate/BaseFateCard.card_target)
-	card_to_the_back.rpc_id(1, 0)
+		card_to_the_back.rpc_id(1, 0)
 	$"../..".fate_update.rpc()
 	self.hide()
 	fate_dealing_finished.emit()
 
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
+	$"../..".fate_card_value=$fate/BaseFateCard2.number
 	place_fate.rpc($fate/BaseFateCard2.number, $fate/BaseFateCard2.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard2.number)
+	give_fate.rpc($fate/BaseFateCard2.card_target)
 	if multiplayer.is_server():
-		give_fate($fate/BaseFateCard2.card_target)
+		card_to_the_back(1)
 	else:
-		give_fate.rpc_id(1,$fate/BaseFateCard2.card_target)
-	card_to_the_back.rpc_id(1, 1)
+		card_to_the_back.rpc_id(1, 1)
+	
 	$"../..".fate_update.rpc()
 	self.hide()
 	fate_dealing_finished.emit()

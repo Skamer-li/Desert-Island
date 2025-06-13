@@ -90,7 +90,7 @@ func swamp_food_lose():
 func fate_update():
 	for character in $players.get_children():
 		character.location_fate=$locations.get_node(character.current_location).fate_token_amount
-
+		character.char_fate=character.char_fate
 @rpc ("any_peer")
 func show_actions_as_host():
 	basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
@@ -106,6 +106,11 @@ func cards_dealed_info() -> void:
 @rpc ("any_peer")
 func fate_dealed_info() -> void:
 	fate_dealed +=1 
+
+@rpc("any_peer","call_local")
+func fate_resolve():
+	pass
+	
 	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
