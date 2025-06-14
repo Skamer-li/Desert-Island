@@ -11,7 +11,9 @@ var current_player_id = 0
 var current_character_name = "Name"
 var cards_dealed = false
 var fate_dealed = 0
+var fate_resolved = 0
 var game_end = false
+
 
 @rpc ("any_peer")
 func game_loop():
@@ -21,6 +23,7 @@ func game_loop():
 		match(current_turn):
 			1:
 				current_location = "Beach"
+				fate_resolved=0
 			2:
 				current_location = "Jungle"
 			3:
@@ -32,6 +35,7 @@ func game_loop():
 			6:
 				current_location = "Cave"
 			_:
+				if fate_resolved==0: fate_resolve.rpc()
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0
@@ -109,9 +113,59 @@ func fate_dealed_info() -> void:
 
 @rpc("any_peer","call_local")
 func fate_resolve():
-	pass
-	
-	
+	var fate_tokens=[]
+	var targets=[]
+	for player in $players.get_children():
+		fate_tokens.append(player.fate_amount)
+	print(fate_tokens)
+	for player in $players.get_children():
+		if (player.fate_amount>= fate_tokens.max()):
+			targets.append(player.character_name)
+	print(targets)
+	for target in targets:
+		print(target)
+		for fate_card in $fate_cards.get_children():
+			print(fate_card)
+			match (fate_card.card_target):
+				"c":
+					if(target == "Cherpack"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma1")
+					else:
+						pass
+				"cap":
+					if(target == "The Captain"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma2")
+					else:
+						pass
+				"fm":
+					if(target == "First Mate"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma3")
+					else:
+						pass
+				"k":
+					if(target == "The Kid"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma4")
+					else:
+						pass
+				"m":
+					if(target == "Milady"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma5")
+					else:
+						pass
+				"s":
+					if(target == "Snob"):
+						fate_card.get_node("effect").fate_activated()
+						print("Sigma6")
+					else:
+						pass
+				_:
+					pass
+	fate_resolved=1
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 
