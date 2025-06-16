@@ -2,7 +2,7 @@ extends Node
 
 func fate_activated():
 	var target = get_parent().card_target
-	var players = 0
+	print(get_parent().card_fullname)
 	match(target):
 		"c":
 			$"../../../players".get_node("Cherpack").wound_amount+=1

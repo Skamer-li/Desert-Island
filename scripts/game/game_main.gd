@@ -156,6 +156,14 @@ func fate_resolve():
 						pass
 				_:
 					pass
+	for fate_card in $fate_cards.get_children():
+		GameManager.fate_deck.append(fate_card.card_fullname)
+		fate_card.queue_free()
+	for player in $players.get_children():
+		player.char_fate = 0
+	for location in $locations.get_children():
+		location.fate_token_amount = 0
+	fate_update.rpc()
 	fate_resolved=1
 	
 func _on_shuffle_players_are_ready() -> void:
