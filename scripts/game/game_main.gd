@@ -117,55 +117,47 @@ func fate_resolve():
 	var targets=[]
 	for player in $players.get_children():
 		fate_tokens.append(player.fate_amount)
-	print(fate_tokens)
 	for player in $players.get_children():
 		if (player.fate_amount>= fate_tokens.max()):
 			targets.append(player.character_name)
 	print(targets)
 	for target in targets:
-		print(target)
 		for fate_card in $fate_cards.get_children():
-			print(fate_card)
 			match (fate_card.card_target):
 				"c":
 					if(target == "Cherpack"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma1")
 					else:
 						pass
 				"cap":
 					if(target == "The Captain"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma2")
 					else:
 						pass
 				"fm":
 					if(target == "First Mate"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma3")
 					else:
 						pass
 				"k":
 					if(target == "The Kid"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma4")
 					else:
 						pass
 				"m":
 					if(target == "Milady"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma5")
 					else:
 						pass
 				"s":
 					if(target == "Snob"):
 						fate_card.get_node("effect").fate_activated()
-						print("Sigma6")
 					else:
 						pass
 				_:
 					pass
 	fate_resolved=1
+	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 

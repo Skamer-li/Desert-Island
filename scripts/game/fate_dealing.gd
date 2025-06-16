@@ -36,8 +36,6 @@ func place_fate(number, full_name):
 			location = "Cave"
 		_:
 			pass
-			
-	print($"../../locations".get_node("Beach").position)
 	var location_position = $"../../locations".get_node(location).position
 	for player in $"../../players".get_children():
 		players += 1
@@ -48,15 +46,11 @@ func place_fate(number, full_name):
 	if $"../../fate_cards".get_node(location+"_fate")!=null:
 		var card_on_same_loc =2
 		for fate_card in $"../../fate_cards".get_children():
-			print(card_on_same_loc)
-			print($"../../fate_cards".get_children())
 			if fate_card.name == (location+"_fate"+str(card_on_same_loc)):
 				card_on_same_loc+=1
-				print(card_on_same_loc)
 		$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150+(50*(card_on_same_loc-1))
 	$"../../fate_cards".get_node("BaseFateCard").name = location+"_fate"
-	#$"../../players".get_node(char_name).get_node("inventory").add_child(scene)
-	#$"../../players".get_node(char_name).get_node("inventory").get_node("base_card").set_properties(item_props, char_name)
+	
 
 @rpc("any_peer","call_local")
 func give_fate(character):
@@ -73,11 +67,9 @@ func give_fate(character):
 		"k":
 			if (players>=6):
 				$"../../players".get_node("The Kid").char_fate+=1
-				print("kid")
 		"m":
 			if (players>=5):
 				$"../../players".get_node("Milady").char_fate+=1
-				print("ballz")
 		"s":
 			$"../../players".get_node("Snob").char_fate+=1
 		_:
