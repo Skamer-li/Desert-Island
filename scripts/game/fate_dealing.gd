@@ -16,29 +16,13 @@ func drawing_fate_cards(fate_deck):
 	self.show()
 	
 @rpc("any_peer", "call_local")
-func place_fate(number, full_name):
-	var players = 0
+func place_fate(id, full_name):
 	var card_scene = preload("res://scenes/fate/base_fate_card.tscn")
 	var scene = card_scene.instantiate()
-	var location = number
-	match (number):
-		1:
-			location = "Beach"
-		2:
-			location = "Jungle"
-		3:
-			location = "Swamp"
-		4:
-			location = "Spring"
-		5:
-			location = "Hill"
-		6:
-			location = "Cave"
-		_:
-			pass
-	var location_position = $"../../locations".get_node(location).position
+	var location = "Beach"
 	for player in $"../../players".get_children():
-		players += 1
+		if player.player_id==id:location=player.current_location;
+	var location_position = $"../../locations".get_node(location).position
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
 	$"../../fate_cards".get_node("BaseFateCard").position.x = location_position.x
@@ -94,7 +78,7 @@ func add_token_location(location):
 @rpc("any_peer")
 func _on_button_pressed() -> void:
 	$"../..".fate_card_value=$fate/BaseFateCard.number
-	place_fate.rpc($fate/BaseFateCard.number, $fate/BaseFateCard.card_fullname)
+	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard.number)
 	give_fate.rpc($fate/BaseFateCard.card_target)
 	if multiplayer.is_server():
@@ -108,7 +92,7 @@ func _on_button_pressed() -> void:
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
 	$"../..".fate_card_value=$fate/BaseFateCard2.number
-	place_fate.rpc($fate/BaseFateCard2.number, $fate/BaseFateCard2.card_fullname)
+	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard2.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard2.number)
 	give_fate.rpc($fate/BaseFateCard2.card_target)
 	if multiplayer.is_server():
