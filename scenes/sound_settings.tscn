@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bll14oixl65o8"]
+[gd_scene load_steps=5 format=3 uid="uid://b5hqthy4snm8i"]
 
 [ext_resource type="Script" path="res://scripts/sound_settings.gd" id="1_ehd5b"]
 [ext_resource type="Texture2D" uid="uid://bxt7l038i7llw" path="res://sprites/audio_unmuted.png" id="2_n31wl"]
@@ -68,7 +68,7 @@ text = "Master Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="master_volume_slider" type="HSlider" parent="Panel/master_volume"]
+[node name="volume_slider" type="HSlider" parent="Panel/master_volume"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,7 +81,7 @@ value = 100.0
 tick_count = 4
 ticks_on_borders = true
 
-[node name="master_mute_button" type="TextureButton" parent="Panel/master_volume/master_volume_slider"]
+[node name="mute_button" type="TextureButton" parent="Panel/master_volume/volume_slider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,7 +114,7 @@ text = "Menus Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="menus_volume_slider" type="HSlider" parent="Panel/menus_volume"]
+[node name="volume_slider" type="HSlider" parent="Panel/menus_volume"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,7 +127,7 @@ value = 100.0
 tick_count = 4
 ticks_on_borders = true
 
-[node name="menus_mute_button" type="TextureButton" parent="Panel/menus_volume/menus_volume_slider"]
+[node name="mute_button" type="TextureButton" parent="Panel/menus_volume/volume_slider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -160,7 +160,7 @@ text = "Music Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="music_volume_slider" type="HSlider" parent="Panel/music_volume"]
+[node name="volume_slider" type="HSlider" parent="Panel/music_volume"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,7 +173,7 @@ value = 100.0
 tick_count = 4
 ticks_on_borders = true
 
-[node name="music_mute_button" type="TextureButton" parent="Panel/music_volume/music_volume_slider"]
+[node name="mute_button" type="TextureButton" parent="Panel/music_volume/volume_slider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -206,7 +206,7 @@ text = "Effects Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="effects_volume_slider" type="HSlider" parent="Panel/effects_volume"]
+[node name="volume_slider" type="HSlider" parent="Panel/effects_volume"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -219,7 +219,7 @@ value = 100.0
 tick_count = 4
 ticks_on_borders = true
 
-[node name="effects_mute_button" type="TextureButton" parent="Panel/effects_volume/effects_volume_slider"]
+[node name="mute_button" type="TextureButton" parent="Panel/effects_volume/volume_slider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -238,8 +238,19 @@ stretch_mode = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_umyfl")
+bus = &"Menu"
 playback_type = 1
 
 [connection signal="pressed" from="Panel/back_button" to="." method="_on_back_button_pressed"]
-[connection signal="value_changed" from="Panel/master_volume/master_volume_slider" to="." method="_on_master_volume_slider_value_changed"]
-[connection signal="toggled" from="Panel/master_volume/master_volume_slider/master_mute_button" to="." method="_on_master_mute_button_toggled"]
+[connection signal="value_changed" from="Panel/master_volume/volume_slider" to="." method="_on_master_slider_value_changed"]
+[connection signal="button_down" from="Panel/master_volume/volume_slider/mute_button" to="." method="_on_mute_button_button_down"]
+[connection signal="toggled" from="Panel/master_volume/volume_slider/mute_button" to="." method="_on_master_button_toggled"]
+[connection signal="value_changed" from="Panel/menus_volume/volume_slider" to="." method="_on_menus_slider_value_changed"]
+[connection signal="button_down" from="Panel/menus_volume/volume_slider/mute_button" to="." method="_on_mute_button_button_down"]
+[connection signal="toggled" from="Panel/menus_volume/volume_slider/mute_button" to="." method="_on_menus_button_toggled"]
+[connection signal="value_changed" from="Panel/music_volume/volume_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="button_down" from="Panel/music_volume/volume_slider/mute_button" to="." method="_on_mute_button_button_down"]
+[connection signal="toggled" from="Panel/music_volume/volume_slider/mute_button" to="." method="_on_music_button_toggled"]
+[connection signal="value_changed" from="Panel/effects_volume/volume_slider" to="." method="_on_effects_slider_value_changed"]
+[connection signal="button_down" from="Panel/effects_volume/volume_slider/mute_button" to="." method="_on_mute_button_button_down"]
+[connection signal="toggled" from="Panel/effects_volume/volume_slider/mute_button" to="." method="_on_effects_button_toggled"]

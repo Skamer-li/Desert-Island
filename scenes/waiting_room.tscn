@@ -119,6 +119,7 @@ position = Vector2(960, 800)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_jkueo")
+bus = &"Menu"
 playback_type = 1
 
 [connection signal="pressed" from="Panel/start_button" to="." method="_on_start_button_pressed"]
