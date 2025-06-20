@@ -11,7 +11,9 @@ var current_player_id = 0
 var current_character_name = "Name"
 var cards_dealed = false
 var fate_dealed = 0
+var fate_resolved = 0
 var game_end = false
+
 
 @rpc ("any_peer")
 func game_loop():
@@ -21,6 +23,7 @@ func game_loop():
 		match(current_turn):
 			1:
 				current_location = "Beach"
+				fate_resolved=0
 			2:
 				current_location = "Jungle"
 			3:
@@ -32,6 +35,7 @@ func game_loop():
 			6:
 				current_location = "Cave"
 			_:
+				if fate_resolved==0&&multiplayer.is_server(): fate_resolve();deleting_fate.rpc()
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0
@@ -86,7 +90,11 @@ func swamp_food_lose():
 		var current_character = $players.get_node(current_character_name)
 		if (current_character.food_amount != 0):
 			current_character.food_amount -= 1
-
+@rpc("any_peer","call_local")
+func fate_update():
+	for character in $players.get_children():
+		character.location_fate=$locations.get_node(character.current_location).fate_token_amount
+		character.fate_amount=0
 @rpc ("any_peer")
 func show_actions_as_host():
 	basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
@@ -102,7 +110,35 @@ func cards_dealed_info() -> void:
 @rpc ("any_peer")
 func fate_dealed_info() -> void:
 	fate_dealed +=1 
-	
+
+func fate_resolve():
+	var fate_tokens=[]
+	var targets=[]
+	for player in $players.get_children():
+		fate_tokens.append(player.fate_amount)
+	for player in $players.get_children():
+		if (player.fate_amount>= fate_tokens.max()):
+			targets.append(player.character_name)
+	var fate = []
+	var fate_count=[]
+	for fate_card in $fate_cards.get_children():
+		fate.append(fate_card.card_name)
+	for fate_card in $fate_cards.get_children():
+		fate_count.append(fate.count(fate_card.card_name))
+	for target in targets:
+		$fate_cards.get_child(fate_count.find(fate_count.max())).get_node("effect").fate_activated(target)
+	fate_resolved=1
+@rpc("any_peer","call_local")
+func deleting_fate():
+	for fate_card in $fate_cards.get_children():
+		GameManager.fate_deck.append(fate_card.card_fullname)
+		fate_card.queue_free()
+	for player in $players.get_children():
+		player.char_fate = 0
+	for location in $locations.get_children():
+		location.fate_token_amount = 0
+	fate_update.rpc()
+
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 

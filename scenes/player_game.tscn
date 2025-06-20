@@ -61,6 +61,12 @@ properties/15/replication_mode = 1
 properties/16/path = NodePath(".:signal_fire_build")
 properties/16/spawn = true
 properties/16/replication_mode = 1
+properties/17/path = NodePath(".:char_fate")
+properties/17/spawn = true
+properties/17/replication_mode = 1
+properties/18/path = NodePath(".:location_fate")
+properties/18/spawn = true
+properties/18/replication_mode = 1
 
 [node name="player_game" type="Node2D"]
 script = ExtResource("1_bnbqo")

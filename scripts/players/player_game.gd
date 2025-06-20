@@ -41,6 +41,9 @@ extends Node2D
 
 @export var is_dead = false
 
+@export var char_fate = 0
+@export var location_fate = 0
+
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
 		self.hide()
@@ -50,7 +53,7 @@ func _set_food(value: int) -> void:
 	$food/food_amount.text = str(food_amount)
 	
 func _set_fate(value: int) -> void:
-	fate_amount = value
+	fate_amount = char_fate + location_fate
 	$fate/fate_amount.text = str(fate_amount)
 
 func _set_wound(value: int) -> void:
