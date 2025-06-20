@@ -31,9 +31,13 @@ func start_game() -> void:
 	self.hide()
 
 func _on_start_button_pressed() -> void:
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	start_game.rpc()
 
 func _on_ok_button_pressed() -> void:
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
 	
 @rpc

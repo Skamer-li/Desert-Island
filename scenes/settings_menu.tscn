@@ -94,15 +94,30 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 65
 
+[node name="sound" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 825.0
+offset_right = -940.0
+offset_bottom = -105.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 65
+text = "Sounds"
+
 [node name="back_button" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(500, 150)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 710.0
+offset_left = 1010.0
 offset_top = 825.0
-offset_right = -710.0
+offset_right = -410.0
 offset_bottom = -105.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -115,4 +130,5 @@ playback_type = 1
 
 [connection signal="item_selected" from="Panel/resolutions_option_button" to="." method="_on_resolutions_option_button_item_selected"]
 [connection signal="item_selected" from="Panel/window_mode_option_button" to="." method="_on_window_mode_option_button_item_selected"]
+[connection signal="pressed" from="Panel/sound" to="." method="_on_sound_pressed"]
 [connection signal="pressed" from="Panel/back_button" to="." method="_on_back_button_pressed"]

@@ -38,6 +38,7 @@ func _on_exit_button_pressed() -> void:
 
 func _on_ok_button_pressed() -> void:
 	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	if (username.text != ""):
 		MultiplayerManager.user_name = username.text
 		if (current_status == "Host"):

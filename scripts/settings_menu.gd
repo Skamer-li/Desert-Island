@@ -71,3 +71,9 @@ func _on_back_button_pressed() -> void:
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+
+
+func _on_sound_pressed() -> void:
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
+	get_tree().change_scene_to_file("res://scenes/sound_settings.tscn")
