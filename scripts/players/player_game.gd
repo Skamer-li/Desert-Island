@@ -141,3 +141,5 @@ func _on_button_pressed() -> void:
 func deal_damage():
 	var characters = self.get_parent()
 	characters.get_node("Snob").wound_amount += 1
+
+	

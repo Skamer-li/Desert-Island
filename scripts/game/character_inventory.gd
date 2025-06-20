@@ -9,6 +9,8 @@ const MAX_CARDS: int = 5
 
 var gap: int = 285
 
+var checkbox_visible = false
+
 func update_positions() -> void:
 	var cards_count = 0
 	var start_pos = -MAX_RANGE - 1
@@ -31,8 +33,19 @@ func update_positions() -> void:
 func add_card(card_name: String) -> void:
 	var new_card = card_scene.instantiate()
 	new_card.change_texture(card_name)
+	new_card.card_name = card_name
+	
+	if (checkbox_visible):
+		new_card.make_selecteble()
+	
 	spawn_point.add_child(new_card)
 	update_positions()
 
 func _on_close_button_pressed() -> void:
-	self.queue_free()
+	if (!checkbox_visible):
+		self.queue_free()
+	else:
+		self.hide()
+	
+func make_checkbox_visible() -> void:
+	checkbox_visible = true

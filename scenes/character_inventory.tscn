@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="3_xk3af"]
 
 [node name="character_inventory" type="Node2D"]
-z_index = 1
+z_index = 2
 script = ExtResource("1_op8jc")
 
 [node name="background" type="Sprite2D" parent="."]
