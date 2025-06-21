@@ -69,9 +69,10 @@ func send_card_to_character(item_name: String, character_name: String) -> void:
 func give_card(item_props: Dictionary, char_name: String):
 	var card_scene = preload("res://scenes/items/base_card.tscn")
 	var scene = card_scene.instantiate()
-	$"../../players".get_node(char_name).get_node("inventory").add_child(scene)
-	$"../../players".get_node(char_name).get_node("inventory").get_node("base_card").set_properties(item_props, char_name)
-		
+	$"../../players".get_node(char_name).get_node("Hand").add_card(scene)
+	$"../../players".get_node(char_name).get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
+	#print($"../../players".get_node(char_name).get_node("Hand").get_children())
+	
 func _on_card_1_pressed() -> void:
 	if multiplayer.is_server():
 		send_card_to_character(items[0], character_names[player_count])
