@@ -13,7 +13,7 @@ var cards_dealed = false
 var fate_dealed = 0
 var fate_resolved = 0
 var game_end = false
-
+var fire_radius=87.5/2
 
 @rpc ("any_peer")
 func game_loop():
@@ -24,6 +24,7 @@ func game_loop():
 			1:
 				current_location = "Beach"
 				fate_resolved=0
+				$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc(signal_fire+1,fire_radius)
 			2:
 				current_location = "Jungle"
 			3:
@@ -94,6 +95,7 @@ func swamp_food_lose():
 func fate_update():
 	for character in $players.get_children():
 		character.location_fate=$locations.get_node(character.current_location).fate_token_amount
+		$locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
 		character.fate_amount=0
 @rpc ("any_peer")
 func show_actions_as_host():
@@ -152,6 +154,7 @@ func _on_cards_dealing_cards_dealing_finished() -> void:
 
 func _on_basic_actions_action_finished() -> void:
 	swamp_food_lose()
+	$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc((signal_fire+1),fire_radius)
 	print(signal_fire)
 	game_loop()
 

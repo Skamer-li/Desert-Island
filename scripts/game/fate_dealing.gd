@@ -28,7 +28,7 @@ func place_fate(id, full_name):
 	$"../../fate_cards".get_node("BaseFateCard").position.x = location_position.x
 	$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150
 	if $"../../fate_cards".get_node(location+"_fate")!=null:
-		var card_on_same_loc =2
+		var card_on_same_loc=2
 		for fate_card in $"../../fate_cards".get_children():
 			if fate_card.name == (location+"_fate"+str(card_on_same_loc)):
 				card_on_same_loc+=1
