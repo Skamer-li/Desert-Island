@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bb3kelf7vivap"]
+[gd_scene load_steps=12 format=3 uid="uid://bb3kelf7vivap"]
 
 [ext_resource type="Script" path="res://scripts/players/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cy58e1yghljjk" path="res://sprites/tokens/wound_token.png" id="5_807fd"]
 [ext_resource type="Texture2D" uid="uid://dxjkw0kbi47nd" path="res://sprites/friends/first_mate_f.png" id="7_01cnj"]
 [ext_resource type="Texture2D" uid="uid://nq3ix5yr7gm3" path="res://sprites/enemies/the_captain_e.png" id="8_3w0d3"]
+[ext_resource type="Script" path="res://scripts/players/hand.gd" id="9_lut8w"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqsqn"]
 properties/0/path = NodePath(".:player_id")
@@ -67,6 +68,9 @@ properties/17/replication_mode = 1
 properties/18/path = NodePath(".:location_fate")
 properties/18/spawn = true
 properties/18/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqxsd"]
+radius = 1060.04
 
 [node name="player_game" type="Node2D"]
 script = ExtResource("1_bnbqo")
@@ -151,5 +155,15 @@ texture = ExtResource("7_01cnj")
 position = Vector2(1722, 833)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_3w0d3")
+
+[node name="Hand" type="Area2D" parent="."]
+position = Vector2(980, 2000)
+rotation = -0.179769
+script = ExtResource("9_lut8w")
+hand_radius = 1100
+
+[node name="DebugShape" type="CollisionShape2D" parent="Hand"]
+rotation = 0.174533
+shape = SubResource("CircleShape2D_eqxsd")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
