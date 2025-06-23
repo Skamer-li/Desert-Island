@@ -19,3 +19,23 @@ script = ExtResource("1_42cp0")
 material = SubResource("ShaderMaterial_4xawu")
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_mop82")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+visible = false
+offset_left = -122.0
+offset_top = 129.0
+offset_right = -98.0
+offset_bottom = 153.0
+scale = Vector2(2, 2)
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -133.0
+offset_top = -186.0
+offset_right = 131.0
+offset_bottom = 186.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

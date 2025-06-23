@@ -11,11 +11,11 @@ var const_locations = ["Beach", "Jungle", "Swamp", "Spring", "Hill", "Cave"]
 var friends = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid"]
 var enemies = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid"]
 var items = ["bananas", "coconut", "crabs", "roasted_iguana", "sprats", "candelabrum", 
-			 "chamber_pot", "cup", "doubloons", "medicine", "boarding_saber", "blunderbass",
+			 "chamber_pot", "cup", "doubloons", "medicine", "boarding_saber", "blunderbuss",
 			 "fishing_rod", "garden", "shovel", "spear", "tent", "trap", "monocle", "spotting_scope"]
 var items_database = [
 	{"name": "bananas", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 4, "damage": 0, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": false},
-	{"name": "blunderbass", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 10, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": true},
+	{"name": "blunderbuss", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 10, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": true},
 	{"name": "boarding_saber", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 4, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": true},
 	{"name": "candelabrum", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 0, "value": 6, "heal": 0, "build_amplification": 0, "can_be_activated": false},
 	{"name": "chamber_pot", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 0, "value": 5, "heal": 0, "build_amplification": 0, "can_be_activated": false},

@@ -75,6 +75,7 @@ func add_token_location(location):
 			$"../../locations/Cave".fate_token_amount+=1
 		_:
 			pass
+
 @rpc("any_peer")
 func _on_button_pressed() -> void:
 	$"../..".fate_card_value=$fate/BaseFateCard.number
@@ -86,11 +87,13 @@ func _on_button_pressed() -> void:
 	else:
 		card_to_the_back.rpc_id(1, 0)
 	$"../..".fate_update.rpc()
+
 	self.hide()
 	fate_dealing_finished.emit()
 
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
+
 	$"../..".fate_card_value=$fate/BaseFateCard2.number
 	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard2.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard2.number)
@@ -101,5 +104,6 @@ func _on_button_2_pressed() -> void:
 		card_to_the_back.rpc_id(1, 1)
 	
 	$"../..".fate_update.rpc()
+
 	self.hide()
 	fate_dealing_finished.emit()
