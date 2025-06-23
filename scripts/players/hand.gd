@@ -34,6 +34,15 @@ func get_card_position(angle_in_deg: float) -> Vector2:
 func update_card_transform(card: Node2D, angle_in_deg: float):
 	card.set_position(get_card_position(angle_in_deg))
 	card.set_rotation(deg_to_rad(angle_in_deg + 90))
+	
+func delete_card_from_array(card_name):
+	var item 
+	for card in cards:
+		if (card.name == card_name):
+			item = card
+			break
+	
+	cards.erase(item)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
