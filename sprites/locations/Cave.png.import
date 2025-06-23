@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0p6ydeefeipp"
-path="res://.godot/imported/hill.png-d288c92ed999d8e2b0c20e1a5765b370.ctex"
+uid="uid://b5qih2iyi0pgs"
+path="res://.godot/imported/Cave.png-e1ffc9138bc9724dac412467079c90b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/hill.png"
-dest_files=["res://.godot/imported/hill.png-d288c92ed999d8e2b0c20e1a5765b370.ctex"]
+source_file="res://sprites/locations/Cave.png"
+dest_files=["res://.godot/imported/Cave.png-e1ffc9138bc9724dac412467079c90b2.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmvenjaj6410o"
-path="res://.godot/imported/jungle.png-d62a3b534c17d62ae397e73aa33fe791.ctex"
+uid="uid://cmtwvusbtdtnc"
+path="res://.godot/imported/Hill_closed.png-4bfb70144c847fe66dab6920afa09a83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/jungle.png"
-dest_files=["res://.godot/imported/jungle.png-d62a3b534c17d62ae397e73aa33fe791.ctex"]
+source_file="res://sprites/locations/Hill_closed.png"
+dest_files=["res://.godot/imported/Hill_closed.png-4bfb70144c847fe66dab6920afa09a83.ctex"]
 
 [params]
 

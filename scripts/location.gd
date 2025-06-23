@@ -2,15 +2,17 @@ extends Node
 @export var fate_token_amount = 0
 
 
+func set_sprite():
+	print(self.name+".png")
+	self.texture=load("res://sprites/locations/"+self.name+".png")
+
 @rpc("any_peer","call_local")
 #input amount of fate tokens, and radius of a circle
 func fate_token_placing(fate_token_amount, circle_radius,z_index):
 	var token_scene = preload("res://scenes/fate/fate_token.tscn")
 	for fate_token in self.get_children():
-		print("bl")
 		fate_token.queue_free()
 	for i in range(fate_token_amount):
-		print("il",i)
 		var token = token_scene.instantiate()
 		add_child(token)
 		get_node("FateToken").scale=Vector2(0.5,0.5)
@@ -20,11 +22,9 @@ func fate_token_placing(fate_token_amount, circle_radius,z_index):
 		var count =0
 		for token in get_children():
 			var base_angle=(2*PI)/fate_token_amount
-			print("pos_bef",token.position)
 			token.position=placment_vector.rotated(base_angle*count)
 			token.z_index=2
 			count+=1
-			print("after",token.position)
 	elif fate_token_amount==1:
 		for token in get_children():
 			token.position=Vector2(0,0)

@@ -6,10 +6,8 @@ extends Node2D
 func fate_token_placing(fate_token_amount, circle_radius):
 	var token_scene = preload("res://scenes/fate/fate_token.tscn")
 	for fate_token in self.get_children():
-		print("b")
 		fate_token.queue_free()
 	for i in range(fate_token_amount):
-		print("i",i)
 		var token = token_scene.instantiate()
 		add_child(token)
 		get_node("FateToken").name="fate_token_"+str(i)
@@ -18,10 +16,8 @@ func fate_token_placing(fate_token_amount, circle_radius):
 		var count =0
 		for token in get_children():
 			var base_angle=(2*PI)/fate_token_amount
-			print("pos_bef",token.position)
 			token.position=placment_vector.rotated(base_angle*count)
 			count+=1
-			print("after",token.position)
 	elif fate_token_amount==1:
 		for token in get_children():
 			token.position=Vector2(0,0)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ms58rlh003h"]
+
+[ext_resource type="Texture2D" uid="uid://b3bwexfybaq56" path="res://sprites/locations/Beach.png" id="1_n5mm1"]
+[ext_resource type="Script" path="res://scripts/location.gd" id="2_ckr43"]
+
+[node name="location" type="Sprite2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_n5mm1")
+script = ExtResource("2_ckr43")

@@ -49,6 +49,7 @@ func refresh_positions():
 	var y_scale = 300
 	for character in self.get_children():
 		var char_name = str(character.name)
+		await $"../locations".get_child_count()==self.get_child_count()
 		var location_position = $"../locations".get_node(player_spawn_node.get_node(char_name).current_location).position
 		character.position.x = location_position.x
 		character.position.y = location_position.y - y_scale

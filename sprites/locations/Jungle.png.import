@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr8r5exqcpqve"
-path="res://.godot/imported/cave.png-594c8a990b5c250be49559fe9628a2b5.ctex"
+uid="uid://diq02qlv7kylx"
+path="res://.godot/imported/Jungle.png-d093eaa135798ff75a81c2d052920d85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/cave.png"
-dest_files=["res://.godot/imported/cave.png-594c8a990b5c250be49559fe9628a2b5.ctex"]
+source_file="res://sprites/locations/Jungle.png"
+dest_files=["res://.godot/imported/Jungle.png-d093eaa135798ff75a81c2d052920d85.ctex"]
 
 [params]
 

@@ -1,15 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=19 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
-[ext_resource type="Texture2D" uid="uid://bxi4suqbjdpv5" path="res://sprites/locations/beach.png" id="3_ni66g"]
 [ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
-[ext_resource type="Texture2D" uid="uid://bmvenjaj6410o" path="res://sprites/locations/jungle.png" id="4_q5ewn"]
-[ext_resource type="Script" path="res://scripts/location.gd" id="5_fhrvi"]
-[ext_resource type="Texture2D" uid="uid://bfywa2x4xexhu" path="res://sprites/locations/swamp.png" id="5_oguup"]
-[ext_resource type="Texture2D" uid="uid://b6qwsxine1bff" path="res://sprites/locations/spring.png" id="6_ytntd"]
-[ext_resource type="Texture2D" uid="uid://c0p6ydeefeipp" path="res://sprites/locations/hill.png" id="7_vs6rm"]
-[ext_resource type="Texture2D" uid="uid://cr8r5exqcpqve" path="res://sprites/locations/cave.png" id="8_0o7vf"]
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
@@ -47,11 +40,13 @@ func _on_forage_button_pressed() -> void:
 	disable_buttons(true)
 
 func _on_sfire_button_pressed() -> void:
+	var amount= character.signal_fire_build
+	if (character.current_location == \"Hill\"):
+		amount += 1
 	if multiplayer.is_server():
-		build_signal_fire(character.signal_fire_build)
+		build_signal_fire(amount)
 	else:
-		build_signal_fire.rpc_id(1, character.signal_fire_build)
-		
+		build_signal_fire.rpc_id(1, amount)
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:
@@ -118,42 +113,6 @@ spawn_limit = 6
 
 [node name="locations" type="Node2D" parent="."]
 script = ExtResource("3_yc610")
-
-[node name="Beach" type="Sprite2D" parent="locations"]
-position = Vector2(385.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3_ni66g")
-script = ExtResource("5_fhrvi")
-
-[node name="Jungle" type="Sprite2D" parent="locations"]
-position = Vector2(610.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_q5ewn")
-script = ExtResource("5_fhrvi")
-
-[node name="Swamp" type="Sprite2D" parent="locations"]
-position = Vector2(835.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_oguup")
-script = ExtResource("5_fhrvi")
-
-[node name="Spring" type="Sprite2D" parent="locations"]
-position = Vector2(1060.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("6_ytntd")
-script = ExtResource("5_fhrvi")
-
-[node name="Hill" type="Sprite2D" parent="locations"]
-position = Vector2(1285.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("7_vs6rm")
-script = ExtResource("5_fhrvi")
-
-[node name="Cave" type="Sprite2D" parent="locations"]
-position = Vector2(1510.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("8_0o7vf")
-script = ExtResource("5_fhrvi")
 
 [node name="characters" type="Node2D" parent="."]
 script = ExtResource("10_i1y1d")
@@ -358,12 +317,12 @@ vertical_alignment = 1
 script = ExtResource("17_2htaf")
 
 [node name="Items" type="Sprite2D" parent="."]
-position = Vector2(160.125, 510.25)
+position = Vector2(160, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("22_8db47")
 
 [node name="fate" type="Sprite2D" parent="."]
-position = Vector2(1735.13, 510.25)
+position = Vector2(1760, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
 

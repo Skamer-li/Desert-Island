@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccaevpmihjph"
-path="res://.godot/imported/jungle_closed.png-31286c2520d78e2935ee976be787f3a0.ctex"
+uid="uid://b3bwexfybaq56"
+path="res://.godot/imported/Beach.png-d8f4be72d2f340a1e09e72b9c83430b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/jungle_closed.png"
-dest_files=["res://.godot/imported/jungle_closed.png-31286c2520d78e2935ee976be787f3a0.ctex"]
+source_file="res://sprites/locations/Beach.png"
+dest_files=["res://.godot/imported/Beach.png-d8f4be72d2f340a1e09e72b9c83430b2.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1cgwdet7ao1f"
-path="res://.godot/imported/swamp_closed.png-d02a9dc50d46bc9cf8f4ab7c58af2471.ctex"
+uid="uid://drccycwc7wb7j"
+path="res://.godot/imported/Hill.png-6984aeaf39cde0b2f63716fe395f0656.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/swamp_closed.png"
-dest_files=["res://.godot/imported/swamp_closed.png-d02a9dc50d46bc9cf8f4ab7c58af2471.ctex"]
+source_file="res://sprites/locations/Hill.png"
+dest_files=["res://.godot/imported/Hill.png-6984aeaf39cde0b2f63716fe395f0656.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxi4suqbjdpv5"
-path="res://.godot/imported/beach.png-d561ab5c3032b2eb94d45ab062850615.ctex"
+uid="uid://b57i4ix0kp0em"
+path="res://.godot/imported/Spring_closed.png-3f9b021d48f312df06895bb81543f830.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/beach.png"
-dest_files=["res://.godot/imported/beach.png-d561ab5c3032b2eb94d45ab062850615.ctex"]
+source_file="res://sprites/locations/Spring_closed.png"
+dest_files=["res://.godot/imported/Spring_closed.png-3f9b021d48f312df06895bb81543f830.ctex"]
 
 [params]
 

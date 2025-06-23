@@ -60,6 +60,9 @@ func give_fate(character):
 			pass	
 @rpc("any_peer","call_local")
 func add_token_location(location):
+	var players = 0
+	for player in $"../../players".get_children():
+		players += 1
 	match(location):
 		1:
 			$"../../locations/Beach".fate_token_amount+= 1
@@ -70,9 +73,11 @@ func add_token_location(location):
 		4:
 			$"../../locations/Spring".fate_token_amount+=1
 		5:
-			$"../../locations/Hill".fate_token_amount+=1
+			if (players>=5):
+				$"../../locations/Hill".fate_token_amount+=1
 		6:
-			$"../../locations/Cave".fate_token_amount+=1
+			if (players>=6):
+				$"../../locations/Cave".fate_token_amount+=1
 		_:
 			pass
 @rpc("any_peer")
