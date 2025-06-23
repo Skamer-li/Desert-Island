@@ -1,6 +1,4 @@
-
-[gd_scene load_steps=22 format=3 uid="uid://brrf54ngtwahm"]
-
+[gd_scene load_steps=23 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]

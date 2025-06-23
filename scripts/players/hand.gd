@@ -8,7 +8,7 @@ class_name Hand extends Node2D
 
 @onready var collision_shape: CollisionShape2D = $DebugShape
 
-var cards : Array = []
+@export var cards : Array = []
 
 func _ready() -> void:
 	pass

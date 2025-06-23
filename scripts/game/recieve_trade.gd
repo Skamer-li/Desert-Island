@@ -35,7 +35,7 @@ func initialize(offerrer_name, get_food, give_food, closed_cards_to_give, closed
 func _process(delta: float) -> void:
 	if (has_offer):
 		var selected_cards = []
-		if ($menus.get_node("item_choice") != null):
+		if ($menus.get_node_or_null("item_choice") != null):
 			for item in $menus.get_node("item_choice").get_node("card_spawn_point").get_children():
 				if (item.get_node("CheckBox").button_pressed):
 					selected_cards.append(item.card_name)
@@ -203,7 +203,7 @@ func make_a_deal(offerrer_name_make, get_food_make, give_food_make, closed_cards
 @rpc 
 func delete_card(card_name, target_name):
 	var target_node = $"../..".get_parent().get_node(target_name)
-	target_node.get_node("inventory").get_node(card_name).delete_card()
+	target_node.get_node("Hand").get_node(card_name).delete_card()
 
 @rpc ("any_peer")
 func send_card_to_character(item_name: String, character_name: String) -> void:
@@ -224,8 +224,8 @@ func send_card_to_character(item_name: String, character_name: String) -> void:
 func give_card(item_props: Dictionary, char_name: String):
 	var card_scene = preload("res://scenes/items/base_card.tscn")
 	var scene = card_scene.instantiate()
-	$"../..".get_parent().get_node(char_name).get_node("inventory").add_child(scene)
-	$"../..".get_parent().get_node(char_name).get_node("inventory").get_node("base_card").set_properties(item_props, char_name)
+	$"../..".get_parent().get_node(char_name).get_node("Hand").add_card(scene)
+	$"../..".get_parent().get_node(char_name).get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
 	
 	
 	
