@@ -6,7 +6,6 @@ extends Node
 @export var resource = ""
 @export var number = 0
 
-
 @onready var effect = $effect
 
 func set_properties(card: String):

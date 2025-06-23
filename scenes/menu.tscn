@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://csy2k32qiquny"]
+[gd_scene load_steps=4 format=3 uid="uid://csy2k32qiquny"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_csmal"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_airte"]
+[ext_resource type="AudioStream" uid="uid://ddy2w873udbdt" path="res://sounds/menu_click.ogg" id="3_wdav6"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -82,6 +83,7 @@ theme_override_font_sizes/font_size = 65
 text = "Exit"
 
 [node name="name_background" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(360, 240)
 texture = ExtResource("2_airte")
 centered = false
@@ -137,6 +139,10 @@ offset_bottom = 123.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 65
 text = "X"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wdav6")
+bus = &"Menu"
 
 [connection signal="pressed" from="Panel/host_button" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Panel/join_button" to="." method="_on_join_button_pressed"]
