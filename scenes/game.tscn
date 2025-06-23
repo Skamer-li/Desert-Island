@@ -80,7 +80,7 @@ func disable_buttons(disable: bool):
 func end_turn():
 	action_finished.emit()
 	
-@rpc 
+@rpc (\"any_peer\")
 func show_actions(char_name: String, card_value: int) -> void:
 	self.show()
 	disable_buttons(false)
