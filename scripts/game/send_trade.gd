@@ -76,7 +76,7 @@ func menu_interaction(menu_name, character_name, open):
 		if (!open):
 			inv = focus_player.inventory
 			for item_name in focus_player.inventory_activated:
-				inv.remove(item_name)
+				inv.erase(item_name)
 		else:
 			inv = focus_player.inventory_activated
 			
@@ -84,3 +84,41 @@ func menu_interaction(menu_name, character_name, open):
 			card_scene.add_card(item_name)
 	else:
 		$menus.get_node(menu_name).show()
+
+
+func _on_send_button_pressed() -> void:
+	var target_id = $"../..".get_parent().get_node(player_name).player_id
+	print("My target is" + player_name)
+	var sender_name = $"../..".character_name
+	var give_food = your_food_slider.value
+	var get_food = player_food_slider.value
+	var closed_cards_to_get = player_card_slider.value
+	
+	var closed_cards_to_give = []
+	if ($menus.get_node("self_hand") != null):
+		for item in $menus.get_node("self_hand").get_node("card_spawn_point").get_children():
+			if (item.get_node("CheckBox").button_pressed):
+				closed_cards_to_give.append(item.card_name)
+			
+	var open_cards_to_get = []
+	if ($menus.get_node("player_open") != null):
+		for item in $menus.get_node("player_open").get_node("card_spawn_point").get_children():
+			if (item.get_node("CheckBox").button_pressed):
+				open_cards_to_get.append(item.card_name)
+			
+	var open_cards_to_give = []
+	if ($menus.get_node("self_open") != null):
+		for item in $menus.get_node("self_open").get_node("card_spawn_point").get_children():
+			if (item.get_node("CheckBox").button_pressed):
+				open_cards_to_give.append(item.card_name)
+	
+	#$"../recieve_trade".initialize.rpc_id(target_id, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
+	calling.rpc_id(target_id, player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
+	for child in $menus.get_children():
+		child.queue_free()
+		
+	self.hide()
+
+@rpc ("any_peer")
+func calling(player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give):
+	$"../..".get_parent().get_node(player_name).get_node("trade").get_node("recieve_trade").initialize(sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)

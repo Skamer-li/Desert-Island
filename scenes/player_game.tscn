@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bb3kelf7vivap"]
+[gd_scene load_steps=16 format=3 uid="uid://bb3kelf7vivap"]
 
 [ext_resource type="Script" path="res://scripts/players/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="11_7kkfo"]
 [ext_resource type="Script" path="res://scripts/game/send_trade.gd" id="11_35wll"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="11_seuc1"]
+[ext_resource type="Script" path="res://scripts/game/recieve_trade.gd" id="14_wfvbe"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqsqn"]
 properties/0/path = NodePath(".:player_id")
@@ -213,6 +214,7 @@ offset_right = 569.0
 offset_bottom = -226.0
 
 [node name="send_trade" type="Sprite2D" parent="trade"]
+visible = false
 position = Vector2(981, 517)
 texture = ExtResource("9_nk0k3")
 script = ExtResource("11_35wll")
@@ -351,10 +353,175 @@ offset_bottom = -231.0
 
 [node name="menus" type="Node2D" parent="trade/send_trade"]
 
+[node name="recieve_trade" type="Sprite2D" parent="trade"]
+visible = false
+z_index = 3
+position = Vector2(981, 517)
+texture = ExtResource("9_nk0k3")
+script = ExtResource("14_wfvbe")
+
+[node name="you_get" type="Node2D" parent="trade/recieve_trade"]
+position = Vector2(-1292, -493)
+
+[node name="label" type="Label" parent="trade/recieve_trade/you_get"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 666.0
+offset_top = 290.0
+offset_right = 1296.0
+offset_bottom = 339.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "You get"
+horizontal_alignment = 1
+
+[node name="food" type="Node2D" parent="trade/recieve_trade/you_get"]
+position = Vector2(1376, 563)
+
+[node name="food_sprite" type="Sprite2D" parent="trade/recieve_trade/you_get/food"]
+z_index = 1
+position = Vector2(-430, -167)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_qtfx6")
+
+[node name="food_amount" type="Label" parent="trade/recieve_trade/you_get/food"]
+offset_left = -380.0
+offset_top = -193.0
+offset_right = -340.0
+offset_bottom = -144.0
+theme_override_font_sizes/font_size = 35
+text = "15"
+
+[node name="show_cards_you_get" type="Button" parent="trade/recieve_trade/you_get"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 830.0
+offset_top = 450.0
+offset_right = 1152.0
+offset_bottom = 514.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Show cards "
+
+[node name="you_give" type="Node2D" parent="trade/recieve_trade"]
+position = Vector2(-673, -493)
+
+[node name="label" type="Label" parent="trade/recieve_trade/you_give"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 666.0
+offset_top = 290.0
+offset_right = 1296.0
+offset_bottom = 339.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "You give"
+horizontal_alignment = 1
+
+[node name="food" type="Node2D" parent="trade/recieve_trade/you_give"]
+position = Vector2(1376, 563)
+
+[node name="food_sprite" type="Sprite2D" parent="trade/recieve_trade/you_give/food"]
+z_index = 1
+position = Vector2(-430, -167)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_qtfx6")
+
+[node name="food_amount" type="Label" parent="trade/recieve_trade/you_give/food"]
+offset_left = -380.0
+offset_top = -193.0
+offset_right = -340.0
+offset_bottom = -144.0
+theme_override_font_sizes/font_size = 35
+text = "15"
+
+[node name="show_cards_you_give" type="Button" parent="trade/recieve_trade/you_give"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 830.0
+offset_top = 450.0
+offset_right = 1152.0
+offset_bottom = 514.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Show open cards "
+
+[node name="choose_cards_you_give" type="Button" parent="trade/recieve_trade/you_give"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 830.0
+offset_top = 539.0
+offset_right = 1152.0
+offset_bottom = 603.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Choose closed cards to give"
+
+[node name="Label" type="Label" parent="trade/recieve_trade/you_give/choose_cards_you_give"]
+layout_mode = 0
+offset_left = 76.5
+offset_top = 62.0
+offset_right = 348.5
+offset_bottom = 111.0
+theme_override_font_sizes/font_size = 35
+text = "0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="offer" type="Label" parent="trade/recieve_trade"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -915.0
+offset_top = -280.0
+offset_right = -285.0
+offset_bottom = -231.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Trade offer from Talant"
+horizontal_alignment = 1
+
+[node name="accept" type="Button" parent="trade/recieve_trade"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -981.0
+offset_top = 169.0
+offset_right = -659.0
+offset_bottom = 233.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Accept"
+
+[node name="decline" type="Button" parent="trade/recieve_trade"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -509.0
+offset_top = 169.0
+offset_right = -187.0
+offset_bottom = 233.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Decline"
+
+[node name="menus" type="Node2D" parent="trade/recieve_trade"]
+
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TradeButton" to="trade/choose_player" method="_on_trade_button_pressed"]
 [connection signal="pressed" from="trade/choose_player/close_button" to="trade/choose_player" method="_on_close_button_pressed"]
 [connection signal="pressed" from="trade/send_trade/your_side/hand" to="trade/send_trade" method="_on_hand_pressed"]
 [connection signal="pressed" from="trade/send_trade/your_side/open" to="trade/send_trade" method="_on_open_pressed"]
 [connection signal="pressed" from="trade/send_trade/player_side/Button" to="trade/send_trade" method="_on_button_pressed"]
+[connection signal="pressed" from="trade/send_trade/send_button" to="trade/send_trade" method="_on_send_button_pressed"]
 [connection signal="pressed" from="trade/send_trade/close_button" to="trade/send_trade" method="_on_close_button_pressed"]
+[connection signal="pressed" from="trade/recieve_trade/you_get/show_cards_you_get" to="trade/recieve_trade" method="_on_show_cards_you_get_pressed"]
+[connection signal="pressed" from="trade/recieve_trade/you_give/show_cards_you_give" to="trade/recieve_trade" method="_on_show_cards_you_give_pressed"]
+[connection signal="pressed" from="trade/recieve_trade/you_give/choose_cards_you_give" to="trade/recieve_trade" method="_on_choose_cards_you_give_pressed"]
+[connection signal="pressed" from="trade/recieve_trade/accept" to="trade/recieve_trade" method="_on_accept_pressed"]
+[connection signal="pressed" from="trade/recieve_trade/decline" to="trade/recieve_trade" method="_on_decline_pressed"]
