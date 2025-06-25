@@ -200,11 +200,18 @@ func make_a_deal(offerrer_name_make, get_food_make, give_food_make, closed_cards
 		
 		send_card_to_character(item, self_node.character_name)
 
-@rpc 
+@rpc ("any_peer")
 func delete_card(card_name, target_name):
 	var target_node = $"../..".get_parent().get_node(target_name)
-	target_node.get_node("Hand").get_node(card_name).delete_card()
 	target_node.get_node("Hand").delete_card_from_array(card_name)
+	if multiplayer.is_server():
+		target_node.get_node("Hand").get_node(card_name).delete_card()
+	else:
+		target_node.get_node("Hand").get_node(card_name).delete_card()
+		target_node.get_node("Hand").get_node(card_name).delete_card.rpc_id(1)
+	
+	
+	
 
 @rpc ("any_peer")
 func send_card_to_character(item_name: String, character_name: String) -> void:

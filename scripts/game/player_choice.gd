@@ -2,9 +2,11 @@ extends Sprite2D
 
 @onready var buttons = $players_to_choose.get_children()
 
+@export var caller = "Character"
+
 func initialize() -> void:
-	var player_node = self.get_parent().get_parent()
-	var characters_node = player_node.get_parent()
+	var player_node = $"../../players".get_node(caller)
+	var characters_node = $"../../players"
 	
 	var i = 0 
 	
@@ -28,12 +30,13 @@ func initialize() -> void:
 	for button in buttons:
 		button.pressed.connect(choose_player.bind(button.text))
 
-func _on_trade_button_pressed() -> void:
+func start() -> void:
 	self.show()
 	initialize()
 	
 func choose_player(name):
-	$"../send_trade".initialize(name)
+	$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
+	#$"../send_trade".initialize(name)
 	for button in buttons:
 		button.pressed.disconnect(choose_player)
 	self.hide()

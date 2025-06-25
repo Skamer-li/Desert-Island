@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb3kelf7vivap"]
+[gd_scene load_steps=18 format=3 uid="uid://bb3kelf7vivap"]
 
 [ext_resource type="Script" path="res://scripts/players/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://nq3ix5yr7gm3" path="res://sprites/enemies/the_captain_e.png" id="8_3w0d3"]
 [ext_resource type="Script" path="res://scripts/players/hand.gd" id="9_lut8w"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="9_nk0k3"]
-[ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="10_2dtmj"]
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="11_7kkfo"]
 [ext_resource type="Script" path="res://scripts/game/send_trade.gd" id="11_35wll"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="11_seuc1"]
@@ -172,57 +171,6 @@ texture = ExtResource("8_3w0d3")
 
 [node name="trade" type="Node2D" parent="."]
 z_index = 10
-
-[node name="choose_player" type="Sprite2D" parent="trade"]
-visible = false
-position = Vector2(981, 517)
-texture = ExtResource("9_nk0k3")
-script = ExtResource("10_2dtmj")
-
-[node name="players_to_choose" type="Node2D" parent="trade/choose_player"]
-position = Vector2(0, 50)
-
-[node name="Button" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = -267.0
-offset_right = 144.0
-offset_bottom = -206.0
-
-[node name="Button2" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = -192.0
-offset_right = 144.0
-offset_bottom = -131.0
-
-[node name="Button3" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = -117.0
-offset_right = 144.0
-offset_bottom = -56.0
-
-[node name="Button4" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = -42.0
-offset_right = 144.0
-offset_bottom = 19.0
-
-[node name="Button5" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = 33.0
-offset_right = 144.0
-offset_bottom = 94.0
-
-[node name="Button6" type="Button" parent="trade/choose_player/players_to_choose"]
-offset_left = -180.0
-offset_top = 108.0
-offset_right = 144.0
-offset_bottom = 169.0
-
-[node name="close_button" parent="trade/choose_player" instance=ExtResource("11_7kkfo")]
-offset_left = 519.0
-offset_top = -276.0
-offset_right = 569.0
-offset_bottom = -226.0
 
 [node name="send_trade" type="Sprite2D" parent="trade"]
 visible = false
@@ -542,8 +490,7 @@ text = "Rulebook"
 script = ExtResource("16_xeyh5")
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TradeButton" to="trade/choose_player" method="_on_trade_button_pressed"]
-[connection signal="pressed" from="trade/choose_player/close_button" to="trade/choose_player" method="_on_close_button_pressed"]
+[connection signal="pressed" from="TradeButton" to="trade/send_trade" method="_on_trade_button_pressed"]
 [connection signal="pressed" from="trade/send_trade/your_side/hand" to="trade/send_trade" method="_on_hand_pressed"]
 [connection signal="pressed" from="trade/send_trade/your_side/open" to="trade/send_trade" method="_on_open_pressed"]
 [connection signal="pressed" from="trade/send_trade/player_side/Button" to="trade/send_trade" method="_on_button_pressed"]
