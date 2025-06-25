@@ -65,3 +65,4 @@ func itemss_use():
 	var player = self.get_parent().get_parent()
 	
 	player.food_amount += food_gain
+	#test
