@@ -126,5 +126,4 @@ func calling(player_name, sender_name, give_food, get_food, closed_cards_to_get,
 
 func _on_trade_button_pressed() -> void:
 	var path = $"../..".get_parent().get_parent().get_node("actions").get_node("choose_player")
-	path.caller = $"../..".character_name
-	path.start()
+	path.start(true, $"../..".character_name)

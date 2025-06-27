@@ -28,8 +28,7 @@ func _on_sfire_button_pressed() -> void:
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:
-	#Idk right now
-	pass 
+	$"../choose_player".start(false, character_name)
 
 func _on_end_turn_button_pressed() -> void:
 	self.hide()

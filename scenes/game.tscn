@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
+[ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="15_x4685"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="17_kwyil"]
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="18_1dbih"]
@@ -22,82 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
-
-[sub_resource type="GDScript" id="GDScript_lthko"]
-script/source = "extends Sprite2D
-
-var character
-var character_name
-var fate_card_value
-
-signal action_finished
-
-func _on_forage_button_pressed() -> void:
-	var food = fate_card_value + character.forage_food_amplification
-	
-	if (character.current_location == \"Spring\"):
-		food += 3
-
-	if multiplayer.is_server():
-		give_food_to_char(character_name, food)
-	else:
-		give_food_to_char.rpc_id(1, character_name, food)
-	
-	disable_buttons(true)
-
-func _on_sfire_button_pressed() -> void:
-	if multiplayer.is_server():
-		build_signal_fire(character.signal_fire_build)
-	else:
-		build_signal_fire.rpc_id(1, character.signal_fire_build)
-		
-	disable_buttons(true)
-
-func _on_steal_button_pressed() -> void:
-	#Idk right now
-	pass 
-
-func _on_end_turn_button_pressed() -> void:
-	self.hide()
-	
-	if multiplayer.is_server():
-		end_turn()
-	else:
-		end_turn.rpc_id(1)
-	
-func disable_buttons(disable: bool):
-	for button in self.get_children():
-		if (button != $end_turn_button):
-			if disable:
-				button.disabled = true
-			else:
-				button.disabled = false
-		else:
-			if disable:
-				button.disabled = false
-			else:
-				button.disabled = true
-
-@rpc (\"any_peer\")
-func end_turn():
-	action_finished.emit()
-	
-@rpc (\"any_peer\")
-func show_actions(char_name: String, card_value: int) -> void:
-	self.show()
-	disable_buttons(false)
-	character_name = char_name
-	fate_card_value = card_value
-	character = $\"../../players\".get_node(character_name)
-
-@rpc (\"any_peer\")
-func give_food_to_char(char_name: String, amount: int):
-	$\"../../players\".get_node(char_name).food_amount += amount
-
-@rpc (\"any_peer\")
-func build_signal_fire(amount: int):
-	$\"../..\".signal_fire += amount
-"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vx2yp"]
 load_path = "res://.godot/imported/name_back.png-90c908a49bde1f75d1abc10de8d44486.ctex"
@@ -256,7 +181,7 @@ visible = false
 position = Vector2(1618, 856)
 scale = Vector2(0.333333, 0.403333)
 texture = ExtResource("30_7whwj")
-script = SubResource("GDScript_lthko")
+script = ExtResource("15_x4685")
 
 [node name="forage_button" type="Button" parent="actions/basic_actions"]
 anchors_preset = 15
@@ -425,12 +350,6 @@ bus = &"Music"
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
 [connection signal="cards_dealing_finished" from="actions/cards_dealing" to="." method="_on_cards_dealing_cards_dealing_finished"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card1" to="actions/cards_dealing" method="_on_card_1_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card2" to="actions/cards_dealing" method="_on_card_2_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card3" to="actions/cards_dealing" method="_on_card_3_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card4" to="actions/cards_dealing" method="_on_card_4_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card5" to="actions/cards_dealing" method="_on_card_5_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card6" to="actions/cards_dealing" method="_on_card_6_pressed"]
 [connection signal="action_finished" from="actions/basic_actions" to="." method="_on_basic_actions_action_finished"]
 [connection signal="pressed" from="actions/basic_actions/forage_button" to="actions/basic_actions" method="_on_forage_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/sfire_button" to="actions/basic_actions" method="_on_sfire_button_pressed"]

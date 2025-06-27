@@ -4,6 +4,8 @@ extends Sprite2D
 
 @export var caller = "Character"
 
+var is_trade = false
+
 func initialize() -> void:
 	var player_node = $"../../players".get_node(caller)
 	var characters_node = $"../../players"
@@ -28,15 +30,19 @@ func initialize() -> void:
 	
 	#connecting all buttons to the script
 	for button in buttons:
-		button.pressed.connect(choose_player.bind(button.text))
+		button.pressed.connect(choose_player.bind(button.text, is_trade))
 
-func start() -> void:
+func start(trade_flag, caller_name) -> void:
+	is_trade = trade_flag
+	caller = caller_name
 	self.show()
 	initialize()
 	
-func choose_player(name):
-	$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
-	#$"../send_trade".initialize(name)
+func choose_player(name, trade_flag):
+	if (trade_flag):
+		$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
+	else:
+		pass
 	for button in buttons:
 		button.pressed.disconnect(choose_player)
 	self.hide()
