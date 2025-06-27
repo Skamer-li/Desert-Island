@@ -20,11 +20,13 @@ func _on_forage_button_pressed() -> void:
 	disable_buttons(true)
 
 func _on_sfire_button_pressed() -> void:
+	var amount= character.signal_fire_build
+	if (character.current_location == "Hill"):
+		amount += 1
 	if multiplayer.is_server():
-		build_signal_fire(character.signal_fire_build)
+		build_signal_fire(amount)
 	else:
-		build_signal_fire.rpc_id(1, character.signal_fire_build)
-		
+		build_signal_fire.rpc_id(1, amount)
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:

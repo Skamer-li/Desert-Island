@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u5q7j5llrdl2"
-path="res://.godot/imported/spring_closed.png-b56c0028988bd7d97a6911d608b509ad.ctex"
+uid="uid://44xgwxfv7xu1"
+path="res://.godot/imported/ship.png-c0e9761c7289e1107ff7117ab2e7421e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/spring_closed.png"
-dest_files=["res://.godot/imported/spring_closed.png-b56c0028988bd7d97a6911d608b509ad.ctex"]
+source_file="res://sprites/tokens/ship.png"
+dest_files=["res://.godot/imported/ship.png-c0e9761c7289e1107ff7117ab2e7421e.ctex"]
 
 [params]
 

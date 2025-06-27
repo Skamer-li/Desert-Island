@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfywa2x4xexhu"
-path="res://.godot/imported/swamp.png-c75225c0ef9c3f7d408b0109fc0c913f.ctex"
+uid="uid://diq02qlv7kylx"
+path="res://.godot/imported/Jungle.png-d093eaa135798ff75a81c2d052920d85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/swamp.png"
-dest_files=["res://.godot/imported/swamp.png-c75225c0ef9c3f7d408b0109fc0c913f.ctex"]
+source_file="res://sprites/locations/Jungle.png"
+dest_files=["res://.godot/imported/Jungle.png-d093eaa135798ff75a81c2d052920d85.ctex"]
 
 [params]
 

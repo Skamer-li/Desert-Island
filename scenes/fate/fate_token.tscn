@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpemd8aou1bei"]
+
+[ext_resource type="Texture2D" uid="uid://cx4gtgn87gyi1" path="res://sprites/tokens/fate_token.png" id="1_rnwfb"]
+
+[node name="FateToken" type="Sprite2D"]
+z_index = -1
+y_sort_enabled = true
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_rnwfb")
