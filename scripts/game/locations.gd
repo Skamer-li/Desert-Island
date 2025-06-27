@@ -24,11 +24,9 @@ func location_spawn(players_amount: int):
 		self.add_child(location)
 	var i=0
 	var space_between_cards=(1920-(card_width*get_child_count())-x_from_border*2)/(get_child_count())
-	print(space_between_cards)
 	for place in get_children():
 		place.name = GameManager.const_locations[i]
 		place.set_sprite()
 		place.position.y += card_y
 		place.position.x = x_from_border+card_width/2+card_width*(i)+space_between_cards*i
 		i+=1
-	print(get_children())

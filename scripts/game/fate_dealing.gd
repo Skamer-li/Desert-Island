@@ -25,6 +25,7 @@ func place_fate(id, full_name):
 	var location_position = $"../../locations".get_node(location).position
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
+	$"../../fate_cards".get_node("BaseFateCard").show()
 	$"../../fate_cards".get_node("BaseFateCard").position.x = location_position.x
 	$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150
 	if $"../../fate_cards".get_node(location+"_fate")!=null:

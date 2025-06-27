@@ -1,15 +1,19 @@
-[gd_scene load_steps=19 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=23 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
 [ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
+[ext_resource type="Texture2D" uid="uid://b1ps0hv2fyfhs" path="res://sprites/tokens/torch.png" id="11_m3a3i"]
+[ext_resource type="Texture2D" uid="uid://dsm31rmv1vxe1" path="res://sprites/tokens/boards.png" id="12_7o5sx"]
+[ext_resource type="Texture2D" uid="uid://44xgwxfv7xu1" path="res://sprites/tokens/ship.png" id="13_x8gra"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Script" path="res://scripts/game/lookout.gd" id="17_2htaf"]
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
+[ext_resource type="AudioStream" uid="uid://bl3b54386khak" path="res://sounds/card_draw.ogg" id="20_rc44p"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
 [ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
@@ -284,9 +288,11 @@ script = ExtResource("15_q81ke")
 [node name="fate" type="Node2D" parent="actions/fate_dealing"]
 
 [node name="BaseFateCard" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+visible = true
 position = Vector2(-286.045, 0)
 
 [node name="BaseFateCard2" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+visible = true
 position = Vector2(252.891, 0)
 
 [node name="Button" type="Button" parent="actions/fate_dealing/fate"]
@@ -316,6 +322,71 @@ vertical_alignment = 1
 [node name="Lookout" type="Node2D" parent="actions"]
 script = ExtResource("17_2htaf")
 
+[node name="Boards" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(1125, 62)
+scale = Vector2(1.01316, 1.02893)
+texture = ExtResource("12_7o5sx")
+
+[node name="Label" type="Label" parent="actions/Lookout/Boards"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -76.9871
+offset_top = -60.743
+offset_right = -75.9871
+offset_bottom = -60.535
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Torch" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(804, 62)
+scale = Vector2(1, 0.996)
+texture = ExtResource("11_m3a3i")
+
+[node name="Label" type="Label" parent="actions/Lookout/Torch"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -91.0
+offset_top = -62.751
+offset_right = -90.0
+offset_bottom = -62.543
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ship" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(971, 62.75)
+scale = Vector2(1, 0.996)
+texture = ExtResource("13_x8gra")
+
+[node name="Label" type="Label" parent="actions/Lookout/Ship"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -76.0
+offset_top = -62.5
+offset_right = -75.0
+offset_bottom = -62.292
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wait_time" type="Timer" parent="actions/Lookout"]
+one_shot = true
+
+[node name="card" type="Node2D" parent="actions/Lookout"]
+
 [node name="Items" type="Sprite2D" parent="."]
 position = Vector2(160, 510.25)
 scale = Vector2(0.25, 0.25)
@@ -326,14 +397,6 @@ position = Vector2(1760, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
 
-[node name="sounds" type="Node2D" parent="."]
-script = ExtResource("19_1grsc")
-
-[node name="music" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource("19_xdv5i")
-autoplay = true
-bus = &"Music"
-
 [node name="SignalFireToken" type="Sprite2D" parent="."]
 position = Vector2(80, 80)
 scale = Vector2(0.25, 0.25)
@@ -342,6 +405,18 @@ texture = ExtResource("21_o17qr")
 [node name="fate_tokens_fire" type="Node2D" parent="SignalFireToken"]
 scale = Vector2(4, 4)
 script = ExtResource("22_acev5")
+
+[node name="sounds" type="Node2D" parent="."]
+script = ExtResource("19_1grsc")
+
+[node name="music" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("19_xdv5i")
+autoplay = true
+bus = &"Music"
+
+[node name="draw_card" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("20_rc44p")
+bus = &"Menu"
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]

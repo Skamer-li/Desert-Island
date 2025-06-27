@@ -3,7 +3,6 @@ extends Node
 
 
 func set_sprite():
-	print(self.name+".png")
 	self.texture=load("res://sprites/locations/"+self.name+".png")
 
 @rpc("any_peer","call_local")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game/character_interaction.gd" id="1_wnb2r"]
 [ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="2_2w4vs"]
-[ext_resource type="Shader" path="res://shaders/card.gdshader" id="2_dspgy"]
+[ext_resource type="Shader" path="res://scenes/shaders/card.gdshader" id="2_dspgy"]
 [ext_resource type="Texture2D" uid="uid://3wk5j1r7f5qa" path="res://sprites/backpack1.png" id="4_3uti6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s3gh"]
