@@ -329,6 +329,72 @@ offset_top = -276.0
 offset_right = 569.0
 offset_bottom = -226.0
 
+[node name="steal" type="Sprite2D" parent="actions"]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("30_7whwj")
+
+[node name="Label" type="Label" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -828.5
+offset_top = -280.0
+offset_right = -371.5
+offset_bottom = -231.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "What do you want to steal?"
+horizontal_alignment = 1
+
+[node name="open_card" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -190.0
+offset_right = -365.5
+offset_bottom = -133.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Open card"
+
+[node name="closed_card" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -100.0
+offset_right = -365.5
+offset_bottom = -43.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Card from hand"
+
+[node name="food" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -10.0
+offset_right = -365.5
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Food"
+
+[node name="location" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = 80.0
+offset_right = -365.5
+offset_bottom = 137.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Location"
+
 [node name="Items" type="Sprite2D" parent="."]
 position = Vector2(160.125, 510.25)
 scale = Vector2(0.25, 0.25)

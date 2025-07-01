@@ -24,6 +24,8 @@ func send_card_to_character(item_name: String, character_name: String, target_pl
 	
 	if (target_player_id != 1):
 		give_card.rpc_id(target_player_id, properties, character_name, target_player_path)
+	
+	GameManager.items.erase(item_name)
 
 @rpc ("any_peer")
 func give_card(item_props: Dictionary, char_name: String, target_player_path):

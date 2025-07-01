@@ -42,10 +42,14 @@ func choose_player(name, trade_flag):
 	if (trade_flag):
 		$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
 	else:
-		pass
+		$"../steal".show()
+		
 	for button in buttons:
 		button.pressed.disconnect(choose_player)
+		
 	self.hide()
 
 func _on_close_button_pressed() -> void:
 	self.hide()
+	if (!is_trade):
+		$"../basic_actions".disable_buttons(false)
