@@ -1,5 +1,5 @@
 extends Node2D
-@export var spotted_ships=0
+signal ship_spotted
 signal lookout_resolved
 var torches=0
 var board=0
@@ -58,8 +58,7 @@ func resolve(symbols):
 	elif "torch.png" in symbols && "ship.png" in symbols && "boards.png" in symbols:
 		$"../..".signal_fire=0
 		$"../..".fire_update.rpc()
-		spotted_ships+=1
-		print("Ship spotted")
+		ship_spotted.emit()
 	board=0
 	torches=0
 	ships=0
