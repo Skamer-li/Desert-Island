@@ -58,6 +58,9 @@ func delete_card():
 	self.get_parent().get_parent().inventory.erase(card_name)
 	if can_be_activated:
 		self.get_parent().get_parent().inventory_activated.erase(card_name)
+	
+	self.get_parent().delete_card_from_array(card_name)
+	self.get_parent().reposition_cards()
 	self.queue_free()
 
 @rpc ("any_peer")

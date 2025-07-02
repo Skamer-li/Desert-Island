@@ -1,23 +1,36 @@
 extends Sprite2D
 
+@onready var players = $"../../players"
+
 var player_count = 0:
 	set = _set_labels
 var character_names = []
 var player_names = []
-var items
+var items = []
 
 signal cards_dealing_finished
 
 func _ready() -> void:
 	self.hide()
 	
+	var index = 0
+	
 	for card in $cards.get_children():
 		card.hide()
+		card.pressed.connect(_on_card_pressed.bind(index))
+		index += 1
 
 @rpc
 func set_cards_to_deal(items_order) -> void:
 	var count = 0
-	items = items_order
+	for item in items_order:
+		items.append(item)
+	
+	print("true array")
+	print(items_order)
+	
+	print("fuck array")
+	print(items)
 	
 	for location in GameManager.const_locations:
 		for player in $"../../players".get_children():
@@ -43,80 +56,20 @@ func _set_labels(value: int) -> void:
 		player_names.clear()
 		character_names.clear()
 		self.hide()
+		items.clear()
 		cards_dealing_finished.emit()
 	else:
 		$character_name.text = character_names[player_count]
 		$player_name.text = player_names[player_count]
 
-@rpc ("any_peer")
-func send_card_to_character(item_name: String, character_name: String) -> void:
-	var current_player_id = $"../../players".get_node(character_name).player_id
-	var properties
+func _on_card_pressed(card_index):
+	var player_path = players.get_node(character_names[player_count]).get_path()
+	if multiplayer.is_server():
+		print(items)
+		CardManager.send_card_to_character(items[card_index], character_names[player_count], player_path)
+	else:
+		CardManager.send_card_to_character.rpc_id(1, items[card_index], character_names[player_count], player_path)
 	
-	for dict in GameManager.items_database:
-		if (dict.get("name", "") == item_name):
-			properties = dict
-			break
+	$cards.get_node("card" + str(card_index + 1)).hide()
 	
-	give_card(properties, character_name)
-	
-	if (current_player_id != 1):
-		give_card.rpc_id(current_player_id, properties, character_name)
-		
-	GameManager.items.erase(item_name)
-
-@rpc ("any_peer")
-func give_card(item_props: Dictionary, char_name: String):
-	var card_scene = preload("res://scenes/items/base_card.tscn")
-	var scene = card_scene.instantiate()
-	$"../../players".get_node(char_name).get_node("Hand").add_card(scene)
-	$"../../players".get_node(char_name).get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
-	#print($"../../players".get_node(char_name).get_node("Hand").get_children())
-	
-func _on_card_1_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[0], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[0], character_names[player_count])
-	$cards/card1.hide()
-	player_count += 1
-
-func _on_card_2_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[1], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[1], character_names[player_count])
-	$cards/card2.hide()
-	player_count += 1
-
-func _on_card_3_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[2], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[2], character_names[player_count])
-	$cards/card3.hide()
-	player_count += 1
-
-func _on_card_4_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[3], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[3], character_names[player_count])
-	$cards/card4.hide()
-	player_count += 1
-
-func _on_card_5_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[4], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[4], character_names[player_count])
-	$cards/card5.hide()
-	player_count += 1
-
-func _on_card_6_pressed() -> void:
-	if multiplayer.is_server():
-		send_card_to_character(items[5], character_names[player_count])
-	else:
-		send_card_to_character.rpc_id(1, items[5], character_names[player_count])
-	$cards/card6.hide()
 	player_count += 1

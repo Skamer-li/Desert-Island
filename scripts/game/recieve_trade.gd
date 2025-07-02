@@ -115,10 +115,12 @@ func _on_accept_pressed() -> void:
 	#checking if current player has food to trade
 	if (self_node.food_amount < give_food):
 		self_food_check = false
+		print("Self no food")
 	
 	#checking if sender has food to trade
 	if (target_node.food_amount < get_food):
 		target_food_check = false
+		print("Target no food")
 	
 	#checking if the amount of given cards is correct
 	var selected_cards = []
@@ -129,23 +131,27 @@ func _on_accept_pressed() -> void:
 	
 	if (selected_cards.size() != closed_cards_to_give):
 		closed_cards_to_give_check = false
+		print("Bad amount of cards selected")
 	
 	#checking if sender has the closed cards he want to trade
 	for item in closed_cards_to_get:
 		if (!target_node.inventory.has(item)):
 			closed_cards_to_get_check = false
+			print("Sender don't have cards")
 			break
 	
 	#checking if current player has the open cards he want to trade
 	for item in open_cards_to_give:
-		if (!self_node.inventory.has(item)):
+		if (!self_node.inventory_activated.has(item)):
 			open_cards_to_give_check = false
+			print("Reciever don't have open cards")
 			break
 	
 	#checking if sender has the open cards he want to trade
 	for item in open_cards_to_get:
-		if (!target_node.inventory.has(item)):
+		if (!target_node.inventory_activated.has(item)):
 			open_cards_to_get_check = false
+			print("Sender don't have open cards")
 			break
 	
 	if (self_food_check && target_food_check && closed_cards_to_give_check && closed_cards_to_get_check &&
@@ -162,6 +168,12 @@ func make_a_deal(offerrer_name_make, get_food_make, give_food_make, closed_cards
 	var self_node = $"../.."
 	var target_node = self_node.get_parent().get_node(offerrer_name_make)
 	
+	var self_node_path = self_node.get_path()
+	var target_node_path = target_node.get_path()
+	
+	var self_items = []
+	var target_items = []
+	
 	self_node.food_amount -= give_food_make
 	self_node.food_amount += get_food_make
 	
@@ -169,66 +181,39 @@ func make_a_deal(offerrer_name_make, get_food_make, give_food_make, closed_cards
 	target_node.food_amount += give_food_make
 	
 	for item in closed_cards_to_give_make:
-		if (self_node.player_id == 1):
-			delete_card(item, self_node.character_name)
+		if (self_node.player_id != 1):
+			CardManager.delete_card.rpc_id(self_node.player_id, item, self_node.character_name, self_node_path)
 		else:
-			delete_card.rpc_id(self_node.player_id, item, self_node.character_name)
-		
-		send_card_to_character(item, target_node.character_name)
+			CardManager.delete_card(item, self_node.character_name, self_node_path)
+			
+		target_items.append(item)
 	
 	for item in closed_cards_to_get_make:
-		if (target_node.player_id == 1):
-			delete_card(item, target_node.character_name)
+		if (target_node.player_id != 1):
+			CardManager.delete_card.rpc_id(target_node.player_id, item, target_node.character_name, target_node_path)
 		else:
-			delete_card.rpc_id(target_node.player_id, item, target_node.character_name)
+			CardManager.delete_card(item, target_node.character_name, target_node_path)
 		
-		send_card_to_character(item, self_node.character_name)
+		self_items.append(item)
 	
 	for item in open_cards_to_give_make:
-		if (self_node.player_id == 1):
-			delete_card(item, self_node.character_name)
+		if (self_node.player_id != 1):
+			CardManager.delete_card.rpc_id(self_node.player_id, item, self_node.character_name, self_node_path)
 		else:
-			delete_card.rpc_id(self_node.player_id, item, self_node.character_name)
-		
-		send_card_to_character(item, target_node.character_name)
+			CardManager.delete_card(item, self_node.character_name, self_node_path)
+			
+		target_items.append(item)
 	
 	for item in open_cards_to_get_make:
-		if (target_node.player_id == 1):
-			delete_card(item, target_node.character_name)
+		if (target_node.player_id != 1):
+			CardManager.delete_card.rpc_id(target_node.player_id, item, target_node.character_name, target_node_path)
 		else:
-			delete_card.rpc_id(target_node.player_id, item, target_node.character_name)
-		
-		send_card_to_character(item, self_node.character_name)
-
-@rpc 
-func delete_card(card_name, target_name):
-	var target_node = $"../..".get_parent().get_node(target_name)
-	target_node.get_node("Hand").get_node(card_name).delete_card()
-	target_node.get_node("Hand").delete_card_from_array(card_name)
-
-@rpc ("any_peer")
-func send_card_to_character(item_name: String, character_name: String) -> void:
-	var current_player_id = $"../..".get_parent().get_node(character_name).player_id
-	var properties
+			CardManager.delete_card(item, target_node.character_name, target_node_path)
+			
+		self_items.append(item)
 	
-	for dict in GameManager.items_database:
-		if (dict.get("name", "") == item_name):
-			properties = dict
-			break
+	for item in self_items:
+		CardManager.send_card_to_character(item, self_node.character_name, self_node_path)
 	
-	give_card(properties, character_name)
-	
-	if (current_player_id != 1):
-		give_card.rpc_id(current_player_id, properties, character_name)
-
-@rpc ("any_peer")
-func give_card(item_props: Dictionary, char_name: String):
-	var card_scene = preload("res://scenes/items/base_card.tscn")
-	var scene = card_scene.instantiate()
-	$"../..".get_parent().get_node(char_name).get_node("Hand").add_card(scene)
-	$"../..".get_parent().get_node(char_name).get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
-	
-	
-	
-	
-	
+	for item in target_items:
+		CardManager.send_card_to_character(item, target_node.character_name, target_node_path)

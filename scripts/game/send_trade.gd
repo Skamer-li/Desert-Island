@@ -122,3 +122,8 @@ func _on_send_button_pressed() -> void:
 @rpc ("any_peer")
 func calling(player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give):
 	$"../..".get_parent().get_node(player_name).get_node("trade").get_node("recieve_trade").initialize(sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
+
+
+func _on_trade_button_pressed() -> void:
+	var path = $"../..".get_parent().get_parent().get_node("actions").get_node("choose_player")
+	path.start(true, $"../..".character_name)

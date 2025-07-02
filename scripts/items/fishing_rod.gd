@@ -8,3 +8,10 @@ func item_use():
 	if !player.inventory_activated.has(card.card_name):
 		player.forage_food_amplification += card.food_amplification
 		player.inventory_activated.append(card.card_name)
+		
+@rpc ("any_peer")
+func undo():
+	var card = self.get_parent()
+	var player = self.get_parent().get_parent().get_parent()
+	
+	

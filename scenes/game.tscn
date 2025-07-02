@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=25 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -9,8 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://44xgwxfv7xu1" path="res://sprites/tokens/ship.png" id="13_x8gra"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
+[ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="15_x4685"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Script" path="res://scripts/game/lookout.gd" id="17_2htaf"]
+[ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="17_kwyil"]
+[ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="18_1dbih"]
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
 [ext_resource type="AudioStream" uid="uid://bl3b54386khak" path="res://sounds/card_draw.ogg" id="20_rc44p"]
@@ -20,84 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
-
-[sub_resource type="GDScript" id="GDScript_lthko"]
-script/source = "extends Sprite2D
-
-var character
-var character_name
-var fate_card_value
-
-signal action_finished
-
-func _on_forage_button_pressed() -> void:
-	var food = fate_card_value + character.forage_food_amplification
-	
-	if (character.current_location == \"Spring\"):
-		food += 3
-
-	if multiplayer.is_server():
-		give_food_to_char(character_name, food)
-	else:
-		give_food_to_char.rpc_id(1, character_name, food)
-	
-	disable_buttons(true)
-
-func _on_sfire_button_pressed() -> void:
-	var amount= character.signal_fire_build
-	if (character.current_location == \"Hill\"):
-		amount += 1
-	if multiplayer.is_server():
-		build_signal_fire(amount)
-	else:
-		build_signal_fire.rpc_id(1, amount)
-	disable_buttons(true)
-
-func _on_steal_button_pressed() -> void:
-	#Idk right now
-	pass 
-
-func _on_end_turn_button_pressed() -> void:
-	self.hide()
-	
-	if multiplayer.is_server():
-		end_turn()
-	else:
-		end_turn.rpc_id(1)
-	
-func disable_buttons(disable: bool):
-	for button in self.get_children():
-		if (button != $end_turn_button):
-			if disable:
-				button.disabled = true
-			else:
-				button.disabled = false
-		else:
-			if disable:
-				button.disabled = false
-			else:
-				button.disabled = true
-
-@rpc (\"any_peer\")
-func end_turn():
-	action_finished.emit()
-	
-@rpc (\"any_peer\")
-func show_actions(char_name: String, card_value: int) -> void:
-	self.show()
-	disable_buttons(false)
-	character_name = char_name
-	fate_card_value = card_value
-	character = $\"../../players\".get_node(character_name)
-
-@rpc (\"any_peer\")
-func give_food_to_char(char_name: String, amount: int):
-	$\"../../players\".get_node(char_name).food_amount += amount
-
-@rpc (\"any_peer\")
-func build_signal_fire(amount: int):
-	$\"../..\".signal_fire += amount
-"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vx2yp"]
 load_path = "res://.godot/imported/name_back.png-90c908a49bde1f75d1abc10de8d44486.ctex"
@@ -220,7 +145,7 @@ visible = false
 position = Vector2(1618, 856)
 scale = Vector2(0.333333, 0.403333)
 texture = ExtResource("30_7whwj")
-script = SubResource("GDScript_lthko")
+script = ExtResource("15_x4685")
 
 [node name="forage_button" type="Button" parent="actions/basic_actions"]
 anchors_preset = 15
@@ -318,6 +243,123 @@ theme_override_font_sizes/font_size = 60
 text = "Choose a fate card"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="choose_player" type="Sprite2D" parent="actions"]
+visible = false
+position = Vector2(981, 517)
+texture = ExtResource("30_7whwj")
+script = ExtResource("17_kwyil")
+
+[node name="players_to_choose" type="Node2D" parent="actions/choose_player"]
+position = Vector2(0, 50)
+
+[node name="Button" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = -267.0
+offset_right = 144.0
+offset_bottom = -206.0
+
+[node name="Button2" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = -192.0
+offset_right = 144.0
+offset_bottom = -131.0
+
+[node name="Button3" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = -117.0
+offset_right = 144.0
+offset_bottom = -56.0
+
+[node name="Button4" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = -42.0
+offset_right = 144.0
+offset_bottom = 19.0
+
+[node name="Button5" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = 33.0
+offset_right = 144.0
+offset_bottom = 94.0
+
+[node name="Button6" type="Button" parent="actions/choose_player/players_to_choose"]
+offset_left = -180.0
+offset_top = 108.0
+offset_right = 144.0
+offset_bottom = 169.0
+
+[node name="close_button" parent="actions/choose_player" instance=ExtResource("18_1dbih")]
+offset_left = 519.0
+offset_top = -276.0
+offset_right = 569.0
+offset_bottom = -226.0
+
+[node name="steal" type="Sprite2D" parent="actions"]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("30_7whwj")
+
+[node name="Label" type="Label" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -828.5
+offset_top = -280.0
+offset_right = -371.5
+offset_bottom = -231.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "What do you want to steal?"
+horizontal_alignment = 1
+
+[node name="open_card" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -190.0
+offset_right = -365.5
+offset_bottom = -133.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Open card"
+
+[node name="closed_card" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -100.0
+offset_right = -365.5
+offset_bottom = -43.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Card from hand"
+
+[node name="food" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = -10.0
+offset_right = -365.5
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Food"
+
+[node name="location" type="Button" parent="actions/steal"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -834.5
+offset_top = 80.0
+offset_right = -365.5
+offset_bottom = 137.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Location"
 
 [node name="Lookout" type="Node2D" parent="actions"]
 script = ExtResource("17_2htaf")
@@ -421,12 +463,6 @@ bus = &"Menu"
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
 [connection signal="cards_dealing_finished" from="actions/cards_dealing" to="." method="_on_cards_dealing_cards_dealing_finished"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card1" to="actions/cards_dealing" method="_on_card_1_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card2" to="actions/cards_dealing" method="_on_card_2_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card3" to="actions/cards_dealing" method="_on_card_3_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card4" to="actions/cards_dealing" method="_on_card_4_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card5" to="actions/cards_dealing" method="_on_card_5_pressed"]
-[connection signal="pressed" from="actions/cards_dealing/cards/card6" to="actions/cards_dealing" method="_on_card_6_pressed"]
 [connection signal="action_finished" from="actions/basic_actions" to="." method="_on_basic_actions_action_finished"]
 [connection signal="pressed" from="actions/basic_actions/forage_button" to="actions/basic_actions" method="_on_forage_button_pressed"]
 [connection signal="pressed" from="actions/basic_actions/sfire_button" to="actions/basic_actions" method="_on_sfire_button_pressed"]
@@ -435,5 +471,9 @@ bus = &"Menu"
 [connection signal="fate_dealing_finished" from="actions/fate_dealing" to="." method="_on_fate_dealing_fate_dealing_finished"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]
+
+[connection signal="pressed" from="actions/choose_player/close_button" to="actions/choose_player" method="_on_close_button_pressed"]
+
 [connection signal="ship_spotted" from="actions/Lookout" to="." method="_on_lookout_ship_spotted"]
+
 [connection signal="finished" from="sounds/music" to="sounds" method="_on_music_finished"]
