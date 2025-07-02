@@ -435,4 +435,5 @@ bus = &"Menu"
 [connection signal="fate_dealing_finished" from="actions/fate_dealing" to="." method="_on_fate_dealing_fate_dealing_finished"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]
+[connection signal="ship_spotted" from="actions/Lookout" to="." method="_on_lookout_ship_spotted"]
 [connection signal="finished" from="sounds/music" to="sounds" method="_on_music_finished"]
