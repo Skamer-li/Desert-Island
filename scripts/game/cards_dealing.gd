@@ -6,7 +6,7 @@ var player_count = 0:
 	set = _set_labels
 var character_names = []
 var player_names = []
-var items
+var items = []
 
 signal cards_dealing_finished
 
@@ -23,7 +23,14 @@ func _ready() -> void:
 @rpc
 func set_cards_to_deal(items_order) -> void:
 	var count = 0
-	items = items_order
+	for item in items_order:
+		items.append(item)
+	
+	print("true array")
+	print(items_order)
+	
+	print("fuck array")
+	print(items)
 	
 	for location in GameManager.const_locations:
 		for player in $"../../players".get_children():
@@ -49,6 +56,7 @@ func _set_labels(value: int) -> void:
 		player_names.clear()
 		character_names.clear()
 		self.hide()
+		items.clear()
 		cards_dealing_finished.emit()
 	else:
 		$character_name.text = character_names[player_count]
@@ -57,6 +65,7 @@ func _set_labels(value: int) -> void:
 func _on_card_pressed(card_index):
 	var player_path = players.get_node(character_names[player_count]).get_path()
 	if multiplayer.is_server():
+		print(items)
 		CardManager.send_card_to_character(items[card_index], character_names[player_count], player_path)
 	else:
 		CardManager.send_card_to_character.rpc_id(1, items[card_index], character_names[player_count], player_path)

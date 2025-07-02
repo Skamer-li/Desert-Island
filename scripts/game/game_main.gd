@@ -14,6 +14,7 @@ var fate_dealed = 0
 var fate_resolved = 0
 var game_end = false
 var fire_radius=87.5/2
+var ships=0
 
 @rpc ("any_peer")
 func game_loop():
@@ -172,3 +173,7 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 	else:
 		fate_dealed_info.rpc_id(1)
 		show_actions_as_host.rpc_id(1)
+
+
+func _on_lookout_ship_spotted() -> void:
+	pass # Replace with function body.
