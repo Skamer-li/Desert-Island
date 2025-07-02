@@ -25,10 +25,11 @@ func place_fate(id, full_name):
 	var location_position = $"../../locations".get_node(location).position
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
+	$"../../fate_cards".get_node("BaseFateCard").show()
 	$"../../fate_cards".get_node("BaseFateCard").position.x = location_position.x
 	$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150
 	if $"../../fate_cards".get_node(location+"_fate")!=null:
-		var card_on_same_loc =2
+		var card_on_same_loc=2
 		for fate_card in $"../../fate_cards".get_children():
 			if fate_card.name == (location+"_fate"+str(card_on_same_loc)):
 				card_on_same_loc+=1
@@ -60,6 +61,9 @@ func give_fate(character):
 			pass	
 @rpc("any_peer","call_local")
 func add_token_location(location):
+	var players = 0
+	for player in $"../../players".get_children():
+		players += 1
 	match(location):
 		1:
 			$"../../locations/Beach".fate_token_amount+= 1
@@ -70,9 +74,11 @@ func add_token_location(location):
 		4:
 			$"../../locations/Spring".fate_token_amount+=1
 		5:
-			$"../../locations/Hill".fate_token_amount+=1
+			if (players>=5):
+				$"../../locations/Hill".fate_token_amount+=1
 		6:
-			$"../../locations/Cave".fate_token_amount+=1
+			if (players>=6):
+				$"../../locations/Cave".fate_token_amount+=1
 		_:
 			pass
 

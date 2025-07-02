@@ -43,3 +43,4 @@ var fate_deck = [
 	"res://sprites/fate cards/r_cap_4_boards.png","res://sprites/fate cards/r_c_5_torch.png","res://sprites/fate cards/r_fm_3_ship.png","res://sprites/fate cards/r_k_2_torch.png","res://sprites/fate cards/r_m_1_boards.png","res://sprites/fate cards/r_s_6_ship.png",
 	"res://sprites/fate cards/t_cap_3_boards.png","res://sprites/fate cards/t_c_4_torch.png","res://sprites/fate cards/t_fm_2_ship.png","res://sprites/fate cards/t_k_1_torch.png","res://sprites/fate cards/t_m_6_boards.png","res://sprites/fate cards/t_s_5_ship.png"
 ]
+var fate_deck_discard = []

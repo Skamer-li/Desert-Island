@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1cgwdet7ao1f"
-path="res://.godot/imported/swamp_closed.png-d02a9dc50d46bc9cf8f4ab7c58af2471.ctex"
+uid="uid://b5qih2iyi0pgs"
+path="res://.godot/imported/Cave.png-e1ffc9138bc9724dac412467079c90b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/swamp_closed.png"
-dest_files=["res://.godot/imported/swamp_closed.png-d02a9dc50d46bc9cf8f4ab7c58af2471.ctex"]
+source_file="res://sprites/locations/Cave.png"
+dest_files=["res://.godot/imported/Cave.png-e1ffc9138bc9724dac412467079c90b2.ctex"]
 
 [params]
 

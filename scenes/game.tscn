@@ -1,28 +1,106 @@
-[gd_scene load_steps=25 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=27 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
-[ext_resource type="Texture2D" uid="uid://bxi4suqbjdpv5" path="res://sprites/locations/beach.png" id="3_ni66g"]
 [ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
-[ext_resource type="Texture2D" uid="uid://bmvenjaj6410o" path="res://sprites/locations/jungle.png" id="4_q5ewn"]
-[ext_resource type="Script" path="res://scripts/location.gd" id="5_fhrvi"]
-[ext_resource type="Texture2D" uid="uid://bfywa2x4xexhu" path="res://sprites/locations/swamp.png" id="5_oguup"]
-[ext_resource type="Texture2D" uid="uid://b6qwsxine1bff" path="res://sprites/locations/spring.png" id="6_ytntd"]
-[ext_resource type="Texture2D" uid="uid://c0p6ydeefeipp" path="res://sprites/locations/hill.png" id="7_vs6rm"]
-[ext_resource type="Texture2D" uid="uid://cr8r5exqcpqve" path="res://sprites/locations/cave.png" id="8_0o7vf"]
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
+[ext_resource type="Texture2D" uid="uid://b1ps0hv2fyfhs" path="res://sprites/tokens/torch.png" id="11_m3a3i"]
+[ext_resource type="Texture2D" uid="uid://dsm31rmv1vxe1" path="res://sprites/tokens/boards.png" id="12_7o5sx"]
+[ext_resource type="Texture2D" uid="uid://44xgwxfv7xu1" path="res://sprites/tokens/ship.png" id="13_x8gra"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
 [ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="15_x4685"]
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="17_kwyil"]
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="18_1dbih"]
+[ext_resource type="Script" path="res://scripts/game/lookout.gd" id="17_2htaf"]
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
+[ext_resource type="AudioStream" uid="uid://bl3b54386khak" path="res://sounds/card_draw.ogg" id="20_rc44p"]
+[ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
+[ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
+
+[sub_resource type="GDScript" id="GDScript_lthko"]
+script/source = "extends Sprite2D
+
+var character
+var character_name
+var fate_card_value
+
+signal action_finished
+
+func _on_forage_button_pressed() -> void:
+	var food = fate_card_value + character.forage_food_amplification
+	
+	if (character.current_location == \"Spring\"):
+		food += 3
+
+	if multiplayer.is_server():
+		give_food_to_char(character_name, food)
+	else:
+		give_food_to_char.rpc_id(1, character_name, food)
+	
+	disable_buttons(true)
+
+func _on_sfire_button_pressed() -> void:
+	var amount= character.signal_fire_build
+	if (character.current_location == \"Hill\"):
+		amount += 1
+	if multiplayer.is_server():
+		build_signal_fire(amount)
+	else:
+		build_signal_fire.rpc_id(1, amount)
+	disable_buttons(true)
+
+func _on_steal_button_pressed() -> void:
+	#Idk right now
+	pass 
+
+func _on_end_turn_button_pressed() -> void:
+	self.hide()
+	
+	if multiplayer.is_server():
+		end_turn()
+	else:
+		end_turn.rpc_id(1)
+	
+func disable_buttons(disable: bool):
+	for button in self.get_children():
+		if (button != $end_turn_button):
+			if disable:
+				button.disabled = true
+			else:
+				button.disabled = false
+		else:
+			if disable:
+				button.disabled = false
+			else:
+				button.disabled = true
+
+@rpc (\"any_peer\")
+func end_turn():
+	action_finished.emit()
+	
+@rpc (\"any_peer\")
+func show_actions(char_name: String, card_value: int) -> void:
+	self.show()
+	disable_buttons(false)
+	character_name = char_name
+	fate_card_value = card_value
+	character = $\"../../players\".get_node(character_name)
+
+@rpc (\"any_peer\")
+func give_food_to_char(char_name: String, amount: int):
+	$\"../../players\".get_node(char_name).food_amount += amount
+
+@rpc (\"any_peer\")
+func build_signal_fire(amount: int):
+	$\"../..\".signal_fire += amount
+"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vx2yp"]
 load_path = "res://.godot/imported/name_back.png-90c908a49bde1f75d1abc10de8d44486.ctex"
@@ -42,42 +120,6 @@ spawn_limit = 6
 
 [node name="locations" type="Node2D" parent="."]
 script = ExtResource("3_yc610")
-
-[node name="Beach" type="Sprite2D" parent="locations"]
-position = Vector2(385.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3_ni66g")
-script = ExtResource("5_fhrvi")
-
-[node name="Jungle" type="Sprite2D" parent="locations"]
-position = Vector2(610.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_q5ewn")
-script = ExtResource("5_fhrvi")
-
-[node name="Swamp" type="Sprite2D" parent="locations"]
-position = Vector2(835.125, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_oguup")
-script = ExtResource("5_fhrvi")
-
-[node name="Spring" type="Sprite2D" parent="locations"]
-position = Vector2(1060.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("6_ytntd")
-script = ExtResource("5_fhrvi")
-
-[node name="Hill" type="Sprite2D" parent="locations"]
-position = Vector2(1285.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("7_vs6rm")
-script = ExtResource("5_fhrvi")
-
-[node name="Cave" type="Sprite2D" parent="locations"]
-position = Vector2(1510.13, 510.25)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("8_0o7vf")
-script = ExtResource("5_fhrvi")
 
 [node name="characters" type="Node2D" parent="."]
 script = ExtResource("10_i1y1d")
@@ -249,9 +291,11 @@ script = ExtResource("15_q81ke")
 [node name="fate" type="Node2D" parent="actions/fate_dealing"]
 
 [node name="BaseFateCard" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+visible = true
 position = Vector2(-286.045, 0)
 
 [node name="BaseFateCard2" parent="actions/fate_dealing/fate" instance=ExtResource("15_urpy1")]
+visible = true
 position = Vector2(252.891, 0)
 
 [node name="Button" type="Button" parent="actions/fate_dealing/fate"]
@@ -395,15 +439,93 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 35
 text = "Location"
 
+[node name="Lookout" type="Node2D" parent="actions"]
+script = ExtResource("17_2htaf")
+
+[node name="Boards" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(1125, 62)
+scale = Vector2(1.01316, 1.02893)
+texture = ExtResource("12_7o5sx")
+
+[node name="Label" type="Label" parent="actions/Lookout/Boards"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -76.9871
+offset_top = -60.743
+offset_right = -75.9871
+offset_bottom = -60.535
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Torch" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(804, 62)
+scale = Vector2(1, 0.996)
+texture = ExtResource("11_m3a3i")
+
+[node name="Label" type="Label" parent="actions/Lookout/Torch"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -91.0
+offset_top = -62.751
+offset_right = -90.0
+offset_bottom = -62.543
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ship" type="Sprite2D" parent="actions/Lookout"]
+position = Vector2(971, 62.75)
+scale = Vector2(1, 0.996)
+texture = ExtResource("13_x8gra")
+
+[node name="Label" type="Label" parent="actions/Lookout/Ship"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.552
+offset_left = -76.0
+offset_top = -62.5
+offset_right = -75.0
+offset_bottom = -62.292
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wait_time" type="Timer" parent="actions/Lookout"]
+one_shot = true
+
+[node name="card" type="Node2D" parent="actions/Lookout"]
+
+
 [node name="Items" type="Sprite2D" parent="."]
-position = Vector2(160.125, 510.25)
+position = Vector2(160, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("22_8db47")
 
 [node name="fate" type="Sprite2D" parent="."]
-position = Vector2(1735.13, 510.25)
+position = Vector2(1760, 510.25)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
+
+[node name="SignalFireToken" type="Sprite2D" parent="."]
+position = Vector2(80, 80)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("21_o17qr")
+
+[node name="fate_tokens_fire" type="Node2D" parent="SignalFireToken"]
+scale = Vector2(4, 4)
+script = ExtResource("22_acev5")
 
 [node name="sounds" type="Node2D" parent="."]
 script = ExtResource("19_1grsc")
@@ -412,6 +534,10 @@ script = ExtResource("19_1grsc")
 stream = ExtResource("19_xdv5i")
 autoplay = true
 bus = &"Music"
+
+[node name="draw_card" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("20_rc44p")
+bus = &"Menu"
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]

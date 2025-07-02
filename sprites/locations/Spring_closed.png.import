@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmvenjaj6410o"
-path="res://.godot/imported/jungle.png-d62a3b534c17d62ae397e73aa33fe791.ctex"
+uid="uid://b57i4ix0kp0em"
+path="res://.godot/imported/Spring_closed.png-3f9b021d48f312df06895bb81543f830.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/jungle.png"
-dest_files=["res://.godot/imported/jungle.png-d62a3b534c17d62ae397e73aa33fe791.ctex"]
+source_file="res://sprites/locations/Spring_closed.png"
+dest_files=["res://.godot/imported/Spring_closed.png-3f9b021d48f312df06895bb81543f830.ctex"]
 
 [params]
 

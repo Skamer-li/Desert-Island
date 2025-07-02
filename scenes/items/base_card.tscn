@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://sdotbtcc647o"]
 
 [ext_resource type="Script" path="res://scripts/items/base_card.gd" id="1_ce5q6"]
-[ext_resource type="Shader" path="res://shaders/card.gdshader" id="2_oc6uv"]
+[ext_resource type="Shader" path="res://scenes/shaders/card.gdshader" id="2_oc6uv"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="3_4n2is"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgwlb"]

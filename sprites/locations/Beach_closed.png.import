@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crh0g8wqs5680"
-path="res://.godot/imported/cave_closed.png-0499fbbc4f37158599e3849f94327ed5.ctex"
+uid="uid://cw5ner102ltew"
+path="res://.godot/imported/Beach_closed.png-b11888edf51238f234f343f107d8f397.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/locations/cave_closed.png"
-dest_files=["res://.godot/imported/cave_closed.png-0499fbbc4f37158599e3849f94327ed5.ctex"]
+source_file="res://sprites/locations/Beach_closed.png"
+dest_files=["res://.godot/imported/Beach_closed.png-b11888edf51238f234f343f107d8f397.ctex"]
 
 [params]
 
