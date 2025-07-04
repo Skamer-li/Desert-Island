@@ -7,10 +7,8 @@ var ships=0
 var players_not_ready=0
 func _ready() -> void:
 	self.hide()
-	$ready_check.hide()
-	$Boards.hide()
-	$Torch.hide()
-	$Ship.hide()
+	for nodes in get_children():
+		if nodes.name!="wait_time":nodes.hide()
 @rpc("any_peer")	
 func lookout(fate_deck,signal_fire):
 	var symbols=[]
@@ -25,7 +23,7 @@ func lookout(fate_deck,signal_fire):
 		remove_card.rpc()
 	for card in GameManager.fate_deck_discard.size():
 		GameManager.fate_deck.pop_front()
-		resolve.rpc(symbols)
+	resolve.rpc(symbols)
 @rpc("any_peer","call_local")
 func ready_check():
 	self.show()
@@ -36,6 +34,7 @@ func show_card(card,symbol):
 	$Boards.show()
 	$Torch.show()
 	$Ship.show()
+	$card.show()
 	self.show()
 	var card_scene = preload("res://scenes/fate/base_fate_card.tscn")
 	var scene = card_scene.instantiate()
@@ -72,8 +71,8 @@ func resolve(symbols):
 	board=0
 	torches=0
 	ships=0
-	self.hide()
 	lookout_resolved.emit()
+	_ready()
 	
 @rpc("any_peer")
 func no_value():
@@ -83,10 +82,12 @@ func no_value():
 		resolve.rpc(str(0))
 @rpc("any_peer")
 func lookout_as_host():
+	CardManager.shuffle_discarded_fate(($"../..".signal_fire+1))
 	lookout(GameManager.fate_deck,$"../..".signal_fire)
 
 func _on_yes_pressed() -> void:
 	if multiplayer.is_server():
+		CardManager.shuffle_discarded_fate(($"../..".signal_fire+1))
 		lookout(GameManager.fate_deck,$"../..".signal_fire)
 	else:
 		lookout_as_host.rpc_id(1)

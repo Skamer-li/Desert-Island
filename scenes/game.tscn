@@ -430,6 +430,7 @@ vertical_alignment = 1
 one_shot = true
 
 [node name="card" type="Node2D" parent="actions/Lookout"]
+visible = false
 
 [node name="ready_check" type="Sprite2D" parent="actions/Lookout"]
 visible = false
@@ -476,6 +477,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("17_2bao7")
 
 [node name="ships" type="Node2D" parent="."]
+position = Vector2(240, 80)
 script = ExtResource("21_j53tk")
 
 [node name="SignalFireToken" type="Sprite2D" parent="."]
