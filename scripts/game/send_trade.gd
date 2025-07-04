@@ -48,22 +48,27 @@ func _process(delta: float) -> void:
 	$player_side/cards_in_hand/card_amount.text = str(player_card_slider.value)
 	
 func _on_close_button_pressed() -> void:
+	MenuClick.play()
 	self.hide()
 	for child in $menus.get_children():
 		child.queue_free()
 
 
 func _on_hand_pressed() -> void:
+	MenuClick.play()
 	menu_interaction("self_hand", $"../..".character_name, false)
 
 
 func _on_open_pressed() -> void:
+	MenuClick.play()
 	menu_interaction("self_open", $"../..".character_name, true)
 
 func _on_button_pressed() -> void:
+	MenuClick.play()
 	menu_interaction("player_open", player_name, true)
 	
 func menu_interaction(menu_name, character_name, open):
+	MenuClick.play()
 	if ($menus.get_node(menu_name) == null):
 		var card_scene = card_list.instantiate()
 		card_scene.name = menu_name
@@ -87,6 +92,7 @@ func menu_interaction(menu_name, character_name, open):
 
 
 func _on_send_button_pressed() -> void:
+	MenuClick.play()
 	var target_id = $"../..".get_parent().get_node(player_name).player_id
 	print("My target is" + player_name)
 	var sender_name = $"../..".character_name
@@ -98,18 +104,21 @@ func _on_send_button_pressed() -> void:
 	if ($menus.get_node("self_hand") != null):
 		for item in $menus.get_node("self_hand").get_node("card_spawn_point").get_children():
 			if (item.get_node("CheckBox").button_pressed):
+				MenuClick.play()
 				closed_cards_to_give.append(item.card_name)
 			
 	var open_cards_to_get = []
 	if ($menus.get_node("player_open") != null):
 		for item in $menus.get_node("player_open").get_node("card_spawn_point").get_children():
 			if (item.get_node("CheckBox").button_pressed):
+				MenuClick.play()
 				open_cards_to_get.append(item.card_name)
 			
 	var open_cards_to_give = []
 	if ($menus.get_node("self_open") != null):
 		for item in $menus.get_node("self_open").get_node("card_spawn_point").get_children():
 			if (item.get_node("CheckBox").button_pressed):
+				MenuClick.play()
 				open_cards_to_give.append(item.card_name)
 	
 	#$"../recieve_trade".initialize.rpc_id(target_id, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
@@ -125,5 +134,6 @@ func calling(player_name, sender_name, give_food, get_food, closed_cards_to_get,
 
 
 func _on_trade_button_pressed() -> void:
+	MenuClick.play()
 	var path = $"../..".get_parent().get_parent().get_node("actions").get_node("choose_player")
 	path.start(true, $"../..".character_name)

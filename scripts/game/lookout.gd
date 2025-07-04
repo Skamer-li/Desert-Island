@@ -86,6 +86,8 @@ func lookout_as_host():
 	lookout(GameManager.fate_deck,$"../..".signal_fire)
 
 func _on_yes_pressed() -> void:
+	MenuClick.play()
+	await MenuClick.finished
 	if multiplayer.is_server():
 		CardManager.shuffle_discarded_fate(($"../..".signal_fire+1))
 		lookout(GameManager.fate_deck,$"../..".signal_fire)
@@ -93,6 +95,8 @@ func _on_yes_pressed() -> void:
 		lookout_as_host.rpc_id(1)
 
 func _on_no_pressed() -> void:
+	MenuClick.play()
+	await MenuClick.finished
 	$ready_check.hide()
 	if multiplayer.is_server():
 		no_value()

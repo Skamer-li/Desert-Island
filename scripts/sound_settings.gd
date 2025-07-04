@@ -20,8 +20,8 @@ func _ready() -> void:
 	$Panel/effects_volume/volume_slider.value=db_to_linear(AudioServer.get_bus_volume_db(effects_bus))*100
 
 func _on_back_button_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	MenuClick.play()
+	await MenuClick.finished
 	get_tree().change_scene_to_file("res://scenes/settings_menu.tscn")
 
 func _on_master_slider_value_changed(value: float) -> void:
@@ -43,20 +43,20 @@ func _on_effects_slider_value_changed(value: float) -> void:
 
 
 func _on_master_button_toggled(toggled_on: bool) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	AudioServer.set_bus_mute(master_bus,toggled_on)
 
 func _on_menus_button_toggled(toggled_on: bool) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	AudioServer.set_bus_mute(menus_bus,toggled_on)
 	
 func _on_mute_button_button_down() -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 
 func _on_music_button_toggled(toggled_on: bool) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	AudioServer.set_bus_mute(music_bus,toggled_on)
 
 func _on_effects_button_toggled(toggled_on: bool) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	AudioServer.set_bus_mute(effects_bus,toggled_on)

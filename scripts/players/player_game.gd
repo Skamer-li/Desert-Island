@@ -135,6 +135,7 @@ func _set_enemy_name(value: String) -> void:
 			print("Error character name set")
 
 func _on_button_pressed() -> void:
+	MenuClick.play()
 	if not multiplayer.is_server():
 		deal_damage.rpc_id(1)
 	else:

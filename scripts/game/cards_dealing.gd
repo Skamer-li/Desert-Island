@@ -58,6 +58,7 @@ func _set_labels(value: int) -> void:
 		$player_name.text = player_names[player_count]
 
 func _on_card_pressed(card_index):
+	MenuClick.play()
 	var player_path = players.get_node(character_names[player_count]).get_path()
 	if multiplayer.is_server():
 		CardManager.send_card_to_character(items[card_index], character_names[player_count], player_path)
