@@ -35,10 +35,11 @@ func give_card(item_props: Dictionary, char_name: String, target_player_path):
 	target_player.get_node("Hand").add_card(scene)
 	target_player.get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
 
-@rpc ("any_peer")
+@rpc ("any_peer","call_local")
 #This function needs to be called as host before calling a function which will draw fate cards from the deck
 func shuffle_discarded_fate(draw_amount):
-	if GameManager.fate_deck.size()<draw_amount:
+	if GameManager.fate_deck.size()<=draw_amount&&multiplayer.is_server():
 		for card in GameManager.fate_deck_discard:
 			GameManager.fate_deck.append(card)
 			GameManager.fate_deck.shuffle()
+		GameManager.fate_deck_discard.clear()

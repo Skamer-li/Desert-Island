@@ -65,7 +65,7 @@ func game_loop():
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
 					if(fate_dealed < characters_alive()):
-						CardManager.shuffle_discarded_fate.rpc_id(1,2)
+						CardManager.shuffle_discarded_fate.rpc(2)
 						$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 					basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
@@ -109,7 +109,7 @@ func show_actions_as_host():
 
 @rpc ("any_peer")
 func draw_fate_as_host():
-	CardManager.shuffle_discarded_fate.rpc_id(1,2)
+	CardManager.shuffle_discarded_fate.rpc(2)
 	$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 	
 @rpc ("any_peer")
@@ -154,6 +154,34 @@ func fire_update():
 
 func end_game():
 	print("GG WP")
+	for character in $players.get_children():
+		var character_name = character.character_name
+		var enemy_name = character.enemy_name
+		var friend_name = character.friend_name
+		
+		#Own Survival Points
+		if (character.is_dead == false):
+			GameScoreVar.give_points(character_name, character.survival_points)
+
+		#Friend Survival Points
+		if $players.get_node(friend_name).is_dead==false:
+			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points)
+
+		#Enemy Survival Points
+		if $players.get_node(enemy_name).is_dead==true&&enemy_name!=character_name:
+			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength)
+			
+		#Psychopath Points
+		if enemy_name==character_name:
+			var characters_dead=$players.get_children().size()-characters_alive()
+			GameScoreVar.give_points(character_name, 2*characters_dead)
+			if $players.get_node(friend_name).is_dead == true:
+				GameScoreVar.give_points(character_name, -2)
+	print(GameScoreVar.captain_score,"cap")
+	print(GameScoreVar.first_mate_score,"FM")
+	print(GameScoreVar.snob_score,"SN")
+	print(GameScoreVar.cherpack_score,"CH")
+		
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 
@@ -186,5 +214,5 @@ func _on_lookout_ship_spotted() -> void:
 	if multiplayer.is_server():
 		ships+=1
 		$ships.create_ship.rpc(ships)
-		if ships == 3:
+		if ships == 4:
 			end_game()

@@ -40,6 +40,7 @@ extends Node2D
 @export var inventory_activated: Array[String] = []
 
 @export var is_dead = false
+@export var survival_points = 0
 
 @export var char_fate = 0
 @export var location_fate = 0
@@ -75,21 +76,27 @@ func _set_character_name(value: String) -> void:
 		"Cherpack":
 			$character.texture = load("res://sprites/characters/cherpack.png")
 			base_strength = 6
+			survival_points = 6
 		"First Mate":
 			$character.texture = load("res://sprites/characters/first_mate.png")
 			base_strength = 8
+			survival_points = 4
 		"Snob":
 			$character.texture = load("res://sprites/characters/snob.png")
 			base_strength = 5
+			survival_points = 7
 		"The Captain":
 			$character.texture = load("res://sprites/characters/the_captain.png")
 			base_strength = 7
+			survival_points = 5
 		"Milady":
 			$character.texture = load("res://sprites/characters/milady.png")
 			base_strength = 4
+			survival_points = 8
 		"The Kid":
 			$character.texture = load("res://sprites/characters/the_kid.png")
 			base_strength = 4
+			survival_points = 8
 		_:
 			print("Error character name set")
 			
