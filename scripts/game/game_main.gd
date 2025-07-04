@@ -15,6 +15,7 @@ var fate_resolved = 0
 var game_end = false
 var fire_radius=87.5/2
 var ships=0
+var game_ended =0
 
 @rpc ("any_peer")
 func game_loop():
@@ -39,7 +40,7 @@ func game_loop():
 			_:
 				$actions/Lookout.ready_check.rpc()
 				await $actions/Lookout.lookout_resolved
-				if fate_resolved==0&&multiplayer.is_server(): fate_resolve();deleting_fate.rpc()
+				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve();deleting_fate.rpc()
 				await fate_resolved==1
 				current_turn = 0
 				cards_dealed = false
@@ -159,28 +160,35 @@ func end_game():
 		var enemy_name = character.enemy_name
 		var friend_name = character.friend_name
 		
+		var id = character.player_id  
+		var player = character.player_name
+		
 		#Own Survival Points
 		if (character.is_dead == false):
-			GameScoreVar.give_points(character_name, character.survival_points)
+			GameScoreVar.give_points(character_name, character.survival_points,player)
 
 		#Friend Survival Points
 		if $players.get_node(friend_name).is_dead==false:
-			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points)
+			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points,player)
 
 		#Enemy Survival Points
 		if $players.get_node(enemy_name).is_dead==true&&enemy_name!=character_name:
-			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength)
+			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength,player)
 			
 		#Psychopath Points
 		if enemy_name==character_name:
 			var characters_dead=$players.get_children().size()-characters_alive()
-			GameScoreVar.give_points(character_name, 2*characters_dead)
+			GameScoreVar.give_points(character_name, 2*characters_dead,player)
 			if $players.get_node(friend_name).is_dead == true:
-				GameScoreVar.give_points(character_name, -2)
-	print(GameScoreVar.captain_score,"cap")
-	print(GameScoreVar.first_mate_score,"FM")
-	print(GameScoreVar.snob_score,"SN")
-	print(GameScoreVar.cherpack_score,"CH")
+				GameScoreVar.give_points(character_name, -2,player)
+	print(GameScoreVar.game_score)
+	show_game_score.rpc()
+	game_ended=1
+@rpc("any_peer","call_local")
+func show_game_score():
+	await $sounds/effects.finished
+	get_tree().change_scene_to_file("res://scenes/game_score.tscn")
+	self.queue_free()
 		
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
@@ -214,5 +222,5 @@ func _on_lookout_ship_spotted() -> void:
 	if multiplayer.is_server():
 		ships+=1
 		$ships.create_ship.rpc(ships)
-		if ships == 4:
+		if ships == 1:
 			end_game()

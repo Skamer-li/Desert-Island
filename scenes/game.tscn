@@ -494,7 +494,6 @@ script = ExtResource("19_1grsc")
 
 [node name="music" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource("19_xdv5i")
-autoplay = true
 bus = &"Music"
 
 [node name="draw_card" type="AudioStreamPlayer" parent="sounds"]
@@ -519,3 +518,4 @@ bus = &"Menu"
 [connection signal="pressed" from="actions/Lookout/ready_check/Yes" to="actions/Lookout" method="_on_yes_pressed"]
 [connection signal="pressed" from="actions/Lookout/ready_check/No" to="actions/Lookout" method="_on_no_pressed"]
 [connection signal="finished" from="sounds/music" to="sounds" method="_on_music_finished"]
+[connection signal="ready" from="sounds/music" to="sounds" method="_on_music_ready"]

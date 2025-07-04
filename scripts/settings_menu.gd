@@ -70,7 +70,11 @@ func _on_window_mode_option_button_item_selected(index: int) -> void:
 func _on_back_button_pressed() -> void:
 	MenuClick.play()
 	await MenuClick.finished
-	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+	if MultiplayerManager.is_in_game:
+		self.queue_free()
+		#get_tree().change_scene_to_file("res://scenes/game.tscn")
+	else:	
+		get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
 
 func _on_sound_pressed() -> void:

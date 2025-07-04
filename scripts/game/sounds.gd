@@ -9,3 +9,7 @@ func _on_music_finished() -> void:
 func ship_horn():
 	$effects.stream=load("res://sounds/ship_horn.ogg")
 	$effects.play()
+
+
+func _on_music_ready() -> void:
+	if $music.playing==false: $music.play()

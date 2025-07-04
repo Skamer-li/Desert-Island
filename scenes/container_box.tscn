@@ -16,6 +16,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_10dnb")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "ball
-"
 vertical_alignment = 1

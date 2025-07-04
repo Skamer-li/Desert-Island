@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bb3kelf7vivap"]
+[gd_scene load_steps=19 format=3 uid="uid://bb3kelf7vivap"]
 
 [ext_resource type="Script" path="res://scripts/players/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/game/send_trade.gd" id="11_35wll"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="11_seuc1"]
 [ext_resource type="Script" path="res://scripts/game/recieve_trade.gd" id="14_wfvbe"]
+[ext_resource type="Script" path="res://scripts/players/settings_button.gd" id="16_iiy61"]
 [ext_resource type="Script" path="res://scenes/rulebook_button.gd" id="16_xeyh5"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqsqn"]
@@ -484,10 +485,18 @@ shape = SubResource("CircleShape2D_eqxsd")
 [node name="RulebookButton" type="Button" parent="."]
 offset_left = 1780.0
 offset_top = 40.0
-offset_right = 1879.0
-offset_bottom = 91.0
+offset_right = 1880.0
+offset_bottom = 90.0
 text = "Rulebook"
 script = ExtResource("16_xeyh5")
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 1780.0
+offset_top = 100.0
+offset_right = 1880.0
+offset_bottom = 150.0
+text = "Settings"
+script = ExtResource("16_iiy61")
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TradeButton" to="trade/send_trade" method="_on_trade_button_pressed"]
