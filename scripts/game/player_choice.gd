@@ -43,6 +43,7 @@ func choose_player(name, trade_flag):
 		$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
 	else:
 		$"../steal".show()
+		$"../steal".initialize(caller, name)
 		
 	for button in buttons:
 		button.pressed.disconnect(choose_player)

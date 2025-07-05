@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
 [ext_resource type="Texture2D" uid="uid://b1ps0hv2fyfhs" path="res://sprites/tokens/torch.png" id="11_m3a3i"]
 [ext_resource type="Texture2D" uid="uid://dsm31rmv1vxe1" path="res://sprites/tokens/boards.png" id="12_7o5sx"]
+[ext_resource type="Script" path="res://scripts/game/steal.gd" id="13_v8yan"]
 [ext_resource type="Texture2D" uid="uid://44xgwxfv7xu1" path="res://sprites/tokens/ship.png" id="13_x8gra"]
+[ext_resource type="Texture2D" uid="uid://b5xgndpciy6b7" path="res://sprites/tokens/food_token.png" id="14_se1p4"]
 [ext_resource type="Script" path="res://scripts/game/fate_dealing.gd" id="15_q81ke"]
 [ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="15_urpy1"]
 [ext_resource type="Script" path="res://scripts/game/basic_actions.gd" id="15_x4685"]
@@ -15,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="17_kwyil"]
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="18_1dbih"]
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
+[ext_resource type="Script" path="res://scripts/game/fight.gd" id="19_2w6nd"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
 [ext_resource type="AudioStream" uid="uid://bl3b54386khak" path="res://sounds/card_draw.ogg" id="20_rc44p"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
@@ -299,6 +302,7 @@ offset_bottom = -226.0
 visible = false
 position = Vector2(960, 540)
 texture = ExtResource("30_7whwj")
+script = ExtResource("13_v8yan")
 
 [node name="Label" type="Label" parent="actions/steal"]
 anchors_preset = 5
@@ -360,6 +364,47 @@ offset_bottom = 137.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 35
 text = "Location"
+
+[node name="menus" type="Node2D" parent="actions/steal"]
+
+[node name="food_choice" type="Sprite2D" parent="actions/steal/menus"]
+visible = false
+texture = ExtResource("30_7whwj")
+
+[node name="food_sprite" type="Sprite2D" parent="actions/steal/menus/food_choice"]
+z_index = 1
+position = Vector2(-232.5, -135)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("14_se1p4")
+
+[node name="food_slider" type="HSlider" parent="actions/steal/menus/food_choice"]
+offset_left = -141.5
+offset_top = -180.0
+offset_right = 46.5
+offset_bottom = -120.0
+scale = Vector2(1.5, 1.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="food_amount" type="Label" parent="actions/steal/menus/food_choice"]
+offset_left = 165.5
+offset_top = -161.0
+offset_right = 205.5
+offset_bottom = -112.0
+theme_override_font_sizes/font_size = 35
+
+[node name="close_button" parent="actions/steal/menus/food_choice" instance=ExtResource("18_1dbih")]
+offset_left = 527.0
+offset_top = -278.0
+offset_right = 577.0
+offset_bottom = -228.0
+
+[node name="fight_start" type="Button" parent="actions/steal/menus/food_choice"]
+offset_left = -222.0
+offset_top = 113.0
+offset_right = 184.0
+offset_bottom = 171.0
+theme_override_font_sizes/font_size = 35
+text = "Start a fight!"
 
 [node name="Lookout" type="Node2D" parent="actions"]
 script = ExtResource("17_2htaf")
@@ -429,6 +474,42 @@ one_shot = true
 
 [node name="card" type="Node2D" parent="actions/Lookout"]
 
+[node name="fight" type="Node2D" parent="."]
+script = ExtResource("19_2w6nd")
+
+[node name="fight_message" type="Sprite2D" parent="fight"]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("30_7whwj")
+
+[node name="Label" type="Label" parent="fight/fight_message"]
+offset_left = -508.0
+offset_top = -195.0
+offset_right = 523.0
+offset_bottom = -117.0
+theme_override_font_sizes/font_size = 35
+text = "PLayer invites you to do some shit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="accept" type="Button" parent="fight/fight_message"]
+offset_left = -318.0
+offset_top = 77.0
+offset_right = -54.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 35
+text = "Accept"
+
+[node name="decline" type="Button" parent="fight/fight_message"]
+offset_left = 131.0
+offset_top = 81.0
+offset_right = 395.0
+offset_bottom = 138.0
+theme_override_font_sizes/font_size = 35
+text = "Start a fight!"
+
+[node name="side_choice" type="Sprite2D" parent="fight"]
+
 [node name="Items" type="Sprite2D" parent="."]
 position = Vector2(160, 510.25)
 scale = Vector2(0.25, 0.25)
@@ -471,9 +552,14 @@ bus = &"Menu"
 [connection signal="fate_dealing_finished" from="actions/fate_dealing" to="." method="_on_fate_dealing_fate_dealing_finished"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]
-
 [connection signal="pressed" from="actions/choose_player/close_button" to="actions/choose_player" method="_on_close_button_pressed"]
-
+[connection signal="pressed" from="actions/steal/open_card" to="actions/steal" method="_on_open_card_pressed"]
+[connection signal="pressed" from="actions/steal/closed_card" to="actions/steal" method="_on_closed_card_pressed"]
+[connection signal="pressed" from="actions/steal/food" to="actions/steal" method="_on_food_pressed"]
+[connection signal="pressed" from="actions/steal/location" to="actions/steal" method="_on_location_pressed"]
+[connection signal="value_changed" from="actions/steal/menus/food_choice/food_slider" to="actions/steal" method="_on_food_slider_value_changed"]
+[connection signal="pressed" from="actions/steal/menus/food_choice/close_button" to="actions/steal" method="_on_close_button_pressed"]
+[connection signal="pressed" from="actions/steal/menus/food_choice/fight_start" to="actions/steal" method="_on_fight_start_pressed"]
 [connection signal="ship_spotted" from="actions/Lookout" to="." method="_on_lookout_ship_spotted"]
-
+[connection signal="pressed" from="fight/fight_message/accept" to="fight" method="_on_accept_pressed"]
 [connection signal="finished" from="sounds/music" to="sounds" method="_on_music_finished"]

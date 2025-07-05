@@ -30,3 +30,17 @@ func location_spawn(players_amount: int):
 		place.position.y += card_y
 		place.position.x = x_from_border+card_width/2+card_width*(i)+space_between_cards*i
 		i+=1
+
+@rpc ("call_local")
+func swap_locations(first_char, second_char):
+	var first_node = $"../players".get_node(first_char)
+	var second_node = $"../players".get_node(second_char)
+	
+	var temp_loc_name = first_node.current_location
+	var temp_loc_pos = $"../locations".get_node(temp_loc_name).position
+	
+	first_node.current_location = second_node.current_location
+	$"../characters".get_node(first_char).position.x = $"../locations".get_node(second_node.current_location).position.x
+	
+	second_node.current_location = temp_loc_name
+	$"../characters".get_node(second_char).position.x = temp_loc_pos.x

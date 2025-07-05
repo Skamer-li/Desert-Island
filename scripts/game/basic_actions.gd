@@ -41,7 +41,8 @@ func _on_end_turn_button_pressed() -> void:
 		end_turn()
 	else:
 		end_turn.rpc_id(1)
-	
+
+@rpc ("any_peer")
 func disable_buttons(disable: bool):
 	for button in self.get_children():
 		if (button != $end_turn_button):

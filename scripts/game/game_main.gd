@@ -5,6 +5,7 @@ extends Node2D
 @export var fate_card_value = 0
 @export var signal_fire = 0
 
+var finished_turn = []
 var current_turn = 0
 var current_location = "Beach"
 var current_player_id = 0
@@ -44,10 +45,14 @@ func game_loop():
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0
+				finished_turn.clear()
 				continue
 		
 		current_player_id = player_id_on_location(current_location)
 		current_character_name = character_name_on_location(current_location)
+		
+		if (finished_turn.has(current_character_name)):
+			continue
 		
 		match (current_player_id):
 			0:
@@ -67,6 +72,7 @@ func game_loop():
 						$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 					basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
+		finished_turn.append(current_character_name)
 		return
 	
 func player_id_on_location(location: String) -> int:
@@ -177,3 +183,6 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 
 func _on_lookout_ship_spotted() -> void:
 	pass # Replace with function body.
+	
+func decrement_turn():
+	current_turn -= 1
