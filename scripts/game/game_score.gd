@@ -7,10 +7,17 @@ func sort_descending(a, b):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if multiplayer.is_server():
+		logged_in_plus_plus()
 		for characters in GameScoreVar.game_score[0]:
 			scores.append(GameScoreVar.game_score[0][characters])
 		scores.sort_custom(sort_descending)
+	else:
+		logged_in_plus_plus.rpc_id(1)
+		
+func _process(delta: float) -> void:
+	if multiplayer.is_server()&&GameManager.logged_in==GameManager.players_id.size():
 		display_score.rpc(scores,GameScoreVar.game_score)
+		GameManager.logged_in=1000
 		
 @rpc("any_peer","call_local")
 func display_score(scores,game_score):
@@ -37,6 +44,9 @@ func display_score(scores,game_score):
 		$Panel/GridContainer.get_node("container_box").get_node("Label").text=str(score)
 		$Panel/GridContainer.get_node("container_box").name=nth_place_holders[0]+"1"
 
+@rpc("any_peer")
+func logged_in_plus_plus():
+	GameManager.logged_in+=1
 func _on_button_pressed() -> void:
 	MenuClick.play()
 	await MenuClick.finished

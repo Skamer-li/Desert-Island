@@ -181,6 +181,9 @@ func end_game():
 			GameScoreVar.give_points(character_name, 2*characters_dead,player)
 			if $players.get_node(friend_name).is_dead == true:
 				GameScoreVar.give_points(character_name, -2,player)
+		#Items
+		for item in character.get_node("Hand").get_children():
+			if item.name!="DebugShape":GameScoreVar.give_points(character_name, item.value,player)
 	print(GameScoreVar.game_score)
 	show_game_score.rpc()
 	game_ended=1
@@ -189,7 +192,7 @@ func show_game_score():
 	await $sounds/effects.finished
 	get_tree().change_scene_to_file("res://scenes/game_score.tscn")
 	self.queue_free()
-		
+	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 
