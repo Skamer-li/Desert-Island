@@ -1,6 +1,7 @@
 extends Node
 
 @rpc ("any_peer")
+#Why does this function require target name if it doesn't use it???
 func delete_card(card_name, target_name, target_player_path):
 	var target_player = get_node(target_player_path)
 	if (multiplayer.is_server()):
