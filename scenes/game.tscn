@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
 [ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
+[ext_resource type="AudioStream" uid="uid://b2kjvbbkn570" path="res://sounds/the-boar.ogg" id="26_1ad4b"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
@@ -501,6 +502,7 @@ stream = ExtResource("20_rc44p")
 bus = &"Menu"
 
 [node name="effects" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("26_1ad4b")
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]

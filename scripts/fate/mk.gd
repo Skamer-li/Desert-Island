@@ -3,6 +3,6 @@ extends Node
 
 
 func fate_activated(effect_target: String):
-	var ball = get_parent().card_fullname
-	print(get_parent().card_fullname)
-	
+	#no idea how to do this one yet
+	$"../../../sounds/".monkey_attack.rpc()
+	get_parent().show_fate.rpc()

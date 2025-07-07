@@ -40,8 +40,10 @@ func game_loop():
 			_:
 				$actions/Lookout.ready_check.rpc()
 				await $actions/Lookout.lookout_resolved
-				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve();deleting_fate.rpc()
+				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
 				await fate_resolved==1
+				await get_tree().create_timer(2).timeout
+				deleting_fate.rpc()
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0
@@ -225,5 +227,5 @@ func _on_lookout_ship_spotted() -> void:
 	if multiplayer.is_server():
 		ships+=1
 		$ships.create_ship.rpc(ships)
-		if ships == 1:
+		if ships == 4:
 			end_game()
