@@ -15,6 +15,7 @@ var fate_resolved = 0
 var game_end = false
 var fire_radius=87.5/2
 var ships=0
+var game_ended =0
 
 @rpc ("any_peer")
 func game_loop():
@@ -37,9 +38,9 @@ func game_loop():
 			6:
 				current_location = "Cave"
 			_:
-				if multiplayer.is_server():$actions/Lookout.lookout(GameManager.fate_deck,signal_fire)
+				$actions/Lookout.ready_check.rpc()
 				await $actions/Lookout.lookout_resolved
-				if fate_resolved==0&&multiplayer.is_server(): fate_resolve();deleting_fate.rpc()
+				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve();deleting_fate.rpc()
 				await fate_resolved==1
 				current_turn = 0
 				cards_dealed = false
@@ -57,6 +58,7 @@ func game_loop():
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
 				else:
 					if(fate_dealed < characters_alive()):
+						CardManager.shuffle_discarded_fate(2)
 						$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
 					basic_actions.show_actions(current_character_name, fate_card_value)
 			_:
@@ -64,6 +66,7 @@ func game_loop():
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
 					if(fate_dealed < characters_alive()):
+						CardManager.shuffle_discarded_fate.rpc(2)
 						$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 					basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
@@ -107,6 +110,7 @@ func show_actions_as_host():
 
 @rpc ("any_peer")
 func draw_fate_as_host():
+	CardManager.shuffle_discarded_fate.rpc(2)
 	$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 	
 @rpc ("any_peer")
@@ -149,12 +153,53 @@ func fire_update():
 	$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc(signal_fire+1,fire_radius)
 	print(signal_fire)
 
+func end_game():
+	print("GG WP")
+	for character in $players.get_children():
+		var character_name = character.character_name
+		var enemy_name = character.enemy_name
+		var friend_name = character.friend_name
+		
+		var id = character.player_id  
+		var player = character.player_name
+		
+		#Own Survival Points
+		if (character.is_dead == false):
+			GameScoreVar.give_points(character_name, character.survival_points,player)
+
+		#Friend Survival Points
+		if $players.get_node(friend_name).is_dead==false:
+			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points,player)
+
+		#Enemy Survival Points
+		if $players.get_node(enemy_name).is_dead==true&&enemy_name!=character_name:
+			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength,player)
+			
+		#Psychopath Points
+		if enemy_name==character_name:
+			var characters_dead=$players.get_children().size()-characters_alive()
+			GameScoreVar.give_points(character_name, 2*characters_dead,player)
+			if $players.get_node(friend_name).is_dead == true:
+				GameScoreVar.give_points(character_name, -2,player)
+		#Items
+		for item in character.get_node("Hand").get_children():
+			if item.name!="DebugShape":GameScoreVar.give_points(character_name, item.value,player)
+	print(GameScoreVar.game_score)
+	show_game_score.rpc()
+	game_ended=1
+@rpc("any_peer","call_local")
+func show_game_score():
+	await $sounds/effects.finished
+	get_tree().change_scene_to_file("res://scenes/game_score.tscn")
+	self.queue_free()
+	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
 
 func _on_cards_dealing_cards_dealing_finished() -> void:
 	if multiplayer.is_server():
 		cards_dealed_info()
+		CardManager.shuffle_discarded_fate(2)
 		$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
 	else:
 		cards_dealed_info.rpc_id(1)
@@ -176,4 +221,9 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 
 
 func _on_lookout_ship_spotted() -> void:
-	pass # Replace with function body.
+	$sounds.ship_horn.rpc()
+	if multiplayer.is_server():
+		ships+=1
+		$ships.create_ship.rpc(ships)
+		if ships == 1:
+			end_game()

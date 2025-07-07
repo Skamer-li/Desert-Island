@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfs1772bi1p2s"]
+
+[ext_resource type="AudioStream" uid="uid://ddy2w873udbdt" path="res://sounds/menu_click.ogg" id="1_yq2gy"]
+
+[node name="menu_click" type="AudioStreamPlayer"]
+stream = ExtResource("1_yq2gy")
+bus = &"Menu"
