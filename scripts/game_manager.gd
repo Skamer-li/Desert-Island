@@ -46,3 +46,14 @@ var fate_deck = [
 var fate_deck_discard = []
 
 var logged_in=0
+
+@rpc ("any_peer","call_local")
+func deal_damage(character_path, dmg=1):
+	var character = get_node(character_path)
+	var character_name= character.character_name
+	var chars = character.get_parent().get_parent().get_node("characters")
+	character.wound_amount += dmg
+	if character.is_dead:
+		chars.get_node(character_name).texture_load.rpc(character_name)
+		character.self_texture_load.rpc_id(character.player_id, character_name)
+		character.get_parent().get_parent().get_node("locations").get_node(character.current_location).set_closed_sprite.rpc()
