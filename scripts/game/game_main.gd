@@ -5,7 +5,7 @@ extends Node2D
 @export var fate_card_value = 0
 @export var signal_fire = 0
 
-var current_turn = 0
+@export var current_turn = 0
 var current_location = "Beach"
 var current_player_id = 0
 var current_character_name = "Name"
