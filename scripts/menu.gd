@@ -13,32 +13,32 @@ func _ready() -> void:
 	name_panel.hide()
 
 func _on_host_button_pressed() -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	name_panel.show()
 	username.grab_focus()
 	disable_buttons()
 	current_status = "Host"
 
 func _on_join_button_pressed() -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	name_panel.show()
 	username.grab_focus()
 	disable_buttons()
 	current_status = "Client"
 	
 func _on_settings_button_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	MenuClick.play()
+	await MenuClick.finished
 	get_tree().change_scene_to_file("res://scenes/settings_menu.tscn")
 	
 func _on_exit_button_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	MenuClick.play()
+	await MenuClick.finished
 	get_tree().quit()
 
 func _on_ok_button_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	MenuClick.play()
+	await MenuClick.finished
 	if (username.text != ""):
 		MultiplayerManager.user_name = username.text
 		if (current_status == "Host"):
@@ -48,7 +48,7 @@ func _on_ok_button_pressed() -> void:
 		get_tree().change_scene_to_file("res://scenes/waiting_room.tscn")
 
 func _on_close_button_pressed() -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	name_panel.hide()
 	username.clear()
 	enable_buttons()

@@ -42,7 +42,7 @@ func update_button_values() -> void:
 		window_mode_option_button.selected = 1
 
 func _on_resolutions_option_button_item_selected(index: int) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	var key = resolutions_option_button.get_item_text(index)
 	get_window().set_size(resolutions[key])
 	center_window()
@@ -60,7 +60,7 @@ func add_window_modes() -> void:
 		window_mode_option_button.add_item(i)
 
 func _on_window_mode_option_button_item_selected(index: int) -> void:
-	$AudioStreamPlayer.play()
+	MenuClick.play()
 	match index:
 		0:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -68,12 +68,16 @@ func _on_window_mode_option_button_item_selected(index: int) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
 func _on_back_button_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
-	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+	MenuClick.play()
+	await MenuClick.finished
+	if MultiplayerManager.is_in_game:
+		self.queue_free()
+		#get_tree().change_scene_to_file("res://scenes/game.tscn")
+	else:	
+		get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
 
 func _on_sound_pressed() -> void:
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	MenuClick.play()
+	await MenuClick.finished
 	get_tree().change_scene_to_file("res://scenes/sound_settings.tscn")
