@@ -187,17 +187,4 @@ func _set_enemy_name(value: String) -> void:
 
 func _on_button_pressed() -> void:
 	MenuClick.play()
-	if not multiplayer.is_server():
-		deal_damage.rpc_id(1, character_name)
-	else:
-		deal_damage(character_name)
-		
-@rpc ("any_peer")
-func deal_damage(character_name, dmg=1):
-	var character = self.get_parent().get_node(character_name)
-	var chars = self.get_parent().get_parent().get_node("characters")
-	character.wound_amount += dmg
-	if character.is_dead:
-		chars.get_node(character_name).texture_load.rpc(character_name)
-		character.self_texture_load.rpc_id(character.player_id, character_name)
-		self.get_parent().get_parent().get_node("locations").get_node(character.current_location).set_closed_sprite.rpc()
+	GameManager.deal_damage.rpc_id(1,self.get_path())
