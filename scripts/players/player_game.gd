@@ -122,8 +122,6 @@ func _set_character_name(value: String) -> void:
 
 @rpc ("any_peer", "call_local")			
 func self_texture_load(character_name: String):
-		print(character_name + "chinazes")
-		
 		match(character_name):
 			"Cherpack":
 					$character.texture = load("res://sprites/characters/cherpack_dead.png")
