@@ -5,6 +5,10 @@ extends Node
 func set_sprite():
 	self.texture=load("res://sprites/locations/"+self.name+".png")
 
+@rpc ("any_peer", "call_local")
+func set_closed_sprite():
+	self.texture=load("res://sprites/locations/"+self.name+"_closed.png")
+
 @rpc("any_peer","call_local")
 #input amount of fate tokens, and radius of a circle
 func fate_token_placing(fate_token_amount, circle_radius,z_index):
