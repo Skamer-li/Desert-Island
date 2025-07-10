@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=29 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
 [ext_resource type="Script" path="res://scripts/game/fight.gd" id="19_2w6nd"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
+[ext_resource type="Script" path="res://scripts/game/fight_menu.gd" id="20_5xqvv"]
 [ext_resource type="AudioStream" uid="uid://bl3b54386khak" path="res://sounds/card_draw.ogg" id="20_rc44p"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
@@ -479,6 +480,7 @@ script = ExtResource("19_2w6nd")
 
 [node name="fight_message" type="Sprite2D" parent="fight"]
 visible = false
+z_index = 2
 position = Vector2(960, 540)
 texture = ExtResource("30_7whwj")
 
@@ -509,6 +511,396 @@ theme_override_font_sizes/font_size = 35
 text = "Start a fight!"
 
 [node name="side_choice" type="Sprite2D" parent="fight"]
+
+[node name="fight_menu" type="Sprite2D" parent="fight"]
+visible = false
+z_index = 2
+position = Vector2(960, 540)
+texture = ExtResource("30_7whwj")
+script = ExtResource("20_5xqvv")
+
+[node name="text" type="Node2D" parent="fight/fight_menu"]
+position = Vector2(-960, -540)
+
+[node name="side_1_main" type="Node2D" parent="fight/fight_menu/text"]
+position = Vector2(0, -215)
+
+[node name="player_1" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+position = Vector2(20, 0)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_1"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_1"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_2" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+visible = false
+position = Vector2(20, 50)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_2"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_2"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_3" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+visible = false
+position = Vector2(20, 100)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_3"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_3"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_4" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+visible = false
+position = Vector2(20, 150)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_4"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_4"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_5" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+visible = false
+position = Vector2(20, 200)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_5"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_5"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="interface" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
+position = Vector2(20, 0)
+
+[node name="side_1" type="Label" parent="fight/fight_menu/text/side_1_main/interface"]
+offset_left = 621.0
+offset_top = 470.0
+offset_right = 712.0
+offset_bottom = 519.0
+theme_override_font_sizes/font_size = 35
+text = "Side1"
+
+[node name="total_1" type="Label" parent="fight/fight_menu/text/side_1_main/interface"]
+offset_left = 526.0
+offset_top = 875.0
+offset_right = 617.0
+offset_bottom = 924.0
+theme_override_font_sizes/font_size = 35
+text = "Total"
+
+[node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_1_main/interface"]
+offset_left = 721.0
+offset_top = 875.0
+offset_right = 812.0
+offset_bottom = 924.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="card" type="Node2D" parent="fight/fight_menu/text/side_1_main/interface"]
+position = Vector2(0, 295)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/interface/card"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Fate card"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/interface/card"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="side_1_main2" type="Node2D" parent="fight/fight_menu/text"]
+position = Vector2(578, -215)
+
+[node name="player_1" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+position = Vector2(20, 0)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_1"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_1"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_2" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+visible = false
+position = Vector2(20, 50)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_2"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_2"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_3" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+visible = false
+position = Vector2(20, 100)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_3"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_3"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_4" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+visible = false
+position = Vector2(20, 150)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_4"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_4"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="player_5" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+visible = false
+position = Vector2(20, 200)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_5"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Cherpack"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_5"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="interface" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+position = Vector2(20, 0)
+
+[node name="side_1" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+offset_left = 621.0
+offset_top = 470.0
+offset_right = 712.0
+offset_bottom = 519.0
+theme_override_font_sizes/font_size = 35
+text = "Side2"
+
+[node name="total_1" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+offset_left = 526.0
+offset_top = 875.0
+offset_right = 617.0
+offset_bottom = 924.0
+theme_override_font_sizes/font_size = 35
+text = "Total"
+
+[node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+offset_left = 721.0
+offset_top = 875.0
+offset_right = 812.0
+offset_bottom = 924.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="card" type="Node2D" parent="fight/fight_menu/text/side_1_main2/interface"]
+position = Vector2(0, 295)
+
+[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/interface/card"]
+offset_left = 526.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "Fate card"
+
+[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/interface/card"]
+offset_left = 721.0
+offset_top = 530.0
+offset_right = 761.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="close_button" parent="fight/fight_menu" instance=ExtResource("18_1dbih")]
+offset_left = 526.0
+offset_top = -286.0
+offset_right = 576.0
+offset_bottom = -236.0
+
+[node name="winner" type="Label" parent="fight/fight_menu"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -692.0
+offset_top = -324.5
+offset_right = -508.0
+offset_bottom = -275.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "Sigma won"
+
+[node name="ready_button" type="Button" parent="fight/fight_menu"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -717.5
+offset_top = -386.0
+offset_right = -482.5
+offset_bottom = -329.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "Ready"
+
+[node name="fight_button_side1" type="Button" parent="fight/fight_menu"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -386.0
+offset_right = -765.0
+offset_bottom = -329.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "Fight
+"
+
+[node name="fight_button_side2" type="Button" parent="fight/fight_menu"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -435.0
+offset_top = -386.0
+offset_right = -200.0
+offset_bottom = -329.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "Fight
+"
+
+[node name="menu_button" type="Button" parent="fight"]
+visible = false
+offset_left = 1669.0
+offset_top = 272.0
+offset_right = 1830.0
+offset_bottom = 329.0
+theme_override_font_sizes/font_size = 35
+text = "Fight"
+
+[node name="Timer" type="Timer" parent="fight"]
+wait_time = 2.5
 
 [node name="Items" type="Sprite2D" parent="."]
 position = Vector2(160, 510.25)
@@ -562,4 +954,10 @@ bus = &"Menu"
 [connection signal="pressed" from="actions/steal/menus/food_choice/fight_start" to="actions/steal" method="_on_fight_start_pressed"]
 [connection signal="ship_spotted" from="actions/Lookout" to="." method="_on_lookout_ship_spotted"]
 [connection signal="pressed" from="fight/fight_message/accept" to="fight" method="_on_accept_pressed"]
+[connection signal="pressed" from="fight/fight_message/decline" to="fight" method="_on_decline_pressed"]
+[connection signal="pressed" from="fight/fight_menu/close_button" to="fight" method="_on_close_button_pressed"]
+[connection signal="pressed" from="fight/fight_menu/ready_button" to="fight/fight_menu" method="_on_ready_button_pressed"]
+[connection signal="pressed" from="fight/fight_menu/fight_button_side1" to="fight/fight_menu" method="_on_fight_button_side_1_pressed"]
+[connection signal="pressed" from="fight/fight_menu/fight_button_side2" to="fight/fight_menu" method="_on_fight_button_side_2_pressed"]
+[connection signal="pressed" from="fight/menu_button" to="fight/fight_menu" method="_on_menu_button_pressed"]
 [connection signal="finished" from="sounds/music" to="sounds" method="_on_music_finished"]

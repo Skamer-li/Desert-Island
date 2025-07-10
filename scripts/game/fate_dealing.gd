@@ -90,18 +90,18 @@ func _on_button_pressed() -> void:
 	give_fate.rpc($fate/BaseFateCard.card_target)
 	if multiplayer.is_server():
 		card_to_the_back(0)
-		change_fate_card_value($fate/BaseFateCard.number)
+		change_fate_card_value.rpc($fate/BaseFateCard.number)
 	else:
 		card_to_the_back.rpc_id(1, 0)
-		change_fate_card_value.rpc_id(1, $fate/BaseFateCard.number)
+		change_fate_card_value.rpc($fate/BaseFateCard.number)
 	$"../..".fate_update.rpc()
 
 	self.hide()
 	fate_dealing_finished.emit()
 	
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func change_fate_card_value(number):
-	$"../..".fate_card_value=number
+	$"../..".fate_card_value = number
 
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
@@ -111,10 +111,10 @@ func _on_button_2_pressed() -> void:
 	give_fate.rpc($fate/BaseFateCard2.card_target)
 	if multiplayer.is_server():
 		card_to_the_back(1)
-		change_fate_card_value($fate/BaseFateCard2.number)
+		change_fate_card_value.rpc($fate/BaseFateCard2.number)
 	else:
 		card_to_the_back.rpc_id(1, 1)
-		change_fate_card_value.rpc_id(1, $fate/BaseFateCard2.number)
+		change_fate_card_value.rpc($fate/BaseFateCard2.number)
 	
 	$"../..".fate_update.rpc()
 

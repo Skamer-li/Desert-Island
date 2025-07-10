@@ -1,6 +1,6 @@
 extends Node
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func delete_card(card_name, target_name, target_player_path):
 	var target_player = get_node(target_player_path)
 	if (multiplayer.is_server()):
@@ -9,7 +9,7 @@ func delete_card(card_name, target_name, target_player_path):
 		target_player.get_node("Hand").get_node(card_name).delete_card()
 		target_player.get_node("Hand").get_node(card_name).delete_card.rpc_id(1)
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func send_card_to_character(item_name: String, character_name: String, target_player_path) -> void:
 	var target_player = get_node(target_player_path)
 	var target_player_id = target_player.player_id
@@ -27,7 +27,7 @@ func send_card_to_character(item_name: String, character_name: String, target_pl
 	
 	GameManager.items.erase(item_name)
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func give_card(item_props: Dictionary, char_name: String, target_player_path):
 	var target_player = get_node(target_player_path)
 	var card_scene = preload("res://scenes/items/base_card.tscn")

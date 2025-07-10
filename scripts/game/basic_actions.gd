@@ -12,21 +12,18 @@ func _on_forage_button_pressed() -> void:
 	if (character.current_location == "Spring"):
 		food += 3
 
-	if multiplayer.is_server():
-		give_food_to_char(character_name, food)
-	else:
-		give_food_to_char.rpc_id(1, character_name, food)
+	give_food_to_char.rpc_id(1, character_name, food)
 	
 	disable_buttons(true)
 
 func _on_sfire_button_pressed() -> void:
 	var amount= character.signal_fire_build
+	
 	if (character.current_location == "Hill"):
 		amount += 1
-	if multiplayer.is_server():
-		build_signal_fire(amount)
-	else:
-		build_signal_fire.rpc_id(1, amount)
+	
+	build_signal_fire.rpc_id(1, amount)
+	
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:
@@ -37,12 +34,9 @@ func _on_steal_button_pressed() -> void:
 func _on_end_turn_button_pressed() -> void:
 	self.hide()
 	
-	if multiplayer.is_server():
-		end_turn()
-	else:
-		end_turn.rpc_id(1)
+	end_turn.rpc_id(1)
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func disable_buttons(disable: bool):
 	for button in self.get_children():
 		if (button != $end_turn_button):
@@ -56,7 +50,7 @@ func disable_buttons(disable: bool):
 			else:
 				button.disabled = true
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func end_turn():
 	action_finished.emit()
 	
@@ -68,10 +62,10 @@ func show_actions(char_name: String, card_value: int) -> void:
 	fate_card_value = card_value
 	character = $"../../players".get_node(character_name)
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func give_food_to_char(char_name: String, amount: int):
 	$"../../players".get_node(char_name).food_amount += amount
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func build_signal_fire(amount: int):
 	$"../..".signal_fire += amount

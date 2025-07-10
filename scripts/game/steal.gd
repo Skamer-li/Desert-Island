@@ -1,12 +1,11 @@
 extends Sprite2D
 
 @onready var food_slider = $menus/food_choice/food_slider
+@onready var card_list = preload("res://scenes/character_inventory.tscn")
 
 var character
 var target
 var target_node
-
-@onready var card_list = preload("res://scenes/character_inventory.tscn")
 
 func update_values():
 	food_slider.min_value = 0
@@ -59,16 +58,13 @@ func _on_card_selected(item):
 	send_fight_request("open_card", item)
 	$menus.get_node_or_null("open_cards").queue_free()
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func increment_fate(target):
-	$"../../players".get_node(target).fate_amount += 1
+	$"../../players".get_node(target).char_fate += 1
 	
 func send_fight_request(purpose, object):
 	self.hide()
 	
-	if (multiplayer.is_server()):
-		increment_fate(character)
-	else:
-		increment_fate.rpc_id(1, character)
+	increment_fate.rpc_id(1, character)
 		
 	$"../../fight".initialize_fight.rpc_id(target_node.player_id, character, target, purpose, object)

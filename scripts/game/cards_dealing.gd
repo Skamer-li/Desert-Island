@@ -64,11 +64,7 @@ func _set_labels(value: int) -> void:
 
 func _on_card_pressed(card_index):
 	var player_path = players.get_node(character_names[player_count]).get_path()
-	if multiplayer.is_server():
-		print(items)
-		CardManager.send_card_to_character(items[card_index], character_names[player_count], player_path)
-	else:
-		CardManager.send_card_to_character.rpc_id(1, items[card_index], character_names[player_count], player_path)
+	CardManager.send_card_to_character.rpc_id(1, items[card_index], character_names[player_count], player_path)
 	
 	$cards.get_node("card" + str(card_index + 1)).hide()
 	
