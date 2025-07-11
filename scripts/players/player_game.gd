@@ -40,9 +40,12 @@ extends Node2D
 @export var inventory_activated: Array[String] = []
 
 @export var is_dead = false
+@export var survival_points = 0
 
 @export var char_fate = 0
 @export var location_fate = 0
+
+var texture_loaded = 0
 
 func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
@@ -61,6 +64,12 @@ func _set_wound(value: int) -> void:
 		value = 0
 	wound_amount = value
 	$wound/wound_amount.text = str(wound_amount)
+	
+	if wound_amount > 0:
+		if not multiplayer.is_server():
+			death_check.rpc_id(1)
+		else:
+			death_check()
 
 func _set_location(value: String) -> void:
 	current_location = value
@@ -73,35 +82,75 @@ func _set_character_name(value: String) -> void:
 	
 	match(character_name):
 		"Cherpack":
-			$character.texture = load("res://sprites/characters/cherpack.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/cherpack.png")
+				texture_loaded = 1
 			base_strength = 6
 			fight_strength = 6
+			survival_points = 6
 		"First Mate":
-			$character.texture = load("res://sprites/characters/first_mate.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/first_mate.png")
+				texture_loaded = 1
 			base_strength = 8
 			fight_strength = 8
+			survival_points = 4
 		"Snob":
-			$character.texture = load("res://sprites/characters/snob.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/snob.png")
+				texture_loaded = 1
 			base_strength = 5
 			fight_strength = 5
+			survival_points = 7
 		"The Captain":
-			$character.texture = load("res://sprites/characters/the_captain.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/the_captain.png")
+				texture_loaded = 1
 			base_strength = 7
 			fight_strength = 7
+			survival_points = 5
 		"Milady":
-			$character.texture = load("res://sprites/characters/milady.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/milady.png")
+				texture_loaded = 1
 			base_strength = 4
 			fight_strength = 4
+			survival_points = 8
 		"The Kid":
-			$character.texture = load("res://sprites/characters/the_kid.png")
+			if texture_loaded != 1:
+				$character.texture = load("res://sprites/characters/the_kid.png")
+				texture_loaded = 1
 			base_strength = 4
 			fight_strength = 4
+			survival_points = 8
 		_:
 			print("Error character name set")
-			
-func death():
-	pass
 
+@rpc ("any_peer", "call_local")			
+func self_texture_load(character_name: String):
+		match(character_name):
+			"Cherpack":
+					$character.texture = load("res://sprites/characters/cherpack_dead.png")
+			"First Mate":
+					$character.texture = load("res://sprites/characters/first_mate_dead.png")
+			"Snob":
+					$character.texture = load("res://sprites/characters/snob_dead.png")
+			"The Captain":
+					$character.texture = load("res://sprites/characters/the_captain_dead.png")
+			"Milady":
+					$character.texture = load("res://sprites/characters/milady_dead.png")
+			"The Kid":
+					$character.texture = load("res://sprites/characters/the_kid_dead.png")
+			_:
+				print("Error character name set")
+			
+@rpc ("any_peer")			
+func death_check():
+	if wound_amount == base_strength:
+		is_dead = true
+		return true 
+	return false
+		
 func _set_friend_name(value: String) -> void:
 	friend_name = value
 	
@@ -141,12 +190,5 @@ func _set_enemy_name(value: String) -> void:
 			print("Error character name set")
 
 func _on_button_pressed() -> void:
-	if not multiplayer.is_server():
-		deal_damage.rpc_id(1)
-	else:
-		deal_damage()
-
-@rpc ("any_peer")
-func deal_damage():
-	var characters = self.get_parent()
-	characters.get_node("Snob").wound_amount += 1
+	MenuClick.play()
+	GameManager.deal_damage.rpc_id(1,self.get_path())

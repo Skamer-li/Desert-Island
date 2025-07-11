@@ -39,6 +39,7 @@ func start(trade_flag, caller_name) -> void:
 	initialize()
 	
 func choose_player(name, trade_flag):
+	MenuClick.play()
 	if (trade_flag):
 		$"../../players".get_node(caller).get_node("trade").get_node("send_trade").initialize(name)
 	else:
@@ -51,6 +52,7 @@ func choose_player(name, trade_flag):
 	self.hide()
 
 func _on_close_button_pressed() -> void:
+	MenuClick.play()
 	self.hide()
 	if (!is_trade):
 		$"../basic_actions".disable_buttons(false)

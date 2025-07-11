@@ -84,6 +84,7 @@ func add_token_location(location):
 
 @rpc("any_peer")
 func _on_button_pressed() -> void:
+	MenuClick.play()
 	#$"../..".fate_card_value=$fate/BaseFateCard.number
 	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard.number)
@@ -105,6 +106,7 @@ func change_fate_card_value(number):
 
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
+	MenuClick.play()
 	#$"../..".fate_card_value=$fate/BaseFateCard2.number
 	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard2.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard2.number)

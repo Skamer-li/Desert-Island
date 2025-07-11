@@ -6,6 +6,7 @@ var inventory_node_name = "inventory"
 
 @export var player_node = null
 
+
 func set_texture(character_name: String):
 	match(character_name):
 		"Cherpack":
@@ -22,6 +23,26 @@ func set_texture(character_name: String):
 			$char_sprite.texture = load("res://sprites/characters/the_kid.png")
 		_:
 			print("Error character name set")
+			
+@rpc ("any_peer", "call_local")
+func texture_load(character_name: String):
+
+	match(character_name):
+		"Cherpack":
+			$char_sprite.texture = load("res://sprites/characters/cherpack_dead.png")
+		"First Mate":
+			$char_sprite.texture = load("res://sprites/characters/first_mate_dead.png")
+		"Snob":
+			$char_sprite.texture = load("res://sprites/characters/snob_dead.png")
+		"The Captain":
+			$char_sprite.texture = load("res://sprites/characters/the_captain_dead.png")
+		"Milady":
+			$char_sprite.texture = load("res://sprites/characters/milady_dead.png")
+		"The Kid":
+			$char_sprite.texture = load("res://sprites/characters/the_kid_dead.png")
+		_:
+				print("Error character name set")
+		 
 
 func set_player_name(player_name: String):
 	$player_name.text = player_name

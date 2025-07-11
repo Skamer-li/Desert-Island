@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfhq4cv2kxftb"]
+
+[ext_resource type="Script" path="res://scripts/game/game_score.gd" id="1_1xwcv"]
+
+[node name="game_score" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1xwcv")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 425.0
+offset_right = -100.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = -3
+theme_override_constants/v_separation = -3
+columns = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 591.5
+offset_right = -591.5
+offset_bottom = -905.0
+theme_override_font_sizes/font_size = 128
+text = "Game Score"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 425.0
+offset_right = -100.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 5.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1869.0
+offset_right = -1.0
+offset_bottom = -1030.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "X"
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 260.0
+offset_top = 225.0
+offset_right = -260.0
+offset_bottom = -719.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 5.0
+
+[node name="Label" type="Label" parent="Panel/ReferenceRect2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.186
+anchor_top = -1.654
+anchor_right = 1.186
+anchor_bottom = 6.168
+offset_left = 260.4
+offset_top = 224.944
+offset_right = -260.4
+offset_bottom = -702.848
+theme_override_font_sizes/font_size = 100
+text = "Captain Won"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

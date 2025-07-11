@@ -7,6 +7,8 @@ var fate_card_value
 signal action_finished
 
 func _on_forage_button_pressed() -> void:
+	MenuClick.play()
+	
 	var food = fate_card_value + character.forage_food_amplification
 	
 	if (character.current_location == "Spring"):
@@ -17,6 +19,8 @@ func _on_forage_button_pressed() -> void:
 	disable_buttons(true)
 
 func _on_sfire_button_pressed() -> void:
+	MenuClick.play()
+	
 	var amount= character.signal_fire_build
 	
 	if (character.current_location == "Hill"):
@@ -27,11 +31,14 @@ func _on_sfire_button_pressed() -> void:
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:
+	MenuClick.play()
+	
 	$"../choose_player".start(false, character_name)
 	disable_buttons(true)
 	$end_turn_button.disabled = true
 
 func _on_end_turn_button_pressed() -> void:
+	MenuClick.play()
 	self.hide()
 	
 	end_turn.rpc_id(1)

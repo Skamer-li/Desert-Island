@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://y7jkaid76d0f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10dnb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.446777, 0.446777, 0.446777, 1)
+
+[node name="container_box" type="PanelContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_10dnb")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+vertical_alignment = 1
