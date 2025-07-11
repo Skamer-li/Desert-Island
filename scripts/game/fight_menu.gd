@@ -147,11 +147,15 @@ func ready_check():
 		remove_card.rpc()
 		
 		if (side1_str > side2_str):
-			$"..".deal_damage.rpc_id(1, side2_chars)
+			for character in side2_chars:
+				var current_path = $"../../players".get_node(character).get_path()
+				GameManager.deal_damage.rpc_id(1, current_path)
 			$".."._on_accept_pressed()
 			winner = side1
 		else:
-			$"..".deal_damage.rpc_id(1, side1_chars)
+			for character in side1_chars:
+				var current_path = $"../../players".get_node(character).get_path()
+				GameManager.deal_damage.rpc_id(1, current_path)
 			winner = side2
 		
 		delete_blunderbuss()
@@ -160,7 +164,7 @@ func ready_check():
 		
 @rpc ("any_peer", "call_local")
 func request_host_fate_card():
-	#add CARDMANAGER change
+	CardManager.shuffle_discarded_fate.rpc(1)
 	draw_fate.rpc(GameManager.fate_deck[0])
 	side_2_fate.rpc(get_node("BaseFateCard").number)
 	GameManager.fate_deck_discard.append(GameManager.fate_deck.pop_front())

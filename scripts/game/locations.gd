@@ -31,10 +31,33 @@ func location_spawn(players_amount: int):
 		place.position.x = x_from_border+card_width/2+card_width*(i)+space_between_cards*i
 		i+=1
 
-@rpc ("call_local")
+@rpc ("any_peer", "call_local")
 func swap_locations(first_char, second_char):
 	var first_node = $"../players".get_node(first_char)
 	var second_node = $"../players".get_node(second_char)
+	
+	var first_location = first_node.current_location
+	var second_location = second_node.current_location
+	
+	var first_card = $"../fate_cards".get_node(first_location + "_fate")
+	var second_card = $"../fate_cards".get_node_or_null(second_location + "_fate")
+	
+	if (second_card == null):
+		first_card.position.x = $".".get_node(second_location).position.x
+		first_card.name = second_location + "_fate"
+		first_card.current_location = second_location
+	else:
+		var temp_card_pos = second_card.position
+		var temp_card_name = second_card.name
+		
+		second_card.position = first_card.position
+		first_card.position = temp_card_pos
+		
+		second_card.name = first_card.name
+		first_card.name = temp_card_name
+		
+		first_card.current_location = second_location
+		second_card.current_location = first_location
 	
 	var temp_loc_name = first_node.current_location
 	var temp_loc_pos = $"../locations".get_node(temp_loc_name).position
@@ -44,3 +67,10 @@ func swap_locations(first_char, second_char):
 	
 	second_node.current_location = temp_loc_name
 	$"../characters".get_node(second_char).position.x = temp_loc_pos.x
+	
+	first_node.current_location = second_location
+	second_node.current_location = first_location
+	
+	$"..".fate_update()
+	
+	

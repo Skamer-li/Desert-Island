@@ -138,13 +138,19 @@ func fate_resolve():
 			targets.append(player.character_name)
 	var fate = []
 	var fate_count=[]
-	for fate_card in $fate_cards.get_children():
-		fate.append(fate_card.card_name)
-	for fate_card in $fate_cards.get_children():
-		fate_count.append(fate.count(fate_card.card_name))
+	
+	for location in GameManager.const_locations:
+		for fate_card in $fate_cards.get_children():
+			if (fate_card.current_location == location):
+				fate.append(fate_card.card_name)
+				
+	for fate_card in fate:
+		fate_count.append(fate.count(fate_card))
 	for target in targets:
-		$fate_cards.get_child(fate_count.find(fate_count.max())).get_node("effect").fate_activated(target)
+		$fate_cards.get_node(GameManager.const_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(target)
+
 	fate_resolved=1
+	
 @rpc("any_peer","call_local")
 func deleting_fate():
 	for fate_card in $fate_cards.get_children():
@@ -226,7 +232,7 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 		show_actions_as_host.rpc_id(1)
 
 func _on_lookout_ship_spotted() -> void:
-  $sounds.ship_horn.rpc()
+	$sounds.ship_horn.rpc()
 	if multiplayer.is_server():
 		ships+=1
 		$ships.create_ship.rpc(ships)

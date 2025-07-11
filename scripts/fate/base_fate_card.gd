@@ -5,6 +5,7 @@ extends Node
 @export var card_target = ""
 @export var resource = ""
 @export var number = 0
+@export var current_location = ""
 
 @onready var effect = $effect
 

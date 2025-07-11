@@ -22,6 +22,7 @@ func place_fate(id, full_name):
 	var location = "Beach"
 	for player in $"../../players".get_children():
 		if player.player_id==id:location=player.current_location;
+	scene.current_location = location
 	var location_position = $"../../locations".get_node(location).position
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
