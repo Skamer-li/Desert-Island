@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1mnnrj1qp1w1"]
+
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="1_0fjft"]
+[ext_resource type="Script" path="res://scripts/game/divide_food.gd" id="1_dlqtr"]
+
+[node name="divide_food" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dlqtr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_0fjft")
+
+[node name="left" type="Label" parent="Sprite2D"]
+offset_left = -333.0
+offset_top = -150.0
+offset_right = -267.0
+offset_bottom = -101.0
+pivot_offset = Vector2(33, 24)
+theme_override_font_sizes/font_size = 35
+text = "Left"
+
+[node name="box1" type="SpinBox" parent="Sprite2D/left"]
+layout_mode = 0
+offset_top = 285.0
+offset_right = 83.0625
+offset_bottom = 316.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(33, 15)
+
+[node name="right" type="Label" parent="Sprite2D"]
+offset_left = 256.0
+offset_top = -150.0
+offset_right = 344.0
+offset_bottom = -101.0
+pivot_offset = Vector2(44, 24)
+theme_override_font_sizes/font_size = 35
+text = "Right"
+
+[node name="box2" type="SpinBox" parent="Sprite2D/right"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 285.0
+offset_right = 94.0625
+offset_bottom = 316.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(33, 15)
+
+[node name="Button" type="Button" parent="Sprite2D"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -675.0
+offset_top = -396.0
+offset_right = -525.0
+offset_bottom = -339.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "Ok"
+
+[connection signal="value_changed" from="Sprite2D/left/box1" to="." method="_on_box_1_value_changed"]
+[connection signal="value_changed" from="Sprite2D/right/box2" to="." method="_on_box_2_value_changed"]
+[connection signal="pressed" from="Sprite2D/Button" to="." method="_on_button_pressed"]
