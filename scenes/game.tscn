@@ -537,9 +537,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_1"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -557,9 +557,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_2"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -577,9 +577,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_3"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -597,9 +597,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_4"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -617,9 +617,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_5"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -644,9 +644,9 @@ theme_override_font_sizes/font_size = 35
 text = "Total"
 
 [node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_1_main/interface"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 875.0
-offset_right = 812.0
+offset_right = 841.0
 offset_bottom = 924.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -663,9 +663,9 @@ theme_override_font_sizes/font_size = 35
 text = "Fate card"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/interface/card"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -685,9 +685,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_1"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -705,9 +705,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_2"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -725,9 +725,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_3"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -745,9 +745,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_4"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -765,9 +765,9 @@ theme_override_font_sizes/font_size = 35
 text = "Cherpack"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_5"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -792,9 +792,9 @@ theme_override_font_sizes/font_size = 35
 text = "Total"
 
 [node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 875.0
-offset_right = 812.0
+offset_right = 841.0
 offset_bottom = 924.0
 theme_override_font_sizes/font_size = 35
 text = "0"
@@ -811,9 +811,9 @@ theme_override_font_sizes/font_size = 35
 text = "Fate card"
 
 [node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/interface/card"]
-offset_left = 721.0
+offset_left = 750.0
 offset_top = 530.0
-offset_right = 761.0
+offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"

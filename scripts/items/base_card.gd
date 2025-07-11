@@ -82,7 +82,7 @@ func delete_card():
 				max_damage = current_damage
 		
 		char_node.fight_strength = char_node.base_strength + max_damage
-		char_node.food_amplification -= food_amplification
+		char_node.forage_food_amplification -= food_amplification
 	
 	self.get_parent().delete_card_from_array(card_name)
 	self.get_parent().reposition_cards()

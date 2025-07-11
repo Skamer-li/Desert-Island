@@ -57,14 +57,10 @@ func _on_location_pressed() -> void:
 func _on_card_selected(item):
 	send_fight_request("open_card", item)
 	$menus.get_node_or_null("open_cards").queue_free()
-
-@rpc ("any_peer", "call_local")
-func increment_fate(target):
-	$"../../players".get_node(target).char_fate += 1
 	
 func send_fight_request(purpose, object):
 	self.hide()
 	
-	increment_fate.rpc_id(1, character)
+	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(character).get_path())
 		
 	$"../../fight".initialize_fight.rpc_id(target_node.player_id, character, target, purpose, object)

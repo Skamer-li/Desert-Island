@@ -32,12 +32,6 @@ func send_fight_message(object, sender):
 	$fight_message.show()
 	$fight_message/Label.text = sender + " wants to steal your " + object
 
-func give_up():
-	pass
-
-func start_fight():
-	pass
-
 @rpc ("any_peer", "call_local")
 func transfer_object(object_t, sender_t, reciever_t, purpose_t):
 	var sender_node = $"../players".get_node(sender_t)
@@ -142,7 +136,7 @@ func _on_close_button_pressed() -> void:
 func _on_decline_pressed() -> void:
 	$fight_message.hide()
 	
-	$"../actions/steal".increment_fate.rpc_id(1, reciever)
+	GameManager.increment_fate.rpc_id(1, $"../players".get_node(reciever).get_path())
 	
 	for character in $"../players".get_children():
 		if (character.character_name == reciever):

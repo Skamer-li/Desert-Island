@@ -135,24 +135,58 @@ func trade_block(block):
 func ready_check():
 	var sender_node = $"../../players".get_node(side1)
 	var winner
+	
 	is_ready += 1
 	
 	if (is_ready >= 2):
+		request_host_fate_card.rpc_id(1)
+		
+		$"../Timer".start()
+		await $"../Timer".timeout
+		
+		remove_card.rpc()
+		
 		if (side1_str > side2_str):
 			$"..".deal_damage.rpc_id(1, side2_chars)
 			$".."._on_accept_pressed()
 			winner = side1
-		elif (side2_str > side1_str):
-			$"..".deal_damage.rpc_id(1, side1_chars)
-			winner = side2
 		else:
 			$"..".deal_damage.rpc_id(1, side1_chars)
-			$"..".deal_damage.rpc_id(1, side2_chars)
-			winner = "draw"
+			winner = side2
 		
 		delete_blunderbuss()
 		
 		finish_fight.rpc(winner)
+		
+@rpc ("any_peer", "call_local")
+func request_host_fate_card():
+	#add CARDMANAGER change
+	draw_fate.rpc(GameManager.fate_deck[0])
+	side_2_fate.rpc(get_node("BaseFateCard").number)
+	GameManager.fate_deck_discard.append(GameManager.fate_deck.pop_front())
+
+@rpc ("any_peer", "call_local")
+func draw_fate(card):
+	var card_scene = preload("res://scenes/fate/base_fate_card.tscn")
+	var scene = card_scene.instantiate()
+	self.add_child(scene)
+	get_node("BaseFateCard").scale=Vector2(2,2)
+	get_node("BaseFateCard").position.x=0
+	get_node("BaseFateCard").position.y=0
+	get_node("BaseFateCard").set_properties(card)
+	get_node("BaseFateCard").show()
+	$"../../sounds/draw_card".play()
+	await $"../../sounds/draw_card".finished
+	
+@rpc ("any_peer", "call_local")
+func remove_card():
+	get_node("BaseFateCard").queue_free()
+	
+@rpc ("any_peer", "call_local")
+func side_2_fate(value):
+	$text/side_1_main2/interface/card/power.text = str(value)
+	side2_str += value
+	$text/side_1_main2/interface/total_1_value.text = str(side2_str)
 
 @rpc ("any_peer", "call_local")
 func finish_fight(winner):	
@@ -162,12 +196,8 @@ func finish_fight(winner):
 	side1_str = 0
 	side2_str = 0
 	
-	if (winner == "draw"):
-		$winner.text = "Draw"
-		$winner.show()
-	else:
-		$winner.text = "The winner is " + winner
-		$winner.show()
+	$winner.text = "The winner is " + winner
+	$winner.show()
 		
 	$"../Timer".start()
 	await $"../Timer".timeout
@@ -188,7 +218,7 @@ func finish_fight(winner):
 			node.hide()
 			
 	#enable buttons for basic actions
-	if (my_char == side1 && (winner == "draw" || winner == side2)):
+	if (my_char == side1 && winner == side2):
 		$"../../actions/basic_actions".disable_buttons(true)
 	
 	trade_block(false)
@@ -206,11 +236,13 @@ func delete_blunderbuss():
 
 func _on_fight_button_side_1_pressed() -> void:
 	add_char_to_fight.rpc(true, my_char)
+	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(my_char).get_path())
 	$fight_button_side1.disabled = true
 	$fight_button_side2.disabled = true
 
 func _on_fight_button_side_2_pressed() -> void:
 	add_char_to_fight.rpc(false, my_char)
+	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(my_char).get_path())
 	$fight_button_side1.disabled = true
 	$fight_button_side2.disabled = true
 
