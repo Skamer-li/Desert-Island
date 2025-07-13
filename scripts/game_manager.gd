@@ -2,6 +2,8 @@ extends Node
 
 const MAX_PLAYERS = 6
 
+var is_fight = false
+
 var players_id: Array[int] = []
 var players_name: Array[String] = []
 
@@ -45,6 +47,19 @@ var fate_deck = [
 ]
 var fate_deck_discard = []
 
+@rpc ("any_peer", "call_local")
+func decrease_food_amount(character_path, amount):
+	get_node(character_path).food_amount -= amount
+	
+@rpc ("any_peer", "call_local")
+func increase_food_amount(character_path, amount):
+	get_node(character_path).food_amount += amount
+
+@rpc ("any_peer", "call_local")
+func increment_fate(character_path):
+	get_node(character_path).char_fate += 1
+	get_node("/root/game").fate_update.rpc()
+  
 var logged_in=0
 
 @rpc ("any_peer","call_local")

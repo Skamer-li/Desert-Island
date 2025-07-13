@@ -87,36 +87,42 @@ func _set_character_name(value: String) -> void:
 				$character.texture = load("res://sprites/characters/cherpack.png")
 				texture_loaded = 1
 			base_strength = 6
+			fight_strength = 6
 			survival_points = 6
 		"First Mate":
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/first_mate.png")
 				texture_loaded = 1
 			base_strength = 8
+			fight_strength = 8
 			survival_points = 4
 		"Snob":
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/snob.png")
 				texture_loaded = 1
 			base_strength = 5
+			fight_strength = 5
 			survival_points = 7
 		"The Captain":
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/the_captain.png")
 				texture_loaded = 1
 			base_strength = 7
+			fight_strength = 7
 			survival_points = 5
 		"Milady":
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/milady.png")
 				texture_loaded = 1
 			base_strength = 4
+			fight_strength = 4
 			survival_points = 8
 		"The Kid":
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/the_kid.png")
 				texture_loaded = 1
 			base_strength = 4
+			fight_strength = 4
 			survival_points = 8
 		_:
 			print("Error character name set")

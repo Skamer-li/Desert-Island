@@ -47,17 +47,42 @@ func _on_button_pressed() -> void:
 		script_node.item_use()
 		if !can_be_activated:
 			delete_card()
+		else:
+			if(GameManager.is_fight):
+				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
 	else:
 		script_node.item_use.rpc_id(1)
 		if !can_be_activated:
 			delete_card()
 			delete_card.rpc_id(1)
-
+		else:
+			if(GameManager.is_fight):
+				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
+	
 @rpc ("any_peer")
 func delete_card():
 	self.get_parent().get_parent().inventory.erase(card_name)
 	if can_be_activated:
-		self.get_parent().get_parent().inventory_activated.erase(card_name)
+		var char_node = self.get_parent().get_parent()
+		var max_damage = 0
+		
+		char_node.inventory_activated.erase(card_name)
+		
+		#finding next max damage card
+		for item in char_node.inventory_activated:
+			var properties
+	
+			for dict in GameManager.items_database:
+				if (dict.get("name", "") == item):
+					properties = dict
+					break
+			
+			var current_damage = properties.get("damage", 0)
+			if (current_damage > max_damage):
+				max_damage = current_damage
+		
+		char_node.fight_strength = char_node.base_strength + max_damage
+		char_node.forage_food_amplification -= food_amplification
 	
 	self.get_parent().delete_card_from_array(card_name)
 	self.get_parent().reposition_cards()

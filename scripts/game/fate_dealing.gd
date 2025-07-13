@@ -4,7 +4,7 @@ signal fate_dealing_finished
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.hide()
-@rpc("any_peer")
+@rpc("any_peer","call_local")
 func card_to_the_back(pos):
 	GameManager.fate_deck.remove_at(pos)
 	GameManager.fate_deck.append(GameManager.fate_deck.pop_at(0))
@@ -22,6 +22,7 @@ func place_fate(id, full_name):
 	var location = "Beach"
 	for player in $"../../players".get_children():
 		if player.player_id==id:location=player.current_location;
+	scene.current_location = location
 	var location_position = $"../../locations".get_node(location).position
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
@@ -89,20 +90,15 @@ func _on_button_pressed() -> void:
 	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard.number)
 	give_fate.rpc($fate/BaseFateCard.card_target)
-	if multiplayer.is_server():
-		card_to_the_back(0)
-		change_fate_card_value($fate/BaseFateCard.number)
-	else:
-		card_to_the_back.rpc_id(1, 0)
-		change_fate_card_value.rpc_id(1, $fate/BaseFateCard.number)
+	card_to_the_back.rpc_id(1, 0)
 	GameManager.fate_update.rpc()
-
+	change_fate_card_value.rpc($fate/BaseFateCard.number)
 	self.hide()
 	fate_dealing_finished.emit()
 	
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func change_fate_card_value(number):
-	$"../..".fate_card_value=number
+	$"../..".fate_card_value = number
 
 @rpc("any_peer")
 func _on_button_2_pressed() -> void:
@@ -111,13 +107,8 @@ func _on_button_2_pressed() -> void:
 	place_fate.rpc(multiplayer.get_unique_id(), $fate/BaseFateCard2.card_fullname)
 	add_token_location.rpc($fate/BaseFateCard2.number)
 	give_fate.rpc($fate/BaseFateCard2.card_target)
-	if multiplayer.is_server():
-		card_to_the_back(1)
-		change_fate_card_value($fate/BaseFateCard2.number)
-	else:
-		card_to_the_back.rpc_id(1, 1)
-		change_fate_card_value.rpc_id(1, $fate/BaseFateCard2.number)
-	
+	card_to_the_back.rpc_id(1, 1)
+	change_fate_card_value.rpc($fate/BaseFateCard2.number)
 	GameManager.fate_update.rpc()
 	self.hide()
 	fate_dealing_finished.emit()
