@@ -57,3 +57,13 @@ func deal_damage(character_path, dmg=1):
 		chars.get_node(character_name).texture_load.rpc(character_name)
 		character.self_texture_load.rpc_id(character.player_id, character_name)
 		character.get_parent().get_parent().get_node("locations").get_node(character.current_location).set_closed_sprite.rpc()
+
+@rpc ("any_peer","call_local")
+func fate_update():
+	var players = get_node("/root/game/players")
+	var locations = get_node("/root/game/locations")
+	for character in players.get_children():
+		character.update_fate_tokens()
+		character.location_fate=locations.get_node(character.current_location).fate_token_amount
+		locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
+		character.fate_amount=0

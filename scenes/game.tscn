@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=29 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
 [ext_resource type="Script" path="res://scripts/game/locations.gd" id="3_yc610"]
+[ext_resource type="Script" path="res://scripts/fate/fate_cards.gd" id="5_0nixa"]
 [ext_resource type="Script" path="res://scripts/game/characters.gd" id="10_i1y1d"]
 [ext_resource type="Texture2D" uid="uid://b1ps0hv2fyfhs" path="res://sprites/tokens/torch.png" id="11_m3a3i"]
 [ext_resource type="Texture2D" uid="uid://dsm31rmv1vxe1" path="res://sprites/tokens/boards.png" id="12_7o5sx"]
@@ -50,6 +51,7 @@ script = ExtResource("3_yc610")
 script = ExtResource("10_i1y1d")
 
 [node name="fate_cards" type="Node2D" parent="."]
+script = ExtResource("5_0nixa")
 
 [node name="actions" type="CanvasLayer" parent="."]
 

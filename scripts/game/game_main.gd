@@ -17,6 +17,7 @@ var fire_radius=87.5/2
 var ships=0
 var game_ended =0
 
+
 @rpc ("any_peer")
 func game_loop():
 	while(!game_end):
@@ -41,8 +42,7 @@ func game_loop():
 				$actions/Lookout.ready_check.rpc()
 				await $actions/Lookout.lookout_resolved
 				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
-				await fate_resolved==1
-				await get_tree().create_timer(2).timeout
+				await $fate_cards.fate_card_resolved
 				deleting_fate.rpc()
 				current_turn = 0
 				cards_dealed = false
@@ -100,12 +100,7 @@ func swamp_food_lose():
 		var current_character = $players.get_node(current_character_name)
 		if (current_character.food_amount != 0):
 			current_character.food_amount -= 1
-@rpc("any_peer","call_local")
-func fate_update():
-	for character in $players.get_children():
-		character.location_fate=$locations.get_node(character.current_location).fate_token_amount
-		$locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
-		character.fate_amount=0
+
 @rpc ("any_peer")
 func show_actions_as_host():
 	basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
@@ -149,14 +144,14 @@ func deleting_fate():
 		player.char_fate = 0
 	for location in $locations.get_children():
 		location.fate_token_amount = 0
-	fate_update.rpc()
+	GameManager.fate_update.rpc()
 
 func fire_update():
 	$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc(signal_fire+1,fire_radius)
 	print(signal_fire)
 
 func end_game():
-	print("GG WP")
+	game_end=true
 	for character in $players.get_children():
 		var character_name = character.character_name
 		var enemy_name = character.enemy_name

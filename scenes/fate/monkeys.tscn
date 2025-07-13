@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1y3dbq3vadgr"]
+
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="1_ajc5g"]
+[ext_resource type="Script" path="res://scripts/fate/monkeys.gd" id="1_ohf0j"]
+[ext_resource type="Texture2D" uid="uid://chvn881vc0rvm" path="res://sprites/characters/monkey.png" id="2_qwkkv"]
+
+[node name="monkeys" type="Control"]
+z_index = 2
+layout_mode = 3
+anchor_left = -0.312
+anchor_top = -0.278
+anchor_right = 0.312
+anchor_bottom = 0.278
+offset_left = -0.959961
+offset_top = 0.240021
+offset_right = 0.959961
+offset_bottom = -0.240021
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(600, 300)
+script = ExtResource("1_ohf0j")
+
+[node name="Card Choice" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(600, 300)
+texture = ExtResource("1_ajc5g")
+
+[node name="Monkey" type="Sprite2D" parent="Card Choice"]
+position = Vector2(0, -158)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qwkkv")
+
+[node name="Label" type="Label" parent="Card Choice"]
+offset_left = -168.0
+offset_top = -23.0
+offset_right = 168.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 35
+text = "Choose a card"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Card Choice"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = 120.0
+offset_right = -700.0
+offset_bottom = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="Button" type="Button" parent="Card Choice"]
+offset_left = -87.0
+offset_top = 232.0
+offset_right = 90.0
+offset_bottom = 289.0
+theme_override_font_sizes/font_size = 35
+text = "Take Card"
+
+[node name="Player Choice" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(600, 300)
+texture = ExtResource("1_ajc5g")
+
+[node name="Monkey" type="Sprite2D" parent="Player Choice"]
+position = Vector2(0, -158)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qwkkv")
+
+[node name="Label" type="Label" parent="Player Choice"]
+offset_left = -168.0
+offset_top = -23.0
+offset_right = 168.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 35
+text = "Choose a player"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player Choice"]
+offset_left = -500.0
+offset_top = 96.0
+offset_right = 500.0
+offset_bottom = 176.0
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Button" type="Button" parent="Player Choice/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="Player Choice/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Card Choice/Button" to="." method="_take_cards_pressed"]
+[connection signal="pressed" from="Player Choice/HBoxContainer/Button" to="." method="_on_char1_chosen"]
+[connection signal="pressed" from="Player Choice/HBoxContainer/Button2" to="." method="_on_char2_chosen"]

@@ -95,7 +95,7 @@ func _on_button_pressed() -> void:
 	else:
 		card_to_the_back.rpc_id(1, 0)
 		change_fate_card_value.rpc_id(1, $fate/BaseFateCard.number)
-	$"../..".fate_update.rpc()
+	GameManager.fate_update.rpc()
 
 	self.hide()
 	fate_dealing_finished.emit()
@@ -118,7 +118,6 @@ func _on_button_2_pressed() -> void:
 		card_to_the_back.rpc_id(1, 1)
 		change_fate_card_value.rpc_id(1, $fate/BaseFateCard2.number)
 	
-	$"../..".fate_update.rpc()
-
+	GameManager.fate_update.rpc()
 	self.hide()
 	fate_dealing_finished.emit()
