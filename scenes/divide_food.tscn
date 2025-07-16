@@ -16,6 +16,16 @@ script = ExtResource("1_dlqtr")
 position = Vector2(960, 540)
 texture = ExtResource("1_0fjft")
 
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = -207.0
+theme_override_font_sizes/font_size = 35
+text = "Divide your food"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="left" type="Label" parent="Sprite2D"]
 offset_left = -333.0
 offset_top = -150.0

@@ -44,6 +44,8 @@ extends Node2D
 
 @export var char_fate = 0
 @export var location_fate = 0
+@export var monkeyed = false
+@export var ratted = false
 
 var texture_loaded = 0
 
@@ -192,3 +194,7 @@ func _set_enemy_name(value: String) -> void:
 func _on_button_pressed() -> void:
 	MenuClick.play()
 	GameManager.deal_damage.rpc_id(1,self.get_path())
+
+func update_fate_tokens():
+	var tokens_node=get_parent().get_parent().get_node("characters").get_node(character_name).get_node("fate_tokens")
+	tokens_node.fate_token_placing.rpc(char_fate,30)

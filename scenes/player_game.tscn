@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://bb3kelf7vivap"]
 
-[ext_resource type="Script" path="res://scripts/players/player_game.gd" id="1_bnbqo"]
+[ext_resource type="Script" path="res://scripts/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
 [ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="2_eqahp"]
 [ext_resource type="Texture2D" uid="uid://b5xgndpciy6b7" path="res://sprites/tokens/food_token.png" id="3_qtfx6"]
@@ -75,6 +75,12 @@ properties/17/replication_mode = 1
 properties/18/path = NodePath(".:location_fate")
 properties/18/spawn = true
 properties/18/replication_mode = 1
+properties/19/path = NodePath(".:monkeyed")
+properties/19/spawn = true
+properties/19/replication_mode = 1
+properties/20/path = NodePath(".:ratted")
+properties/20/spawn = true
+properties/20/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqxsd"]
 radius = 1060.04
