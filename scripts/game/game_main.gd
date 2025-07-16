@@ -131,7 +131,7 @@ func fate_resolve():
 	for player in $players.get_children():
 		fate_tokens.append(player.fate_amount)
 	for player in $players.get_children():
-		if (player.fate_amount>= fate_tokens.max()):
+		if (player.fate_amount>= fate_tokens.max()&& player.is_dead==false):
 			targets.append(player.character_name)
 	var fate = []
 	var fate_count=[]
@@ -143,8 +143,7 @@ func fate_resolve():
 				
 	for fate_card in fate:
 		fate_count.append(fate.count(fate_card))
-	for target in targets:
-		$fate_cards.get_node(GameManager.const_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(target)
+	$fate_cards.get_node(GameManager.const_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(targets)
 
 	fate_resolved=1
 	

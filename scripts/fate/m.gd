@@ -1,9 +1,10 @@
 extends Node
 var fate_cards
 
-func fate_activated(effect_target: String):
-	var player_path =$"../../../players/".get_node(effect_target).get_path()
-	GameManager.deal_damage(player_path)
+func fate_activated(effect_targets: Array):
+	for effect_target in effect_targets:
+		var player_path =$"../../../players/".get_node(effect_target).get_path()
+		GameManager.deal_damage(player_path)
 	for card in get_parent().get_parent().get_children():
 		if card.card_name==get_parent().card_name:
 			card.show_fate.rpc()

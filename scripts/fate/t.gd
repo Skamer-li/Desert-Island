@@ -3,21 +3,24 @@ var game_main
 var fate_cards
 func _ready() -> void:
 	game_main=get_parent().get_parent().get_parent()
-func fate_activated(effect_target: String):
+	
+func fate_activated(effect_targets: Array):
 	for card in get_parent().get_parent().get_children():
 		if card.card_name==get_parent().card_name:
 			card.show_fate.rpc()
 	$"../../../sounds/".tsunami.rpc()
-	tsunami.rpc_id(1,GameManager.const_locations,effect_target)
+	tsunami.rpc_id(1,GameManager.const_locations,effect_targets)
+	
 @rpc("any_peer","call_local")
-func tsunami(locations,effect_target):
+func tsunami(locations,effect_targets):
 	game_main=get_parent().get_parent().get_parent()
 	game_main.signal_fire=0
 	game_main.fire_update()
-	var location = $"../../../players/".get_node(effect_target).current_location
-	var location_id = GameManager.const_locations.find(location)
-	for i in location_id:
-		print(i,"loc_id")
+	var location_ids=[]
+	for effect_target in effect_targets:
+		var location = $"../../../players/".get_node(effect_target).current_location
+		location_ids.append(GameManager.const_locations.find(location))
+	for i in location_ids.max()+1:
 		for player in $"../../../players/".get_children():
 			var player_path =$"../../../players/".get_node(player.character_name).get_path()
 			if player.current_location==locations[i]:

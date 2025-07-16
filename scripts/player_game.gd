@@ -45,6 +45,7 @@ extends Node2D
 @export var char_fate = 0
 @export var location_fate = 0
 @export var monkeyed = false
+@export var ratted = false
 
 var texture_loaded = 0
 

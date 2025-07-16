@@ -1,7 +1,7 @@
 extends Control
 
 var food
-var sender
+@export var sender=""
 
 signal division_finished(left, right)
 

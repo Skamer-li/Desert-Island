@@ -3,18 +3,22 @@ var players = get_parent().get_parent().get_parent().get_node("players")
 var fate_cards
 var target
 
+signal monkeys_finished
+
 var inventory=[]
 var inventory_active=[]
 
-func fate_activated(effect_target: String):
+func fate_activated(effect_targets: Array):
 	for card in get_parent().get_parent().get_children():
 		if card.card_name==get_parent().card_name:
 			card.show_fate.rpc()
 	$"../../../sounds/".monkey_attack.rpc()
-	players.get_node(effect_target).monkeyed=true
-	target=effect_target
-	monkey_business.rpc_id(players.get_node(effect_target).player_id,effect_target,players.get_node(effect_target).inventory,players.get_node(effect_target).inventory_activated)
-	
+	for effect_target in effect_targets:
+		GameManager.remove_add_monkeys.rpc_id(1,true,players.get_node(effect_target).get_path())
+		target=effect_target
+		monkey_business.rpc_id(players.get_node(effect_target).player_id,effect_target,players.get_node(effect_target).inventory,players.get_node(effect_target).inventory_activated)
+		await monkeys_finished
+	resolved.rpc_id(1)
 @rpc("any_peer","call_local")
 func monkey_business(target,inv,inv_act):
 	var monkey_scene = preload("res://scenes/fate/monkeys.tscn")
@@ -24,7 +28,6 @@ func monkey_business(target,inv,inv_act):
 	get_parent().get_parent().get_parent().add_child(monkey)
 	var monkey_node=get_parent().get_parent().get_parent().get_node("monkeys")
 	monkey_node.position=Vector2(360,260)
-	#print(inv)
 	monkey_node.player_select(target)
 	
 @rpc("any_peer","call_local")
@@ -50,4 +53,7 @@ func spawn_card_select(cards_owner) -> void:
 func resolved():
 	fate_cards=get_parent().get_parent()
 	fate_cards.fate_card_resolve.rpc()
-	players.get_node(target).monkeyed=false
+	
+@rpc("any_peer","call_local")
+func monkey_business_finished():
+	monkeys_finished.emit()

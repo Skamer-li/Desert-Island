@@ -58,9 +58,17 @@ func increase_food_amount(character_path, amount):
 @rpc ("any_peer", "call_local")
 func increment_fate(character_path):
 	get_node(character_path).char_fate += 1
-	get_node("/root/game").fate_update.rpc()
+	GameManager.fate_update.rpc()
   
 var logged_in=0
+
+@rpc("any_peer","call_local")
+func remove_add_rats(action,character_path):
+	get_node(character_path).ratted=action
+	
+@rpc("any_peer","call_local")
+func remove_add_monkeys(action,character_path):
+	get_node(character_path).monkeyed=action
 
 @rpc ("any_peer","call_local")
 func deal_damage(character_path, dmg=1):
