@@ -55,17 +55,17 @@ func _ready() -> void:
 		
 func _set_food(value: int) -> void:
 	food_amount = value
-	$food/food_amount.text = str(food_amount)
+	$stats/food/food/food_amount.text = str(food_amount)
 	
 func _set_fate(value: int) -> void:
 	fate_amount = char_fate + location_fate
-	$fate/fate_amount.text = str(fate_amount)
+	$stats/fate/fate/fate_amount.text = str(fate_amount)
 
 func _set_wound(value: int) -> void:
 	if (value < 0):
 		value = 0
 	wound_amount = value
-	$wound/wound_amount.text = str(wound_amount)
+	$stats/wound/wound/wound_amount.text = str(wound_amount)
 	
 	if wound_amount > 0:
 		if not multiplayer.is_server():
@@ -158,17 +158,17 @@ func _set_friend_name(value: String) -> void:
 	
 	match(friend_name):
 		"Cherpack":
-			$friend.texture = load("res://sprites/friends/cherpack_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
 		"First Mate":
-			$friend.texture = load("res://sprites/friends/first_mate_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/first_mate_f.png")
 		"Snob":
-			$friend.texture = load("res://sprites/friends/snob_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/snob_f.png")
 		"The Captain":
-			$friend.texture = load("res://sprites/friends/the_captain_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_captain_f.png")
 		"Milady":
-			$friend.texture = load("res://sprites/friends/milady_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/milady_f.png")
 		"The Kid":
-			$friend.texture = load("res://sprites/friends/the_kid_f.png")
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_kid_f.png")
 		_:
 			print("Error character name set")
 
@@ -177,17 +177,17 @@ func _set_enemy_name(value: String) -> void:
 	
 	match(enemy_name):
 		"Cherpack":
-			$enemy.texture = load("res://sprites/enemies/cherpack_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/cherpack_e.png")
 		"First Mate":
-			$enemy.texture = load("res://sprites/enemies/first_mate_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/first_mate_e.png")
 		"Snob":
-			$enemy.texture = load("res://sprites/enemies/snob_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/snob_e.png")
 		"The Captain":
-			$enemy.texture = load("res://sprites/enemies/the_captain_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_captain_e.png")
 		"Milady":
-			$enemy.texture = load("res://sprites/enemies/milady_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/milady_e.png")
 		"The Kid":
-			$enemy.texture = load("res://sprites/enemies/the_kid_e.png")
+			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_kid_e.png")
 		_:
 			print("Error character name set")
 
