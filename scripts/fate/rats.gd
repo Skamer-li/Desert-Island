@@ -51,7 +51,9 @@ func draw_fate_card(card):
 	$"../../sounds/draw_card".play()
 	await get_tree().create_timer(2).timeout
 	get_node("BaseFateCard").queue_free()
-	remove_food.rpc_id(1,get_node("BaseFateCard").number)
+	
+	if (multiplayer.is_server()):
+		remove_food.rpc_id(1,get_node("BaseFateCard").number)
 
 @rpc("any_peer","call_local")
 func remove_food(number):

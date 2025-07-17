@@ -7,6 +7,7 @@ var target
 var targets=[]
 
 func fate_activated(effect_targets: Array):
+	var player_amount = 0
 	rat_node=$"../../../actions/rats"
 	for effect_target in effect_targets:
 		targets.append(players.get_node(effect_target))
@@ -16,6 +17,7 @@ func fate_activated(effect_targets: Array):
 	$"../../../sounds/".rat_attack.rpc()
 	for target in targets:
 		GameManager.decrease_food_amount.rpc_id(1,target.get_path(),target.food_amount)
+		player_amount += 1
 	var rat_targets=[]
 	for player in players.get_children():
 		if targets.has(player):
@@ -26,7 +28,10 @@ func fate_activated(effect_targets: Array):
 		GameManager.remove_add_rats.rpc_id(1,true,player.get_path())
 	for player in rat_targets:
 		rat_attack.rpc_id(player.player_id,str(player.name))
-
+		
+	if (player_amount == players.get_children().size()):
+		resolved.rpc()
+	
 @rpc("any_peer","call_local")
 func rat_attack(player: String) -> void:
 	rat_node=$"../../../actions/rats"

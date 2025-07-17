@@ -58,7 +58,8 @@ func increase_food_amount(character_path, amount):
 @rpc ("any_peer", "call_local")
 func increment_fate(character_path):
 	get_node(character_path).char_fate += 1
-	GameManager.fate_update.rpc()
+	await get_tree().create_timer(0.01).timeout
+	fate_update.rpc()
   
 var logged_in=0
 
