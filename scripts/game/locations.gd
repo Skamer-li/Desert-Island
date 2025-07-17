@@ -71,6 +71,6 @@ func swap_locations(first_char, second_char):
 	first_node.current_location = second_location
 	second_node.current_location = first_location
 	
-	$"..".fate_update()
+	GameManager.fate_update()
 	
 	

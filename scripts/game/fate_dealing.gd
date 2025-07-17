@@ -24,17 +24,18 @@ func place_fate(id, full_name):
 		if player.player_id==id:location=player.current_location;
 	scene.current_location = location
 	var location_position = $"../../locations".get_node(location).position
+	var fate_card_y_offset=150
 	$"../../fate_cards".add_child(scene)
 	$"../../fate_cards".get_node("BaseFateCard").set_properties(full_name)
 	$"../../fate_cards".get_node("BaseFateCard").show()
 	$"../../fate_cards".get_node("BaseFateCard").position.x = location_position.x
-	$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150
+	$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+fate_card_y_offset
 	if $"../../fate_cards".get_node(location+"_fate")!=null:
 		var card_on_same_loc=2
 		for fate_card in $"../../fate_cards".get_children():
 			if fate_card.name == (location+"_fate"+str(card_on_same_loc)):
 				card_on_same_loc+=1
-		$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+150+(50*(card_on_same_loc-1))
+		$"../../fate_cards".get_node("BaseFateCard").position.y = location_position.y+fate_card_y_offset+(50*(card_on_same_loc-1))
 	$"../../fate_cards".get_node("BaseFateCard").name = location+"_fate"
 	
 

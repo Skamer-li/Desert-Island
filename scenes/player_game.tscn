@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb3kelf7vivap"]
+[gd_scene load_steps=21 format=3 uid="uid://bb3kelf7vivap"]
 
 [ext_resource type="Script" path="res://scripts/player_game.gd" id="1_bnbqo"]
 [ext_resource type="Script" path="res://scripts/players/multiplayer_synchronizer.gd" id="2_7semf"]
@@ -14,7 +14,9 @@
 [ext_resource type="Script" path="res://scripts/game/send_trade.gd" id="11_35wll"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="11_seuc1"]
 [ext_resource type="Script" path="res://scripts/game/recieve_trade.gd" id="14_wfvbe"]
+[ext_resource type="Script" path="res://scripts/friends_and_enemies.gd" id="15_20bay"]
 [ext_resource type="Script" path="res://scripts/players/settings_button.gd" id="16_iiy61"]
+[ext_resource type="Script" path="res://scripts/close_friends_and_enemies.gd" id="16_sbveq"]
 [ext_resource type="Script" path="res://scenes/rulebook_button.gd" id="16_xeyh5"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eqsqn"]
@@ -101,47 +103,60 @@ position = Vector2(176, 847)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_eqahp")
 
-[node name="food" type="Sprite2D" parent="."]
-z_index = 3
-position = Vector2(84, 500)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3_qtfx6")
+[node name="stats" type="VBoxContainer" parent="."]
+offset_left = 357.0
+offset_top = 700.0
+offset_right = 484.0
+offset_bottom = 880.0
+theme_override_constants/separation = 90
 
-[node name="food_amount" type="Label" parent="food"]
-z_index = 3
-offset_left = 212.0
-offset_top = -84.0
-offset_right = 862.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 100
-text = "0"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+[node name="wound" type="Control" parent="stats"]
+layout_mode = 2
 
-[node name="fate" type="Sprite2D" parent="."]
+[node name="wound" type="Sprite2D" parent="stats/wound"]
 z_index = 3
-position = Vector2(84, 600)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_xdkfg")
-
-[node name="fate_amount" type="Label" parent="fate"]
-z_index = 3
-offset_left = 212.0
-offset_top = -84.0
-offset_right = 862.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 100
-text = "0"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="wound" type="Sprite2D" parent="."]
-z_index = 3
-position = Vector2(84, 400)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_807fd")
 
-[node name="wound_amount" type="Label" parent="wound"]
+[node name="wound_amount" type="Label" parent="stats/wound/wound"]
+z_index = 3
+offset_left = 212.0
+offset_top = -84.0
+offset_right = 862.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="food" type="Control" parent="stats"]
+layout_mode = 2
+
+[node name="food" type="Sprite2D" parent="stats/food"]
+z_index = 3
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_qtfx6")
+
+[node name="food_amount" type="Label" parent="stats/food/food"]
+z_index = 3
+offset_left = 212.0
+offset_top = -84.0
+offset_right = 862.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="fate" type="Control" parent="stats"]
+layout_mode = 2
+
+[node name="fate" type="Sprite2D" parent="stats/fate"]
+z_index = 3
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_xdkfg")
+
+[node name="fate_amount" type="Label" parent="stats/fate/fate"]
 z_index = 3
 offset_left = 212.0
 offset_top = -84.0
@@ -153,28 +168,18 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="SkillButton" type="Button" parent="."]
-offset_left = 881.0
-offset_top = 876.0
-offset_right = 1052.0
-offset_bottom = 985.0
+offset_left = 519.0
+offset_top = 924.0
+offset_right = 690.0
+offset_bottom = 1033.0
 text = "Skill"
 
 [node name="TradeButton" type="Button" parent="."]
-offset_left = 880.0
-offset_top = 755.0
-offset_right = 1051.0
-offset_bottom = 864.0
+offset_left = 328.0
+offset_top = 924.0
+offset_right = 499.0
+offset_bottom = 1033.0
 text = "Trade"
-
-[node name="friend" type="Sprite2D" parent="."]
-position = Vector2(1423, 838)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("7_01cnj")
-
-[node name="enemy" type="Sprite2D" parent="."]
-position = Vector2(1722, 833)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("8_3w0d3")
 
 [node name="trade" type="Node2D" parent="."]
 z_index = 10
@@ -488,21 +493,85 @@ hand_radius = 1100
 rotation = 0.174533
 shape = SubResource("CircleShape2D_eqxsd")
 
-[node name="RulebookButton" type="Button" parent="."]
-offset_left = 1780.0
-offset_top = 40.0
-offset_right = 1880.0
-offset_bottom = 90.0
+[node name="buttons" type="VBoxContainer" parent="."]
+offset_left = 1710.0
+offset_top = 25.0
+offset_right = 1895.0
+offset_bottom = 162.0
+theme_override_constants/separation = 10
+
+[node name="RulebookButton" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Rulebook"
 script = ExtResource("16_xeyh5")
 
-[node name="Settings" type="Button" parent="."]
-offset_left = 1780.0
-offset_top = 100.0
-offset_right = 1880.0
-offset_bottom = 150.0
+[node name="Settings" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Settings"
 script = ExtResource("16_iiy61")
+
+[node name="FriendsAndEnemies" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Friend&Enemy"
+script = ExtResource("15_20bay")
+
+[node name="chat_is_this_real" type="ReferenceRect" parent="."]
+offset_left = 1270.0
+offset_top = 651.0
+offset_right = 1895.0
+offset_bottom = 1055.0
+border_width = 5.0
+
+[node name="friends&enemies" type="Control" parent="."]
+visible = false
+z_index = 735
+layout_mode = 3
+anchors_preset = 0
+offset_left = 360.0
+offset_top = 240.0
+offset_right = 1560.0
+offset_bottom = 840.0
+
+[node name="background" type="Sprite2D" parent="friends&enemies"]
+position = Vector2(600, 300)
+texture = ExtResource("9_nk0k3")
+
+[node name="close" type="Button" parent="friends&enemies/background"]
+z_index = 30
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 525.0
+offset_top = -275.0
+offset_right = -625.0
+offset_bottom = -825.0
+text = "X"
+script = ExtResource("16_sbveq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="friends&enemies/background"]
+offset_left = -600.0
+offset_top = -16.0
+offset_right = 600.0
+offset_bottom = 24.0
+theme_override_constants/separation = 500
+alignment = 1
+
+[node name="friend" type="Control" parent="friends&enemies/background/HBoxContainer"]
+layout_mode = 2
+
+[node name="friend" type="Sprite2D" parent="friends&enemies/background/HBoxContainer/friend"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("7_01cnj")
+
+[node name="enemy" type="Control" parent="friends&enemies/background/HBoxContainer"]
+layout_mode = 2
+
+[node name="enemy" type="Sprite2D" parent="friends&enemies/background/HBoxContainer/enemy"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("8_3w0d3")
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TradeButton" to="trade/send_trade" method="_on_trade_button_pressed"]
