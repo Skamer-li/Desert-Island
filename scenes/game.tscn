@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=35 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://scripts/game/ships.gd" id="21_j53tk"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
+[ext_resource type="PackedScene" uid="uid://q5anppoktplj" path="res://scenes/eat.tscn" id="22_61d8o"]
 [ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
 [ext_resource type="AudioStream" uid="uid://b2kjvbbkn570" path="res://sounds/the-boar.ogg" id="26_1ad4b"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
@@ -522,6 +523,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("21_7vg4u")
+
+[node name="eat" parent="actions" instance=ExtResource("22_61d8o")]
 
 [node name="fight" type="Node2D" parent="."]
 script = ExtResource("19_2w6nd")

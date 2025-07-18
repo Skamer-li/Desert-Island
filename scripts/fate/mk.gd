@@ -14,7 +14,6 @@ func fate_activated(effect_targets: Array):
 			card.show_fate.rpc()
 	$"../../../sounds/".monkey_attack.rpc()
 	for effect_target in effect_targets:
-		GameManager.remove_add_monkeys.rpc_id(1,true,players.get_node(effect_target).get_path())
 		target=effect_target
 		monkey_business.rpc_id(players.get_node(effect_target).player_id,effect_target,players.get_node(effect_target).inventory,players.get_node(effect_target).inventory_activated)
 		await monkeys_finished

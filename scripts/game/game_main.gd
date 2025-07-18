@@ -46,6 +46,8 @@ func game_loop():
 				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
 				await $fate_cards.fate_card_resolved
 				deleting_fate.rpc()
+				$actions/eat.eating_init()
+				await $actions/eat.hunger_finished
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0

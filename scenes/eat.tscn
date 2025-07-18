@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://q5anppoktplj"]
+
+[ext_resource type="Script" path="res://scripts/game/eat.gd" id="1_8n0mr"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="1_n4qoy"]
+
+[node name="eat" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8n0mr")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 360.0
+offset_top = 390.0
+offset_right = -360.0
+offset_bottom = -390.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n4qoy")
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -227.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "Eat food?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 110.0
+offset_right = -100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 250
+alignment = 1
+
+[node name="yes" type="Button" parent="NinePatchRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Yes"
+
+[node name="no" type="Button" parent="NinePatchRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "No"
+
+[connection signal="pressed" from="NinePatchRect/HBoxContainer/yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="NinePatchRect/HBoxContainer/no" to="." method="_on_no_pressed"]

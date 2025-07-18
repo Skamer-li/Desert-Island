@@ -68,8 +68,9 @@ func remove_add_rats(action,character_path):
 	get_node(character_path).ratted=action
 	
 @rpc("any_peer","call_local")
-func remove_add_monkeys(action,character_path):
-	get_node(character_path).monkeyed=action
+func change_eating_status(eating_status:bool,character_path):
+	var character=get_node(str(character_path))
+	character.eating=eating_status
 
 @rpc ("any_peer","call_local")
 func deal_damage(character_path, dmg=1):
