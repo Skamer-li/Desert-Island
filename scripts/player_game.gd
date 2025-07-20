@@ -53,6 +53,8 @@ func _ready() -> void:
 	if (player_id != multiplayer.get_unique_id()):
 		self.hide()
 		
+	$SkillButton.disabled = true
+		
 func _set_food(value: int) -> void:
 	food_amount = value
 	$stats/food/food/food_amount.text = str(food_amount)
@@ -91,6 +93,7 @@ func _set_character_name(value: String) -> void:
 			fight_strength = 6
 			survival_points = 6
 		"First Mate":
+			$SkillButton.hide()
 			if texture_loaded != 1:
 				$character.texture = load("res://sprites/characters/first_mate.png")
 				texture_loaded = 1
@@ -193,8 +196,53 @@ func _set_enemy_name(value: String) -> void:
 
 func _on_button_pressed() -> void:
 	MenuClick.play()
-	GameManager.deal_damage.rpc_id(1,self.get_path())
+	
+	match(character_name):
+		"Cherpack":
+			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
+		"Snob":
+			var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
+			add_child(choice_scene)
+			choice_scene.initialize(character_name)
+		"The Captain":
+			var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
+			add_child(choice_scene)
+			choice_scene.initialize(character_name)
+		"Milady":
+			GameManager.decrement_fate.rpc_id(1, self.get_path())
+			$SkillButton.disabled = true
+		"The Kid":
+			the_kid_action.rpc_id(1)
+			$SkillButton.disabled = true
 
 func update_fate_tokens():
 	var tokens_node=get_parent().get_parent().get_node("characters").get_node(character_name).get_node("fate_tokens")
 	tokens_node.fate_token_placing.rpc(char_fate,30)
+
+@rpc ("any_peer", "call_local")
+func the_kid_action():
+	var location_index = GameManager.const_locations.find(current_location, 0)
+	var left_index = location_index - 1
+	var right_index = location_index + 1
+	
+	#steal food from left character
+	if (left_index >= 0):
+		var target_location = GameManager.const_locations[left_index]
+		
+		for character in self.get_parent().get_children():
+			if (character.current_location == target_location):
+				if (character.food_amount > 0):
+					character.food_amount -= 1
+					food_amount += 1
+					break
+	
+	#steal food from right character
+	if (right_index < GameManager.const_locations.size()):
+		var target_location = GameManager.const_locations[right_index]
+		
+		for character in self.get_parent().get_children():
+			if (character.current_location == target_location):
+				if (character.food_amount > 0):
+					character.food_amount -= 1
+					food_amount += 1
+					break
