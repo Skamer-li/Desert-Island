@@ -236,6 +236,6 @@ func _on_lookout_ship_spotted() -> void:
 		$ships.create_ship.rpc(ships)
 		if ships == 4:
 			end_game()
-	
+		
 func decrement_turn():
 	current_turn -= 1

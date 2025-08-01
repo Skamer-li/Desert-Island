@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://brrf54ngtwahm"]
+[gd_scene load_steps=36 format=3 uid="uid://brrf54ngtwahm"]
 
 [ext_resource type="Script" path="res://scripts/game/game_main.gd" id="1_4etc6"]
 [ext_resource type="Script" path="res://scripts/game/shuffle.gd" id="2_3xe86"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
 [ext_resource type="PackedScene" uid="uid://q5anppoktplj" path="res://scenes/eat.tscn" id="22_61d8o"]
 [ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
+[ext_resource type="Script" path="res://scripts/game/escape_fight_message.gd" id="24_fw17j"]
 [ext_resource type="AudioStream" uid="uid://b2kjvbbkn570" path="res://sounds/the-boar.ogg" id="26_1ad4b"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
@@ -525,6 +526,7 @@ offset_bottom = 40.0
 script = ExtResource("21_7vg4u")
 
 [node name="eat" parent="actions" instance=ExtResource("22_61d8o")]
+visible = false
 
 [node name="fight" type="Node2D" parent="."]
 script = ExtResource("19_2w6nd")
@@ -561,6 +563,39 @@ offset_bottom = 138.0
 theme_override_font_sizes/font_size = 35
 text = "Start a fight!"
 
+[node name="escape_fight_message" type="Sprite2D" parent="fight"]
+visible = false
+z_index = 3
+position = Vector2(960, 540)
+texture = ExtResource("30_7whwj")
+script = ExtResource("24_fw17j")
+
+[node name="Label" type="Label" parent="fight/escape_fight_message"]
+offset_left = -508.0
+offset_top = -195.0
+offset_right = 523.0
+offset_bottom = -117.0
+theme_override_font_sizes/font_size = 35
+text = "Do you want to escape fight?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="accept" type="Button" parent="fight/escape_fight_message"]
+offset_left = -318.0
+offset_top = 77.0
+offset_right = -54.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 35
+text = "Yes"
+
+[node name="decline" type="Button" parent="fight/escape_fight_message"]
+offset_left = 131.0
+offset_top = 81.0
+offset_right = 395.0
+offset_bottom = 138.0
+theme_override_font_sizes/font_size = 35
+text = "No"
+
 [node name="side_choice" type="Sprite2D" parent="fight"]
 
 [node name="fight_menu" type="Sprite2D" parent="fight"]
@@ -575,105 +610,6 @@ position = Vector2(-960, -540)
 
 [node name="side_1_main" type="Node2D" parent="fight/fight_menu/text"]
 position = Vector2(0, -215)
-
-[node name="player_1" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
-position = Vector2(20, 0)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_1"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_1"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_2" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
-visible = false
-position = Vector2(20, 50)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_2"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_2"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_3" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
-visible = false
-position = Vector2(20, 100)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_3"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_3"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_4" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
-visible = false
-position = Vector2(20, 150)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_4"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_4"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_5" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
-visible = false
-position = Vector2(20, 200)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main/player_5"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main/player_5"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
 
 [node name="interface" type="Node2D" parent="fight/fight_menu/text/side_1_main"]
 position = Vector2(20, 0)
@@ -721,112 +657,21 @@ offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
 
-[node name="side_1_main2" type="Node2D" parent="fight/fight_menu/text"]
+[node name="VBoxContainer" type="VBoxContainer" parent="fight/fight_menu/text/side_1_main"]
+custom_minimum_size = Vector2(0, 50)
+offset_left = 545.0
+offset_top = 533.0
+offset_right = 789.0
+offset_bottom = 819.0
+theme_override_constants/separation = 50
+
+[node name="side_2_main" type="Node2D" parent="fight/fight_menu/text"]
 position = Vector2(578, -215)
 
-[node name="player_1" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
+[node name="interface" type="Node2D" parent="fight/fight_menu/text/side_2_main"]
 position = Vector2(20, 0)
 
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_1"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_1"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_2" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
-visible = false
-position = Vector2(20, 50)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_2"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_2"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_3" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
-visible = false
-position = Vector2(20, 100)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_3"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_3"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_4" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
-visible = false
-position = Vector2(20, 150)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_4"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_4"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="player_5" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
-visible = false
-position = Vector2(20, 200)
-
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/player_5"]
-offset_left = 526.0
-offset_top = 530.0
-offset_right = 685.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "Cherpack"
-
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/player_5"]
-offset_left = 750.0
-offset_top = 530.0
-offset_right = 790.0
-offset_bottom = 579.0
-theme_override_font_sizes/font_size = 35
-text = "0"
-
-[node name="interface" type="Node2D" parent="fight/fight_menu/text/side_1_main2"]
-position = Vector2(20, 0)
-
-[node name="side_1" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+[node name="side_1" type="Label" parent="fight/fight_menu/text/side_2_main/interface"]
 offset_left = 621.0
 offset_top = 470.0
 offset_right = 712.0
@@ -834,7 +679,7 @@ offset_bottom = 519.0
 theme_override_font_sizes/font_size = 35
 text = "Side2"
 
-[node name="total_1" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+[node name="total_1" type="Label" parent="fight/fight_menu/text/side_2_main/interface"]
 offset_left = 526.0
 offset_top = 875.0
 offset_right = 617.0
@@ -842,7 +687,7 @@ offset_bottom = 924.0
 theme_override_font_sizes/font_size = 35
 text = "Total"
 
-[node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_1_main2/interface"]
+[node name="total_1_value" type="Label" parent="fight/fight_menu/text/side_2_main/interface"]
 offset_left = 750.0
 offset_top = 875.0
 offset_right = 841.0
@@ -850,10 +695,10 @@ offset_bottom = 924.0
 theme_override_font_sizes/font_size = 35
 text = "0"
 
-[node name="card" type="Node2D" parent="fight/fight_menu/text/side_1_main2/interface"]
+[node name="card" type="Node2D" parent="fight/fight_menu/text/side_2_main/interface"]
 position = Vector2(0, 295)
 
-[node name="name" type="Label" parent="fight/fight_menu/text/side_1_main2/interface/card"]
+[node name="name" type="Label" parent="fight/fight_menu/text/side_2_main/interface/card"]
 offset_left = 526.0
 offset_top = 530.0
 offset_right = 685.0
@@ -861,13 +706,20 @@ offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "Fate card"
 
-[node name="power" type="Label" parent="fight/fight_menu/text/side_1_main2/interface/card"]
+[node name="power" type="Label" parent="fight/fight_menu/text/side_2_main/interface/card"]
 offset_left = 750.0
 offset_top = 530.0
 offset_right = 790.0
 offset_bottom = 579.0
 theme_override_font_sizes/font_size = 35
 text = "0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="fight/fight_menu/text/side_2_main"]
+offset_left = 545.0
+offset_top = 533.0
+offset_right = 789.0
+offset_bottom = 819.0
+theme_override_constants/separation = 50
 
 [node name="close_button" parent="fight/fight_menu" instance=ExtResource("18_1dbih")]
 offset_left = 526.0
@@ -1014,6 +866,8 @@ stream = ExtResource("26_1ad4b")
 [connection signal="pressed" from="actions/Lookout/ready_check/No" to="actions/Lookout" method="_on_no_pressed"]
 [connection signal="pressed" from="fight/fight_message/accept" to="fight" method="_on_accept_pressed"]
 [connection signal="pressed" from="fight/fight_message/decline" to="fight" method="_on_decline_pressed"]
+[connection signal="pressed" from="fight/escape_fight_message/accept" to="fight/escape_fight_message" method="_on_accept_pressed"]
+[connection signal="pressed" from="fight/escape_fight_message/decline" to="fight/escape_fight_message" method="_on_decline_pressed"]
 [connection signal="pressed" from="fight/fight_menu/close_button" to="fight" method="_on_close_button_pressed"]
 [connection signal="pressed" from="fight/fight_menu/ready_button" to="fight/fight_menu" method="_on_ready_button_pressed"]
 [connection signal="pressed" from="fight/fight_menu/fight_button_side1" to="fight/fight_menu" method="_on_fight_button_side_1_pressed"]
