@@ -1,6 +1,6 @@
 extends Node
 
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func item_use():
 	var card = self.get_parent()
 	var player = self.get_parent().get_parent().get_parent()
@@ -9,7 +9,7 @@ func item_use():
 		player.forage_food_amplification += card.food_amplification
 		player.inventory_activated.append(card.card_name)
 		
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func undo():
 	var card = self.get_parent()
 	var player = self.get_parent().get_parent().get_parent()

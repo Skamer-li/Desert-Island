@@ -38,7 +38,6 @@ func _process(delta: float) -> void:
 		if ($menus.get_node_or_null("item_choice") != null):
 			for item in $menus.get_node("item_choice").get_node("card_spawn_point").get_children():
 				if (item.get_node("CheckBox").button_pressed):
-					MenuClick.play()
 					selected_cards.append(item.card_name)
 		
 		$you_give/choose_cards_you_give/Label.text = str(selected_cards.size()) + "/" + str(closed_cards_to_give)
@@ -133,7 +132,6 @@ func _on_accept_pressed() -> void:
 	if ($menus.get_node("item_choice") != null):
 		for item in $menus.get_node("item_choice").get_node("card_spawn_point").get_children():
 			if (item.get_node("CheckBox").button_pressed):
-				MenuClick.play()
 				selected_cards.append(item.card_name)
 	
 	if (selected_cards.size() != closed_cards_to_give):

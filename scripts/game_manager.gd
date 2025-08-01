@@ -60,6 +60,12 @@ func increment_fate(character_path):
 	get_node(character_path).char_fate += 1
 	await get_tree().create_timer(0.01).timeout
 	fate_update.rpc()
+	
+@rpc ("any_peer", "call_local")
+func decrement_fate(character_path):
+	get_node(character_path).char_fate -= 1
+	await get_tree().create_timer(0.01).timeout
+	fate_update.rpc()
   
 var logged_in=0
 

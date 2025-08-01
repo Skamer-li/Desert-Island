@@ -43,21 +43,18 @@ func set_properties(data: Dictionary, owner: String):
 		$button.hide()
 
 func _on_button_pressed() -> void:
-	if multiplayer.is_server():
-		script_node.item_use()
-		if !can_be_activated:
-			delete_card()
-		else:
-			if(GameManager.is_fight):
-				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
+	script_node.item_use.rpc_id(1)
+	if !can_be_activated:
+		delete_card()
+		delete_card.rpc_id(1)
 	else:
-		script_node.item_use.rpc_id(1)
-		if !can_be_activated:
-			delete_card()
-			delete_card.rpc_id(1)
-		else:
-			if(GameManager.is_fight):
-				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
+		if(GameManager.is_fight):
+			var timer= Timer.new()
+			add_child(timer)
+			timer.wait_time = 0.1
+			timer.start()
+			await  timer.timeout
+			self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
 	
 @rpc ("any_peer")
 func delete_card():

@@ -226,6 +226,7 @@ theme_override_font_sizes/font_size = 35
 text = "Choose hand cards"
 
 [node name="open" type="Button" parent="trade/send_trade/your_side"]
+visible = false
 offset_left = 541.0
 offset_top = 541.0
 offset_right = 905.0
@@ -285,6 +286,7 @@ offset_bottom = -144.0
 theme_override_font_sizes/font_size = 35
 
 [node name="Button" type="Button" parent="trade/send_trade/player_side"]
+visible = false
 offset_left = 541.0
 offset_top = 541.0
 offset_right = 905.0
@@ -410,6 +412,7 @@ theme_override_font_sizes/font_size = 35
 text = "15"
 
 [node name="show_cards_you_give" type="Button" parent="trade/recieve_trade/you_give"]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -425,10 +428,10 @@ text = "Show open cards "
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 830.0
-offset_top = 539.0
-offset_right = 1152.0
-offset_bottom = 603.0
+offset_left = 755.5
+offset_top = 450.0
+offset_right = 1226.5
+offset_bottom = 514.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 35
 text = "Choose closed cards to give"
