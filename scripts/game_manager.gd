@@ -98,3 +98,16 @@ func fate_update():
 		character.location_fate=locations.get_node(character.current_location).fate_token_amount
 		locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
 		character.fate_amount=0
+@rpc("any_peer","call_local")
+# Use .rpc() to send a message to everyone
+# Use .rpc_id() to send a message to a specific player
+func send_message(message,sender = "Server", sender_character="Server"):
+	var chat_node = get_node("/root/game/chat")
+	var text_box = get_node("/root/game/chat/Panel/VBoxContainer/TextEdit")
+	var line = text_box.get_line_count()-1
+	if sender=="Server"&&sender_character=="Server":
+		text_box.insert_line_at(line, message)
+	else:
+		var format_message="%s (%s): %s"
+		var full_message=format_message % [sender_character,sender,message]
+		text_box.insert_line_at(line,full_message)

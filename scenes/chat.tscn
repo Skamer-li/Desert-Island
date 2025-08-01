@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://didkg8gmlfwps"]
+
+[ext_resource type="Script" path="res://scripts/game/chat.gd" id="1_d2xea"]
+
+[node name="chat" type="Control"]
+layout_mode = 3
+anchor_right = 0.326
+anchor_bottom = 0.374
+offset_right = -0.919983
+offset_bottom = 0.0799866
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d2xea")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+scroll_smooth = true
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="text_submitted" from="Panel/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]

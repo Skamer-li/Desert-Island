@@ -55,6 +55,10 @@ func _ready() -> void:
 		
 	$SkillButton.disabled = true
 		
+
+	var chat_node=get_parent().get_parent().get_node("chat")
+	chat_node.player_id=player_id
+
 func _set_food(value: int) -> void:
 	food_amount = value
 	$stats/food/food/food_amount.text = str(food_amount)

@@ -32,6 +32,7 @@
 [ext_resource type="Script" path="res://scripts/game/escape_fight_message.gd" id="24_fw17j"]
 [ext_resource type="AudioStream" uid="uid://b2kjvbbkn570" path="res://sounds/the-boar.ogg" id="26_1ad4b"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
+[ext_resource type="PackedScene" uid="uid://didkg8gmlfwps" path="res://scenes/chat.tscn" id="34_4a36g"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
 
@@ -416,6 +417,7 @@ theme_override_font_sizes/font_size = 35
 text = "Start a fight!"
 
 [node name="Lookout" type="Node2D" parent="actions"]
+visible = false
 script = ExtResource("17_2htaf")
 
 [node name="Boards" type="Sprite2D" parent="actions/Lookout"]
@@ -519,6 +521,7 @@ scale = Vector2(0.240741, 0.240741)
 texture = ExtResource("17_w5xdt")
 
 [node name="rats" type="Control" parent="actions"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -841,6 +844,17 @@ bus = &"Menu"
 
 [node name="effects" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource("26_1ad4b")
+
+[node name="chat" parent="." instance=ExtResource("34_4a36g")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1270.0
+offset_top = 650.0
+offset_right = 1895.0
+offset_bottom = 1054.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="players_are_ready" from="shuffle" to="." method="_on_shuffle_players_are_ready"]
 [connection signal="players_are_ready" from="shuffle" to="characters" method="_on_shuffle_players_are_ready"]
