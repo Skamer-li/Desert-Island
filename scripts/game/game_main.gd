@@ -130,24 +130,34 @@ func fate_dealed_info() -> void:
 func fate_resolve():
 	var fate_tokens=[]
 	var targets=[]
+	
 	for player in $players.get_children():
-		if player.is_dead == false:
+		if (!player.is_dead):
 			fate_tokens.append(player.fate_amount)
+			
 	for player in $players.get_children():
 		if (player.fate_amount>= fate_tokens.max()&& player.is_dead==false):
 			targets.append(player.character_name)
+			
 	var fate = []
 	var fate_count=[]
+	var current_locations = []
 	
 	for location in GameManager.const_locations:
 		for fate_card in $fate_cards.get_children():
 			if (fate_card.current_location == location):
+				if (!current_locations.has(location)):
+					current_locations.append(location)
+					
 				fate.append(fate_card.card_name)
 				
 	for fate_card in fate:
 		fate_count.append(fate.count(fate_card))
-	$fate_cards.get_node(GameManager.const_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(targets)
-
+		
+	print($fate_cards.get_node(current_locations[fate_count.find(fate_count.max())] + "_fate").card_fullname)
+	print(targets)
+	
+	$fate_cards.get_node(current_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(targets)
 
 	fate_resolved=1
 	
