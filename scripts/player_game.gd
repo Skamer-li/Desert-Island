@@ -257,7 +257,3 @@ func the_kid_action():
 					GameManager.send_message.rpc("The Kid stole one food token from " + character.character_name)
 					food_amount += 1
 					break
-
-
-func fuuuukKKKKK_YOU() -> void:
-	GameManager.deal_damage.rpc_id(1, self.get_path())
