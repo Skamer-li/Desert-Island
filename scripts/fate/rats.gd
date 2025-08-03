@@ -3,6 +3,7 @@ extends Node
 var divide_food_node
 var player
 
+	
 var food_division=[
 	{"Player Left":0},
 	{"Player Right":0}

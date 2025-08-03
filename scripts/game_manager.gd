@@ -98,6 +98,7 @@ func fate_update():
 		character.location_fate=locations.get_node(character.current_location).fate_token_amount
 		locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
 		character.fate_amount=0
+		
 @rpc("any_peer","call_local")
 # Use .rpc() to send a message to everyone
 # Use .rpc_id() to send a message to a specific player

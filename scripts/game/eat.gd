@@ -9,9 +9,10 @@ func _ready() -> void:
 
 func eating_init() -> void:
 	for player in $"../../players".get_children():
-		var char_path=player.get_path()
-		GameManager.change_eating_status.rpc_id(1,true,char_path)
-		eating_phase.rpc_id(player.player_id,char_path)
+		if player.is_dead==false:
+			var char_path=player.get_path()
+			GameManager.change_eating_status.rpc_id(1,true,char_path)
+			eating_phase.rpc_id(player.player_id,char_path)
 		
 @rpc("any_peer","call_local")
 func eating_phase(char_path) -> void:

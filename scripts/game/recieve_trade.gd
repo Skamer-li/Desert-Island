@@ -108,7 +108,6 @@ func erase_data():
 
 func _on_accept_pressed() -> void:
 	MenuClick.play()
-	GameManager.send_message.rpc(offerrer_name + "'s offer was accepted")
 	var self_node = $"../.."
 	var target_node = self_node.get_parent().get_node(offerrer_name)
 	
@@ -163,6 +162,7 @@ func _on_accept_pressed() -> void:
 	
 	if (self_food_check && target_food_check && closed_cards_to_give_check && closed_cards_to_get_check &&
 		open_cards_to_give_check && open_cards_to_get_check):
+			GameManager.send_message.rpc(offerrer_name + "'s offer was accepted")
 			if (!multiplayer.is_server()):
 				make_a_deal.rpc_id(1, offerrer_name, get_food, give_food, selected_cards, closed_cards_to_get, open_cards_to_give, open_cards_to_get)
 			else:

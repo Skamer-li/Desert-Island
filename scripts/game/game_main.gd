@@ -131,7 +131,8 @@ func fate_resolve():
 	var fate_tokens=[]
 	var targets=[]
 	for player in $players.get_children():
-		fate_tokens.append(player.fate_amount)
+		if player.is_dead == false:
+			fate_tokens.append(player.fate_amount)
 	for player in $players.get_children():
 		if (player.fate_amount>= fate_tokens.max()&& player.is_dead==false):
 			targets.append(player.character_name)

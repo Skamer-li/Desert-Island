@@ -521,7 +521,6 @@ scale = Vector2(0.240741, 0.240741)
 texture = ExtResource("17_w5xdt")
 
 [node name="rats" type="Control" parent="actions"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
