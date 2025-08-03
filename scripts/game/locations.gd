@@ -49,12 +49,13 @@ func swap_locations(first_char, second_char):
 	else:
 		var temp_card_pos = second_card.position
 		var temp_card_name = second_card.name
+		var second_card_new_name = first_card.name
 		
 		second_card.position = first_card.position
 		first_card.position = temp_card_pos
 		
-		second_card.name = first_card.name
 		first_card.name = temp_card_name
+		second_card.name = second_card_new_name
 		
 		first_card.current_location = second_location
 		second_card.current_location = first_location
