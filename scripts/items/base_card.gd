@@ -45,9 +45,12 @@ func set_properties(data: Dictionary, owner: String):
 func _on_button_pressed() -> void:
 	script_node.item_use.rpc_id(1)
 	if !can_be_activated:
+		GameManager.send_message.rpc(card_owner + " used " + card_name.replace("_", " "))
 		delete_card()
 		delete_card.rpc_id(1)
 	else:
+		GameManager.send_message.rpc(card_owner + " equiped " + card_name.replace("_", " "))
+		self.get_node("button").disabled = true
 		if(GameManager.is_fight):
 			var timer= Timer.new()
 			add_child(timer)

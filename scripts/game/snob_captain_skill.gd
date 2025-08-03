@@ -36,8 +36,10 @@ func use_skill(target_name, character):
 	
 	if (character == "The Captain"):
 		GameManager.decrement_fate.rpc_id(1, target_node_path)
+		GameManager.send_message.rpc("The Captain removed one fate token from " + target_name)
 	else:
 		GameManager.increment_fate.rpc_id(1, target_node_path)
+		GameManager.send_message.rpc("Snob added one fate token to " + target_name)
 	
 	self.get_parent().get_node("SkillButton").disabled = true
 	self.queue_free()

@@ -19,6 +19,8 @@ func _on_forage_button_pressed() -> void:
 
 	give_food_to_char.rpc_id(1, character_name, food)
 	
+	GameManager.send_message.rpc(character_name + " found " + str(food) + " food tokens")
+	
 	disable_buttons(true)
 
 func _on_sfire_button_pressed() -> void:
@@ -30,6 +32,8 @@ func _on_sfire_button_pressed() -> void:
 		amount += 1
 	
 	build_signal_fire.rpc_id(1, amount)
+	
+	GameManager.send_message.rpc(character_name + " built " + str(amount) + " signal fire tokens")
 	
 	disable_buttons(true)
 

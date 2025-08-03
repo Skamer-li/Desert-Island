@@ -4,8 +4,6 @@ signal hunger_finished
 
 var player_path
 
-
-
 func _ready() -> void:
 	self.hide()
 
@@ -33,7 +31,14 @@ func _on_yes_pressed() -> void:
 			players_eating+=1
 	
 	var player_node=get_node(player_path)	
-	var food_decrease=player_node.base_strength
+	var food_decrease=player_node.base_strength + player_node.hunger_food_amount
+	
+	if (player_node.current_location == "Jungle"):
+		food_decrease -= 3
+		
+	if (food_decrease < 0):
+		food_decrease = 0
+		
 	if player_node.food_amount>=food_decrease:
 		GameManager.decrease_food_amount.rpc_id(1,player_path,food_decrease)
 	else:

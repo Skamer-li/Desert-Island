@@ -149,6 +149,21 @@ func fight_calculations():
 	
 	remove_card.rpc()
 	
+	var has_cave = false
+	
+	for char in side2_chars:
+		if ($"../../players".get_node(char).current_location == "Cave"):
+			has_cave = true
+			break
+			
+	if (has_cave):
+		request_host_fate_card.rpc_id(1)
+		
+		$"../Timer".start()
+		await $"../Timer".timeout
+		
+		remove_card.rpc()
+	
 	if (side1_str > side2_str):
 		print(side2_chars)
 		for character in side2_chars:
@@ -206,6 +221,8 @@ func finish_fight(winner):
 	side1_str = 0
 	side2_str = 0
 	
+	GameManager.send_message("The winner is " + winner)
+	
 	$winner.text = "The winner is " + winner
 	$winner.show()
 		
@@ -249,12 +266,14 @@ func delete_blunderbuss():
 func _on_fight_button_side_1_pressed() -> void:
 	add_char_to_fight.rpc(true, my_char)
 	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(my_char).get_path())
+	GameManager.send_message.rpc(my_char + " is fighting for " + side1)
 	$fight_button_side1.disabled = true
 	$fight_button_side2.disabled = true
 
 func _on_fight_button_side_2_pressed() -> void:
 	add_char_to_fight.rpc(false, my_char)
 	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(my_char).get_path())
+	GameManager.send_message.rpc(my_char + " is fighting for " + side2)
 	$fight_button_side1.disabled = true
 	$fight_button_side2.disabled = true
 

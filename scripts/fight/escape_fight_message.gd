@@ -4,6 +4,7 @@ extends Sprite2D
 
 func _on_accept_pressed() -> void:
 	GameManager.increment_fate.rpc_id(1, $"../../players".get_node("Cherpack").get_path())
+	GameManager.send_message.rpc("Cherpack fled the fight")
 	
 	$"../fight_menu".delete_char_from_fight.rpc("Cherpack")
 	self.hide()

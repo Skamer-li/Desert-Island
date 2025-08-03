@@ -67,17 +67,17 @@ func game_loop():
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
 				else:
-					if(fate_dealed < characters_alive()):
-						CardManager.shuffle_discarded_fate(2)
-						$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
+					#if(fate_dealed < characters_alive()):
+					CardManager.shuffle_discarded_fate(2)
+					$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
 					#basic_actions.show_actions(current_character_name, fate_card_value)
 			_:
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
-					if(fate_dealed < characters_alive()):
-						CardManager.shuffle_discarded_fate.rpc(2)
-						$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
+					#if(fate_dealed < characters_alive()):
+					CardManager.shuffle_discarded_fate.rpc(2)
+					$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 					#basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
 		
 		finished_turn.append(current_character_name)
@@ -146,6 +146,7 @@ func fate_resolve():
 	for fate_card in fate:
 		fate_count.append(fate.count(fate_card))
 	$fate_cards.get_node(GameManager.const_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(targets)
+
 
 	fate_resolved=1
 	

@@ -88,6 +88,7 @@ func _take_cards_pressed() -> void:
 			items.append(str(item.name))
 	if items.size()==1:
 		CardManager.delete_card.rpc_id(target2.player_id,items[0],target2,target2.get_path())
+		GameManager.send_message.rpc("Monkeys took " + target + "'s " + items[0])
 		fate_card_node=get_parent().get_node("fate_cards").get_node(fate_card)
 		fate_card_node.get_node("effect").monkey_business_finished.rpc_id(1)
 		self.queue_free()

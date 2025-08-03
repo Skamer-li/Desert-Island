@@ -120,6 +120,9 @@ func _on_send_button_pressed() -> void:
 			if (item.get_node("CheckBox").button_pressed):
 				MenuClick.play()
 				open_cards_to_give.append(item.card_name)
+				
+	GameManager.send_message.rpc(sender_name + " wants to trade their " + str(give_food) + " food and " +str(closed_cards_to_give.size()) + " cards from hand on " + player_name + "'s " + str(get_food) + " food and " + str(closed_cards_to_get) + " cards from hand") 
+	
 	
 	#$"../recieve_trade".initialize.rpc_id(target_id, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
 	calling.rpc_id(target_id, player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)

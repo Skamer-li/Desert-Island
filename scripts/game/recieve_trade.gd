@@ -95,6 +95,7 @@ func _on_choose_cards_you_give_pressed() -> void:
 
 func _on_decline_pressed() -> void:
 	MenuClick.play()
+	GameManager.send_message.rpc(offerrer_name + "'s offer was declined")
 	erase_data()
 
 func erase_data():
@@ -107,6 +108,7 @@ func erase_data():
 
 func _on_accept_pressed() -> void:
 	MenuClick.play()
+	GameManager.send_message.rpc(offerrer_name + "'s offer was accepted")
 	var self_node = $"../.."
 	var target_node = self_node.get_parent().get_node(offerrer_name)
 	

@@ -205,15 +205,20 @@ func _on_button_pressed() -> void:
 		"Cherpack":
 			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
 		"Snob":
-			var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
-			add_child(choice_scene)
-			choice_scene.initialize(character_name)
+			if (self.get_node_or_null("skill_scene") == null):
+				var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
+				add_child(choice_scene)
+				choice_scene.initialize(character_name)
+				choice_scene.name = "skill_scene"
 		"The Captain":
-			var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
-			add_child(choice_scene)
-			choice_scene.initialize(character_name)
+			if (self.get_node_or_null("skill_scene") == null):
+				var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
+				add_child(choice_scene)
+				choice_scene.initialize(character_name)
+				choice_scene.name = "skill_scene"
 		"Milady":
 			GameManager.decrement_fate.rpc_id(1, self.get_path())
+			GameManager.send_message.rpc("Milady removed one fate token from herself")
 			$SkillButton.disabled = true
 		"The Kid":
 			the_kid_action.rpc_id(1)
@@ -237,6 +242,7 @@ func the_kid_action():
 			if (character.current_location == target_location):
 				if (character.food_amount > 0):
 					character.food_amount -= 1
+					GameManager.send_message.rpc("The Kid stole one food token from " + character.character_name)
 					food_amount += 1
 					break
 	
@@ -248,5 +254,6 @@ func the_kid_action():
 			if (character.current_location == target_location):
 				if (character.food_amount > 0):
 					character.food_amount -= 1
+					GameManager.send_message.rpc("The Kid stole one food token from " + character.character_name)
 					food_amount += 1
 					break
