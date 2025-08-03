@@ -67,7 +67,6 @@ func game_loop():
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
 				else:
-					#if(fate_dealed < characters_alive()):
 					CardManager.shuffle_discarded_fate(2)
 					$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
 					#basic_actions.show_actions(current_character_name, fate_card_value)
@@ -75,7 +74,6 @@ func game_loop():
 				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
-					#if(fate_dealed < characters_alive()):
 					CardManager.shuffle_discarded_fate.rpc(2)
 					$actions/fate_dealing.drawing_fate_cards.rpc_id(current_player_id, GameManager.fate_deck)
 					#basic_actions.show_actions.rpc_id(current_player_id, current_character_name, fate_card_value)
@@ -212,7 +210,7 @@ func end_game():
 	game_ended=1
 @rpc("any_peer","call_local")
 func show_game_score():
-	await $sounds/effects.finished
+	#await $sounds/effects.finished
 	get_tree().change_scene_to_file("res://scenes/game_score.tscn")
 	self.queue_free()
 	

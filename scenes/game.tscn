@@ -529,6 +529,7 @@ script = ExtResource("21_7vg4u")
 
 [node name="eat" parent="actions" instance=ExtResource("22_61d8o")]
 visible = false
+anchors_preset = 15
 
 [node name="fight" type="Node2D" parent="."]
 script = ExtResource("19_2w6nd")

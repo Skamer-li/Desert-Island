@@ -85,14 +85,14 @@ func deal_damage(character_path, dmg=1):
 	var chars = character.get_parent().get_parent().get_node("characters")
 	character.wound_amount += dmg
 	if character.is_dead:
-		#var game = character.get_parent().get_parent()
-		#
+		var game = character.get_parent().get_parent()
+		
 		chars.get_node(character_name).texture_load.rpc(character_name)
 		character.self_texture_load.rpc_id(character.player_id, character_name)
 		character.get_parent().get_parent().get_node("locations").get_node(character.current_location).set_closed_sprite.rpc()
 		
-		#if (game.characters_alive() == 1):
-			#game.end_game()
+		if (game.characters_alive() == 1):
+			game.end_game()
 
 @rpc ("any_peer","call_local")
 func fate_update():
@@ -103,6 +103,7 @@ func fate_update():
 		character.location_fate=locations.get_node(character.current_location).fate_token_amount
 		locations.get_node(character.current_location).fate_token_placing.rpc(character.location_fate,60,2)
 		character.fate_amount=0
+		
 		
 @rpc("any_peer","call_local")
 # Use .rpc() to send a message to everyone

@@ -56,6 +56,9 @@ func swap_locations(first_char, second_char):
 		
 		first_card.name = temp_card_name
 		second_card.name = second_card_new_name
+		first_card.name = temp_card_name
+		
+		#peak fiction
 		
 		first_card.current_location = second_location
 		second_card.current_location = first_location

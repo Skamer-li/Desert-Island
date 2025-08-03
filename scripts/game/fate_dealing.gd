@@ -95,6 +95,7 @@ func _on_button_pressed() -> void:
 	GameManager.fate_update.rpc()
 	change_fate_card_value.rpc($fate/BaseFateCard.number)
 	self.hide()
+	await get_tree().create_timer(0.01).timeout
 	fate_dealing_finished.emit()
 	
 @rpc ("any_peer", "call_local")
@@ -112,4 +113,5 @@ func _on_button_2_pressed() -> void:
 	change_fate_card_value.rpc($fate/BaseFateCard2.number)
 	GameManager.fate_update.rpc()
 	self.hide()
+	await get_tree().create_timer(0.05).timeout
 	fate_dealing_finished.emit()
