@@ -54,7 +54,7 @@ func transfer_object(object_t, sender_t, reciever_t, purpose_t):
 			
 		"food":
 			transfer_food.rpc_id(reciever_node.player_id, sender_t, reciever_t, object_t)
-			GameManager.send_message.rpc(sender_t + " stole " + reciever_t + "'s " + str(object_t) + " food")
+			
 		"location":
 			$"../locations".swap_locations.rpc(sender_t, reciever_t)
 			GameManager.send_message.rpc(sender_t + " stole " + reciever_t + "'s " + "location")
