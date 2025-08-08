@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3 uid="uid://c3leqq015a64k"]
+
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="1_akyck"]
+[ext_resource type="Script" path="res://scripts/game/lookout.gd" id="1_teth6"]
+[ext_resource type="PackedScene" uid="uid://dk1c63mnuidxk" path="res://scenes/fate/base_fate_card.tscn" id="2_2abdh"]
+[ext_resource type="Texture2D" uid="uid://ccy8exoleho8v" path="res://sprites/characters/baller.jpg" id="2_4hmth"]
+[ext_resource type="Texture2D" uid="uid://b1ps0hv2fyfhs" path="res://sprites/tokens/torch.png" id="4_u5umr"]
+[ext_resource type="Texture2D" uid="uid://dsm31rmv1vxe1" path="res://sprites/tokens/boards.png" id="5_p0nc8"]
+[ext_resource type="Texture2D" uid="uid://44xgwxfv7xu1" path="res://sprites/tokens/ship.png" id="6_acdvv"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gkugp"]
+properties/0/path = NodePath(".:symbols")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="lookout" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1892.0
+offset_bottom = -1056.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_teth6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.041
+replication_config = SubResource("SceneReplicationConfig_gkugp")
+
+[node name="card_container" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.402
+anchor_top = 0.253
+anchor_right = 0.598
+anchor_bottom = 0.747
+offset_left = -11.256
+offset_top = -6.072
+offset_right = 1903.26
+offset_bottom = 1062.07
+
+[node name="card" type="Control" parent="card_container"]
+layout_mode = 2
+
+[node name="BaseFateCard" parent="card_container/card" instance=ExtResource("2_2abdh")]
+visible = true
+scale = Vector2(2, 2)
+
+[node name="look_for_ship" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.818
+anchor_bottom = 0.773
+offset_left = 370.0
+offset_top = 235.0
+offset_right = 1547.1
+offset_bottom = 816.448
+texture = ExtResource("1_akyck")
+
+[node name="Label" type="Label" parent="look_for_ship"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 346.0
+offset_top = 25.0
+offset_right = -369.0
+offset_bottom = -487.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Look for a ship?"
+
+[node name="baller" type="Sprite2D" parent="look_for_ship"]
+position = Vector2(590, 276)
+scale = Vector2(0.240741, 0.240741)
+texture = ExtResource("2_4hmth")
+
+[node name="No" type="Button" parent="look_for_ship"]
+layout_mode = 0
+offset_left = 794.0
+offset_top = 409.0
+offset_right = 1094.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 64
+text = "No"
+
+[node name="Yes" type="Button" parent="look_for_ship"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 409.0
+offset_right = 395.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 64
+text = "Yes"
+
+[node name="symbols" type="GridContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 710.0
+offset_right = 1182.0
+offset_bottom = 156.0
+columns = 3
+
+[node name="torch" type="NinePatchRect" parent="symbols"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_u5umr")
+
+[node name="board" type="NinePatchRect" parent="symbols"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_p0nc8")
+
+[node name="ship" type="NinePatchRect" parent="symbols"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("6_acdvv")
+
+[node name="torches" type="Label" parent="symbols"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="boards" type="Label" parent="symbols"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ships" type="Label" parent="symbols"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="look_for_ship/No" to="." method="_on_no_pressed"]
+[connection signal="pressed" from="look_for_ship/Yes" to="." method="_on_yes_pressed"]

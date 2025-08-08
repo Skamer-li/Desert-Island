@@ -25,6 +25,7 @@ func tsunami(locations,effect_targets):
 			var player_path =$"../../../players/".get_node(player.character_name).get_path()
 			if player.current_location==locations[i]:
 				GameManager.deal_damage(player_path)
+				GameManager.decrease_food_amount(player_path,player.food_amount)
 				for item in player.inventory_activated:
 					var player_id=player.player_id
 					CardManager.delete_card.rpc_id(player_id,item,player,player_path)

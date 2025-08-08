@@ -41,8 +41,8 @@ func game_loop():
 			6:
 				current_location = "Cave"
 			_:
-				$actions/Lookout.ready_check.rpc()
-				await $actions/Lookout.lookout_resolved
+				$actions/lookout.start_lookout()
+				await $actions/lookout.lookout_resolved
 				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
 				await $fate_cards.fate_card_resolved
 				deleting_fate.rpc()
@@ -171,7 +171,7 @@ func deleting_fate():
 	GameManager.fate_update.rpc()
 
 func fire_update():
-	$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc(signal_fire+1,fire_radius)
+	$SignalFireToken/fate_tokens_fire.fate_token_placing.rpc(signal_fire,fire_radius)
 	print(signal_fire)
 
 func end_game():
@@ -240,9 +240,9 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 		show_actions_as_host.rpc_id(1)
 
 func _on_lookout_ship_spotted() -> void:
-	$sounds.ship_horn.rpc()
 	if multiplayer.is_server():
 		ships+=1
+		
 		$ships.create_ship.rpc(ships)
 		if ships == 4:
 			end_game()
