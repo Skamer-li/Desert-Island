@@ -8,13 +8,14 @@ var players_node
 var game_node
 var players_not_looking=0
 
-@export var symbols = {"Torches":0,"Boards":0,"Ships":0}:
-	set = _set_symbols
+@export var symbols = {"Torches":0,"Boards":0,"Ships":0}
 
 func _ready() -> void:
+	self.show()
 	players_node=$"../../players"
 	game_node=$"../.."
 
+@rpc("any_peer","call_local")
 func _set_symbols(dict: Dictionary):
 	$symbols/torches.text=str(dict["Torches"])
 	$symbols/boards.text=str(dict["Boards"])
@@ -44,7 +45,7 @@ func _on_yes_pressed() -> void:
 	hide_for_everyone.rpc()
 	for player in players_node.get_children():
 		if player.player_id==player_id:
-			GameManager.send_message.rpc(player.name+"decided to look for the ship")
+			GameManager.send_message.rpc(player.name+" decided to look for the ship")
 	lookout.rpc_id(1)
 	
 @rpc("any_peer","call_local")
@@ -61,8 +62,9 @@ func hide_for_everyone() -> void:
 @rpc("any_peer","call_local")
 func lookout() -> void:
 	var tokens = game_node.signal_fire
-	if tokens > (GameManager.fate_deck.size()+GameManager.fate_deck_discard.size()):
-		tokens=GameManager.fate_deck.size()+GameManager.fate_deck_discard.size()
+	var max_fate_cards=GameManager.fate_deck.size()+GameManager.fate_deck_discard.size()
+	if tokens > max_fate_cards:
+		tokens=max_fate_cards
 	CardManager.shuffle_discarded_fate(tokens)
 	for token in tokens:
 		$"../../sounds/draw_card".play()
@@ -70,6 +72,7 @@ func lookout() -> void:
 		show_card.rpc(card)
 		var symbol = $card_container/card/BaseFateCard.resource
 		add_symbol(symbol)
+		_set_symbols.rpc(symbols)
 		await get_tree().create_timer(1).timeout
 	hide_card.rpc()
 	resolve()
@@ -85,7 +88,8 @@ func add_symbol(symbol):
 		"torch.png": symbols["Torches"]+=1
 		"boards.png": symbols["Boards"]+=1
 		"ship.png": symbols["Ships"]+=1
-
+	print(symbols)
+	
 @rpc("any_peer","call_local")
 func hide_card():
 	$card_container.hide()
