@@ -47,6 +47,9 @@ var fate_deck = [
 ]
 var fate_deck_discard = []
 
+var players_ready=0
+signal ready_check_done
+
 @rpc ("any_peer", "call_local")
 func decrease_food_amount(character_path, amount):
 	get_node(character_path).food_amount -= amount
@@ -118,3 +121,39 @@ func send_message(message,sender = "Server", sender_character="Server"):
 		var format_message="%s (%s): %s"
 		var full_message=format_message % [sender_character,sender,message]
 		text_box.insert_line_at(line,full_message)
+
+@rpc("any_peer","call_local")
+func call_ready_check():
+	var players = get_node("/root/game/players")
+	for player in players.get_children():
+		if !player.is_dead:
+			spawn_ready_check.rpc_id(player.player_id,player.player_id)
+			
+@rpc("any_peer","call_local")
+func spawn_ready_check(id):
+	var players = get_node("/root/game/players")
+	for player in players.get_children():
+		if player.player_id==id:
+			var ready_check_scene=load("res://scenes/ready_check.tscn")
+			var ready_check_node=ready_check_scene.instantiate()
+			ready_check_node.init_id(id)
+			var x = (1920-800)/2
+			var y = (1080-800)/2
+			ready_check_node.position=Vector2(x,y)
+			player.add_child(ready_check_node)
+
+@rpc("any_peer","call_local")
+func ready_recieved():
+	players_ready+=1
+	var game_node=get_node("/root/game/")
+	if players_ready== game_node.characters_alive():
+		ready_check_done.emit()
+		clear_ready_checks.rpc()
+		players_ready=0
+
+@rpc("any_peer","call_local")
+func clear_ready_checks():
+	var players = get_node("/root/game/players")
+	for player in players.get_children():
+		if player.get_node_or_null("ready_check")!=null:
+			player.get_node("ready_check").queue_free()

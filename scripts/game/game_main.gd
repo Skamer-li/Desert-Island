@@ -43,9 +43,13 @@ func game_loop():
 			_:
 				$actions/lookout.start_lookout()
 				await $actions/lookout.lookout_resolved
+				GameManager.call_ready_check.rpc_id(1)
+				await GameManager.ready_check_done
 				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
 				await $fate_cards.fate_card_resolved
 				deleting_fate.rpc()
+				GameManager.call_ready_check.rpc_id(1)
+				await GameManager.ready_check_done
 				$actions/eat.eating_init()
 				await $actions/eat.hunger_finished
 				current_turn = 0
