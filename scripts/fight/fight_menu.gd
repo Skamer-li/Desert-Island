@@ -31,7 +31,7 @@ func show_fight_table(character, side1_char, side2_char, is_side_char):
 	$"../menu_button".show()
 	
 	set_sides(side1_char, side2_char)
-	trade_block(true)
+	#trade_block(true)
 	
 	$".".show()
 	
@@ -110,6 +110,7 @@ func refresh_data():
 	side2_str = full_str_2
 	$text/side_2_main/interface/total_1_value.text = str(full_str_2)
 
+@rpc ("any_peer", "call_local")
 func trade_block(block):
 	for character in $"../../players".get_children():
 		character.get_node("TradeButton").disabled = block
