@@ -27,6 +27,7 @@ func tsunami(locations,effect_targets):
 			if player.current_location==locations[i]:
 				locations_node.get_node(locations[i]).delete_cards_from_location.rpc()
 				GameManager.deal_damage(player_path)
+				GameManager.decrease_food_amount(player_path,player.food_amount)
 				for item in player.inventory_activated:
 					var player_id=player.player_id
 					CardManager.delete_card.rpc_id(player_id,item,player,player_path)

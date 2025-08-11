@@ -27,7 +27,8 @@ func fate_activated(effect_targets: Array):
 			rat_targets.append(player)
 		GameManager.remove_add_rats.rpc_id(1,true,player.get_path())
 	for player in rat_targets:
-		rat_attack.rpc_id(player.player_id,str(player.name))
+		if !player.is_dead:
+			rat_attack.rpc_id(player.player_id,str(player.name))
 		
 	if (player_amount == players.get_children().size()):
 		resolved.rpc()
