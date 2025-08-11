@@ -1,12 +1,5 @@
 extends Node2D
 
-#@onready var beach = $Beach
-#@onready var jungle = $Jungle
-#@onready var swamp = $Swamp
-#@onready var spring = $Spring
-#@onready var hill = $Hill
-#@onready var cave = $Cave
-
 var active_players
 
 func _ready() -> void:

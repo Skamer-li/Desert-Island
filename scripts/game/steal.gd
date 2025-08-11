@@ -37,8 +37,9 @@ func _on_open_card_pressed() -> void:
 		for card in card_scene.get_node("card_spawn_point").get_children():
 			card.card_pressed.connect(_on_card_selected.bind(card.card_name))
 func _on_food_pressed() -> void:
-	if ($"../../players".get_node(target).food_amount > 0):
-		$menus/food_choice.show()
+	var food_amount = $"../../players".get_node(target).food_amount
+	if (food_amount > 0):
+		send_fight_request("food", food_amount)
 
 func _on_close_button_pressed() -> void:
 	$menus/food_choice.hide()
@@ -65,5 +66,7 @@ func send_fight_request(purpose, object):
 	self.hide()
 	
 	GameManager.increment_fate.rpc_id(1, $"../../players".get_node(character).get_path())
+	
+	$"../../fight/fight_menu".trade_block.rpc(true)
 		
 	$"../../fight".initialize_fight.rpc_id(target_node.player_id, character, target, purpose, object)

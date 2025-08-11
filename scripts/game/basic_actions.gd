@@ -16,6 +16,10 @@ func _on_forage_button_pressed() -> void:
 	
 	if (character.current_location == "Spring"):
 		food += 3
+		
+	for card in $"../../locations".get_node(character.current_location).current_cards:
+		if (card == "garden"):
+			food += 2
 
 	give_food_to_char.rpc_id(1, character_name, food)
 	

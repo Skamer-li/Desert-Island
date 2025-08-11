@@ -17,6 +17,7 @@ func tsunami(locations,effect_targets):
 	game_main.signal_fire=0
 	game_main.fire_update()
 	var location_ids=[]
+	var locations_node = get_node("/root/game/locations")
 	for effect_target in effect_targets:
 		var location = $"../../../players/".get_node(effect_target).current_location
 		location_ids.append(GameManager.const_locations.find(location))
@@ -24,6 +25,7 @@ func tsunami(locations,effect_targets):
 		for player in $"../../../players/".get_children():
 			var player_path =$"../../../players/".get_node(player.character_name).get_path()
 			if player.current_location==locations[i]:
+				locations_node.get_node(locations[i]).delete_cards_from_location.rpc()
 				GameManager.deal_damage(player_path)
 				GameManager.decrease_food_amount(player_path,player.food_amount)
 				for item in player.inventory_activated:
