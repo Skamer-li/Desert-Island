@@ -68,14 +68,15 @@ func game_loop():
 			0:
 				continue
 			1:
-				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
+				#GameManager.items.size() >= characters_alive()
+				if (!cards_dealed && GameManager.items.size() > 0):
 					$actions/cards_dealing.set_cards_to_deal(GameManager.items)
 				else:
 					CardManager.shuffle_discarded_fate(2)
 					$actions/fate_dealing.drawing_fate_cards(GameManager.fate_deck)
 					#basic_actions.show_actions(current_character_name, fate_card_value)
 			_:
-				if (!cards_dealed && GameManager.items.size() >= characters_alive()):
+				if (!cards_dealed && GameManager.items.size() > 0):
 					$actions/cards_dealing.set_cards_to_deal.rpc_id(current_player_id, GameManager.items)
 				else:
 					CardManager.shuffle_discarded_fate.rpc(2)

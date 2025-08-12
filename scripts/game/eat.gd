@@ -39,6 +39,10 @@ func _on_yes_pressed() -> void:
 	if (player_node.current_location == "Jungle"):
 		food_decrease -= 3
 		
+	for card in $"../../locations".get_node(player_node.current_location).current_cards:
+		if (card == "tent"):
+			food_decrease -= 2
+		
 	if (food_decrease < 0):
 		food_decrease = 0
 		
