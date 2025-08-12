@@ -13,6 +13,9 @@ func eating_init() -> void:
 			var char_path=player.get_path()
 			GameManager.change_eating_status.rpc_id(1,true,char_path)
 			eating_phase.rpc_id(player.player_id,char_path)
+		else:
+			var char_path=player.get_path()
+			GameManager.change_eating_status.rpc_id(1,false,char_path)
 		
 @rpc("any_peer","call_local")
 func eating_phase(char_path) -> void:

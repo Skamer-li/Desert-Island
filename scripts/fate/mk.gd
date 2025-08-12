@@ -13,7 +13,12 @@ func fate_activated(effect_targets: Array):
 		if card.card_name==get_parent().card_name:
 			card.show_fate.rpc()
 	$"../../../sounds/".monkey_attack.rpc()
+	
 	for effect_target in effect_targets:
+		print(players.get_node(effect_target).inventory.is_empty())
+		if players.get_node(effect_target).inventory.is_empty():
+			await get_tree().create_timer(0.5).timeout
+			continue
 		target=effect_target
 		monkey_business.rpc_id(players.get_node(effect_target).player_id,effect_target,players.get_node(effect_target).inventory,players.get_node(effect_target).inventory_activated)
 		await monkeys_finished
