@@ -43,15 +43,25 @@ func game_loop():
 			_:
 				$actions/lookout.start_lookout()
 				await $actions/lookout.lookout_resolved
+				
+				send_cancel_fate_check()
+				
 				GameManager.call_ready_check.rpc_id(1)
 				await GameManager.ready_check_done
+				
+				close_cancel_fate.rpc()
+					
 				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
 				await $fate_cards.fate_card_resolved
+				
 				deleting_fate.rpc()
+				
 				GameManager.call_ready_check.rpc_id(1)
 				await GameManager.ready_check_done
+				
 				$actions/eat.eating_init()
 				await $actions/eat.hunger_finished
+				
 				current_turn = 0
 				cards_dealed = false
 				fate_dealed = 0
@@ -254,3 +264,32 @@ func _on_lookout_ship_spotted() -> void:
 		
 func decrement_turn():
 	current_turn -= 1
+	
+func send_cancel_fate_check():
+	for character in $players.get_children():
+		if (!character.is_dead):
+			cancel_fate.rpc_id(character.player_id, character.character_name)
+
+@rpc ("any_peer", "call_local")
+func cancel_fate(character):
+	var scene = preload("res://scenes/cancel_fate.tscn")
+	var items = []
+	if $players.get_node(character).inventory.has("blunderbuss"):
+		items.append("blunderbuss")
+	
+	if $players.get_node(character).inventory.has("trap"):
+		items.append("trap")
+		
+	if (items.size() != 0):
+		var node = scene.instantiate()
+		add_child(node)
+		node.initialize(character, items)
+		node.name = "cancel_fate"
+
+@rpc ("any_peer", "call_local")
+func close_cancel_fate():
+	var node = get_node_or_null("cancel_fate")
+	if (node):
+		node.queue_free()
+		
+	

@@ -441,6 +441,7 @@ visible = false
 [node name="lookout" parent="actions" instance=ExtResource("18_u3bg2")]
 
 [node name="fight" type="Node2D" parent="."]
+z_index = 3
 script = ExtResource("19_2w6nd")
 
 [node name="fight_message" type="Sprite2D" parent="fight"]

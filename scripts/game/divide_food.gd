@@ -13,6 +13,7 @@ func initialize(max_food, character):
 
 func _on_box_1_value_changed(value: float) -> void:
 	$Sprite2D/right/box2.max_value = food - value
+	
 
 func _on_box_2_value_changed(value: float) -> void:
 	$Sprite2D/left/box1.max_value = food - value

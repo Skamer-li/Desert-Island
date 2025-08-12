@@ -74,10 +74,7 @@ func _set_wound(value: int) -> void:
 	$stats/wound/wound/wound_amount.text = str(wound_amount)
 	
 	if wound_amount > 0:
-		if not multiplayer.is_server():
-			death_check.rpc_id(1)
-		else:
-			death_check()
+		death_check.rpc_id(1)
 
 func _set_location(value: String) -> void:
 	current_location = value
@@ -153,12 +150,18 @@ func self_texture_load(character_name: String):
 			_:
 				print("Error character name set")
 			
-@rpc ("any_peer")			
+@rpc ("any_peer", "call_local")			
 func death_check():
 	if wound_amount >= base_strength:
 		is_dead = true
+		block_actions.rpc_id(player_id)
 		return true 
 	return false
+
+@rpc ("any_peer", "call_local")
+func block_actions():
+	$TradeButton.disabled = true
+	$SkillButton.disabled = true
 		
 func _set_friend_name(value: String) -> void:
 	friend_name = value

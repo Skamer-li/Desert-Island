@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl3ajy3g5le12"]
+
+[ext_resource type="Script" path="res://scripts/game/cancel_fate.gd" id="1_ahd2n"]
+[ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="2_3nwwt"]
+[ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="3_h7tjs"]
+
+[node name="cancel_fate" type="Control"]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ahd2n")
+
+[node name="question" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="question"]
+position = Vector2(1684, 335)
+scale = Vector2(0.375, 0.4)
+texture = ExtResource("2_3nwwt")
+
+[node name="Label" type="Label" parent="question"]
+offset_left = 1527.0
+offset_top = 227.0
+offset_right = 1848.0
+offset_bottom = 282.0
+theme_override_font_sizes/font_size = 40
+text = "Cancel fate with:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="question"]
+offset_left = 1522.0
+offset_top = 300.0
+offset_right = 1857.0
+offset_bottom = 714.0
+theme_override_constants/separation = 10
+
+[node name="blunderbuss" type="Button" parent="question/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(10, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Blunderbuss"
+
+[node name="trap" type="Button" parent="question/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Trap"
+
+[node name="character_select" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("2_3nwwt")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="character_select"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -800.0
+offset_top = -487.5
+offset_right = -400.0
+offset_bottom = -112.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Button" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="character_select/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="close_button" parent="character_select" instance=ExtResource("3_h7tjs")]
+offset_left = 527.0
+offset_top = -275.0
+offset_right = 577.0
+offset_bottom = -225.0
+
+[connection signal="pressed" from="question/VBoxContainer/blunderbuss" to="." method="_on_blunderbuss_pressed"]
+[connection signal="pressed" from="question/VBoxContainer/trap" to="." method="_on_trap_pressed"]
+[connection signal="pressed" from="character_select/close_button" to="." method="_on_close_button_pressed"]

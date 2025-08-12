@@ -576,13 +576,6 @@ layout_mode = 2
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_3w0d3")
 
-[node name="Button" type="Button" parent="."]
-offset_left = 30.0
-offset_top = 547.0
-offset_right = 124.0
-offset_bottom = 578.0
-text = "AAAAAAGR"
-
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TradeButton" to="trade/send_trade" method="_on_trade_button_pressed"]
 [connection signal="pressed" from="trade/send_trade/your_side/hand" to="trade/send_trade" method="_on_hand_pressed"]
@@ -595,4 +588,3 @@ text = "AAAAAAGR"
 [connection signal="pressed" from="trade/recieve_trade/you_give/choose_cards_you_give" to="trade/recieve_trade" method="_on_choose_cards_you_give_pressed"]
 [connection signal="pressed" from="trade/recieve_trade/accept" to="trade/recieve_trade" method="_on_accept_pressed"]
 [connection signal="pressed" from="trade/recieve_trade/decline" to="trade/recieve_trade" method="_on_decline_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_AAAAAAAAAAAA"]

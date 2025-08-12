@@ -48,6 +48,16 @@ func basic_card_menu(items):
 	
 	for item in items:
 		card_scene.add_card(item)
+		
+	for node in get_children():
+		if node != card_scene:
+			node.hide()
+			
+	await card_scene.finish_work
+	
+	for node in get_children():
+		if node != card_scene:
+			node.show()
 
 func checkbox_card_menu(menu_name):
 	if ($menus.get_node(menu_name) == null):
@@ -66,6 +76,16 @@ func checkbox_card_menu(menu_name):
 			card_scene.add_card(item_name)
 	else:
 		$menus.get_node(menu_name).show()
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.hide()
+			
+	await $menus.get_node(menu_name).finish_work
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.show()
 
 func _on_show_cards_you_get_pressed() -> void:
 	MenuClick.play()

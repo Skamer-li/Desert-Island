@@ -4,6 +4,8 @@ const CARD_SIZE_X: float = 753 * 0.35
 const MAX_RANGE: int = 400
 const MAX_CARDS: int = 5
 
+signal finish_work
+
 @onready var card_scene = preload("res://scenes/items/show_item_card.tscn")
 @onready var spawn_point = $card_spawn_point
 
@@ -46,6 +48,8 @@ func _on_close_button_pressed() -> void:
 		self.queue_free()
 	else:
 		self.hide()
+		
+	emit_signal("finish_work")
 	
 func make_checkbox_visible() -> void:
 	checkbox_visible = true
