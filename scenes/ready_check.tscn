@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bonk7uhi75uov" path="res://sprites/characters/sam.jpg" id="3_csu1u"]
 
 [node name="ready_check" type="Control"]
-z_index = 1000
+z_index = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

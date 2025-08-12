@@ -66,7 +66,7 @@ func transfer_object(object_t, sender_t, reciever_t, purpose_t):
 		
 func _on_accept_pressed() -> void:
 	transfer_object.rpc_id(1, object, sender, reciever, purpose)
-		
+	$fight_menu.trade_block.rpc(false)
 	$fight_message.hide()
 
 @rpc ("any_peer", "call_local")
