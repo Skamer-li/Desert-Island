@@ -9,6 +9,7 @@ var char2
 
 func _ready() -> void:
 	players=$"../players"
+	
 @rpc("any_peer","call_local")
 func player_select(player):
 	target=players.get_node(player)
@@ -18,25 +19,56 @@ func player_select(player):
 			self.queue_free()
 		else:
 			$"Player Choice".hide()
-	var amount_of_players=0
-	var target_location = players.get_node(player).current_location
-	var target_location_id = GameManager.const_locations.find(target_location)
-	for char in players.get_children():
-		amount_of_players+=1
-	for char in players.get_children():
-		if char.current_location==GameManager.const_locations[target_location_id+1]:
-			$"Player Choice/HBoxContainer/Button2".text = char.character_name
-			char2=char
-		elif(amount_of_players-1==target_location_id&&char.current_location=="Beach"):
-			$"Player Choice/HBoxContainer/Button2".text = char.character_name
-			char2=char
-		if char.current_location==GameManager.const_locations[target_location_id-1]:
-			$"Player Choice/HBoxContainer/Button".text = char.character_name
-			char1=char
-		elif (target_location=="Beach"&&char.current_location==GameManager.const_locations[amount_of_players-1]):
-			$"Player Choice/HBoxContainer/Button".text = char.character_name
-			char1=char
+	char2=find_char_on_the_right(str(target))
+	
+	char1=find_char_on_the_left(str(target))
+	if char1=="Balls":
+		$"Player Choice/HBoxContainer/Button".hide()
+	if char2=="Balls":
+		$"Player Choice/HBoxContainer/Button2".hide()
+	$"Player Choice/HBoxContainer/Button2".text = char2
+	$"Player Choice/HBoxContainer/Button".text = char1
 	$"Player Choice".show()
+
+
+
+func find_char_on_the_right(target) -> String:
+	var char
+	var target_location = players.get_node(target).current_location
+	var target_location_id = GameManager.const_locations.find(target_location)
+	var max_location_id=[]
+	for player in players.get_children():
+		if !player.is_dead:
+			var player_location = player.current_location
+			max_location_id.append(GameManager.const_locations.find(player_location))
+	max_location_id=max_location_id.max()
+	if max_location_id==target_location_id:
+		return "Balls"
+	for player in players.get_children():
+		if GameManager.const_locations.find(player.current_location)==target_location_id+1&&!player.is_dead:
+			char=str(player.name)
+		elif GameManager.const_locations.find(player.current_location)==target_location_id+1&&player.is_dead:
+			char = find_char_on_the_right(str(player.name))
+	return char
+	
+func find_char_on_the_left(target) -> String:
+	var char
+	var target_location = players.get_node(target).current_location
+	var target_location_id = GameManager.const_locations.find(target_location)
+	var min_location_id=[]
+	for player in players.get_children():
+		if !player.is_dead:
+			var player_location = player.current_location
+			min_location_id.append(GameManager.const_locations.find(player_location))
+	min_location_id=min_location_id.min()
+	if min_location_id==target_location_id:
+		return "Balls"
+	for player in players.get_children():
+		if GameManager.const_locations.find(player.current_location)==target_location_id-1&&!player.is_dead:
+			char=str(player.name)
+		elif GameManager.const_locations.find(player.current_location)==target_location_id-1&&player.is_dead:
+			char = find_char_on_the_left(str(player.name))
+	return char
 
 
 func _on_char1_chosen() -> void:

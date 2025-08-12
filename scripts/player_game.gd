@@ -155,7 +155,7 @@ func self_texture_load(character_name: String):
 			
 @rpc ("any_peer")			
 func death_check():
-	if wound_amount == base_strength:
+	if wound_amount >= base_strength:
 		is_dead = true
 		return true 
 	return false
