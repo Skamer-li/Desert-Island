@@ -117,11 +117,12 @@ func send_message(message,sender = "Server", sender_character="Server"):
 	var line = text_box.get_line_count()-1
 	if sender=="Server"&&sender_character=="Server":
 		text_box.insert_line_at(line, message)
+		text_box.scroll_vertical = line
 	else:
 		var format_message="%s (%s): %s"
 		var full_message=format_message % [sender_character,sender,message]
 		text_box.insert_line_at(line,full_message)
-
+		text_box.scroll_vertical = line
 @rpc("any_peer","call_local")
 func call_ready_check():
 	var players = get_node("/root/game/players")
