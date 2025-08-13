@@ -428,6 +428,12 @@ offset_bottom = 171.0
 theme_override_font_sizes/font_size = 35
 text = "Start a fight!"
 
+[node name="close_button" parent="actions/steal" instance=ExtResource("18_1dbih")]
+offset_left = 528.0
+offset_top = -289.0
+offset_right = 578.0
+offset_bottom = -239.0
+
 [node name="rats" type="Control" parent="actions"]
 layout_mode = 3
 anchors_preset = 0
@@ -786,6 +792,7 @@ grow_vertical = 1
 [connection signal="value_changed" from="actions/steal/menus/food_choice/food_slider" to="actions/steal" method="_on_food_slider_value_changed"]
 [connection signal="pressed" from="actions/steal/menus/food_choice/close_button" to="actions/steal" method="_on_close_button_pressed"]
 [connection signal="pressed" from="actions/steal/menus/food_choice/fight_start" to="actions/steal" method="_on_fight_start_pressed"]
+[connection signal="pressed" from="actions/steal/close_button" to="actions/steal" method="_on_close_button_pressed"]
 [connection signal="ship_spotted" from="actions/lookout" to="." method="_on_lookout_ship_spotted"]
 [connection signal="pressed" from="fight/fight_message/accept" to="fight" method="_on_accept_pressed"]
 [connection signal="pressed" from="fight/fight_message/decline" to="fight" method="_on_decline_pressed"]

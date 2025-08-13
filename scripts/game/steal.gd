@@ -42,7 +42,8 @@ func _on_food_pressed() -> void:
 		send_fight_request("food", food_amount)
 
 func _on_close_button_pressed() -> void:
-	$menus/food_choice.hide()
+	self.hide()
+	$"../basic_actions".disable_buttons(false)
 	
 func _on_food_slider_value_changed(value: float) -> void:
 	$menus/food_choice/food_amount.text = str(value)

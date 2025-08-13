@@ -4,6 +4,7 @@ extends Node2D
 
 @export var fate_card_value = 0
 @export var signal_fire = 0
+@export var fate_canceled = []
 
 var finished_turn = []
 var current_turn = 0
@@ -18,7 +19,6 @@ var game_end = false
 var fire_radius=87.5/2
 var ships=0
 var game_ended =0
-
 
 @rpc ("any_peer")
 func game_loop():
@@ -46,27 +46,30 @@ func game_loop():
 				
 				send_cancel_fate_check()
 				
-				GameManager.call_ready_check.rpc_id(1)
-				await GameManager.ready_check_done
-				
-				close_cancel_fate.rpc()
+				if (ships != 4):
+					GameManager.call_ready_check.rpc_id(1)
+					await GameManager.ready_check_done
 					
-				if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
-				await $fate_cards.fate_card_resolved
-				
-				deleting_fate.rpc()
-				
-				GameManager.call_ready_check.rpc_id(1)
-				await GameManager.ready_check_done
-				
-				$actions/eat.eating_init()
-				await $actions/eat.hunger_finished
-				
-				current_turn = 0
-				cards_dealed = false
-				fate_dealed = 0
-				finished_turn.clear()
-				continue
+					close_cancel_fate.rpc()
+						
+					if fate_resolved==0&&multiplayer.is_server()&&game_ended==0: fate_resolve()
+					await $fate_cards.fate_card_resolved
+					
+					deleting_fate.rpc()
+					
+					clear_fate_cancel.rpc()
+					
+					GameManager.call_ready_check.rpc_id(1)
+					await GameManager.ready_check_done
+					
+					$actions/eat.eating_init()
+					await $actions/eat.hunger_finished
+					
+					current_turn = 0
+					cards_dealed = false
+					fate_dealed = 0
+					finished_turn.clear()
+					continue
 		
 		current_player_id = player_id_on_location(current_location)
 		current_character_name = character_name_on_location(current_location)
@@ -141,6 +144,22 @@ func fate_dealed_info() -> void:
 	fate_dealed +=1 
 
 func fate_resolve():
+	var targets = find_fate_targets()
+	var fate_card = find_fate_card()
+	
+	for current_target in fate_canceled:
+		targets.erase(current_target)
+		GameManager.increase_food_amount.rpc_id(1, $players.get_node(current_target).get_path(), 3)
+		
+	print($fate_cards.get_node(fate_card).card_fullname)
+	print(targets)
+	
+	if (!targets.is_empty()):
+		$fate_cards.get_node(fate_card).get_node("effect").fate_activated(targets)
+
+	fate_resolved=1
+	
+func find_fate_targets() -> Array:
 	var fate_tokens=[]
 	var targets=[]
 	
@@ -151,7 +170,10 @@ func fate_resolve():
 	for player in $players.get_children():
 		if (player.fate_amount>= fate_tokens.max()&& player.is_dead==false):
 			targets.append(player.character_name)
-			
+	
+	return targets
+	
+func find_fate_card() -> String:
 	var fate = []
 	var fate_count=[]
 	var current_locations = []
@@ -167,12 +189,7 @@ func fate_resolve():
 	for fate_card in fate:
 		fate_count.append(fate.count(fate_card))
 		
-	print($fate_cards.get_node(current_locations[fate_count.find(fate_count.max())] + "_fate").card_fullname)
-	print(targets)
-	
-	$fate_cards.get_node(current_locations[fate_count.find(fate_count.max())] + "_fate").get_node("effect").fate_activated(targets)
-
-	fate_resolved=1
+	return current_locations[fate_count.find(fate_count.max())] + "_fate"
 	
 @rpc("any_peer","call_local")
 func deleting_fate():
@@ -274,16 +291,22 @@ func send_cancel_fate_check():
 func cancel_fate(character):
 	var scene = preload("res://scenes/cancel_fate.tscn")
 	var items = []
+	var current_fate = $fate_cards.get_node(find_fate_card()).card_name
+	var fate_targets = find_fate_targets()
+	
 	if $players.get_node(character).inventory.has("blunderbuss"):
 		items.append("blunderbuss")
 	
 	if $players.get_node(character).inventory.has("trap"):
 		items.append("trap")
+	
+	if (current_fate == "r"):
+			items.erase("blunderbuss")
 		
-	if (items.size() != 0):
+	if (!items.is_empty() && (current_fate == "r" || current_fate == "mk" || current_fate == "b")):
 		var node = scene.instantiate()
 		add_child(node)
-		node.initialize(character, items)
+		node.initialize(character, items, fate_targets)
 		node.name = "cancel_fate"
 
 @rpc ("any_peer", "call_local")
@@ -291,5 +314,13 @@ func close_cancel_fate():
 	var node = get_node_or_null("cancel_fate")
 	if (node):
 		node.queue_free()
+		
+@rpc ("any_peer", "call_local")
+func cancel_fate_for_character(character):
+	fate_canceled.append(character)
+
+@rpc ("any_peer", "call_local")
+func clear_fate_cancel():
+	fate_canceled.clear()
 		
 	
