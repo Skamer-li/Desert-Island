@@ -63,6 +63,7 @@ func _handle_card_touched(card):
 
 func _handle_card_untouched(card):
 	touched_cards.remove_at(touched_cards.find(card))
+	reset_popup_positions()
 
 func popup_card(index: int):
 	if index < 0 or index >= cards.size():
@@ -88,7 +89,17 @@ func reset_popup():
 	selected_index = -1
 	for card in cards:
 		card.z_index = 0
-	reposition_cards()	
+	reposition_cards()
+	
+func reset_popup_positions():
+	var card_spread = min(angle_limit / cards.size(), max_card_spread_angle)
+	var curr_angle = card_angle -(card_spread * (cards.size() - 1))/2
+	
+	for card in cards:
+		var target_pos = get_card_position(curr_angle)
+		curr_angle += card_spread
+		card.z_index = 0
+		_animate_card(card, target_pos)
 
 func _animate_card(card: Node2D, target_pos: Vector2):
 	var tween = get_tree().create_tween()
@@ -96,8 +107,6 @@ func _animate_card(card: Node2D, target_pos: Vector2):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
-	reset_popup()
 	
 	if !touched_cards.is_empty():
 		var highest_touched_index = -1
