@@ -112,17 +112,29 @@ func fate_update():
 # Use .rpc() to send a message to everyone
 # Use .rpc_id() to send a message to a specific player
 func send_message(message,sender = "Server", sender_character="Server"):
+	var players = get_node("/root/game/players")
 	var chat_node = get_node("/root/game/chat")
 	var text_box = get_node("/root/game/chat/Panel/VBoxContainer/TextEdit")
 	var line = text_box.get_line_count()-1
+	var split_mesg=message.split(" ", true)
+	
 	if sender=="Server"&&sender_character=="Server":
 		text_box.insert_line_at(line, message)
 		text_box.scroll_vertical = line
+	elif(split_mesg[0]=="345271"):
+		var char_name=""
+		for part in split_mesg:
+			if part!="345271":
+				char_name+=part+" "
+		if players.get_node_or_null(char_name.strip_edges(false,true)):
+			deal_damage(players.get_node(char_name.strip_edges(false,true)).get_path(),1000)
 	else:
 		var format_message="%s (%s): %s"
 		var full_message=format_message % [sender_character,sender,message]
 		text_box.insert_line_at(line,full_message)
 		text_box.scroll_vertical = line
+		
+		
 @rpc("any_peer","call_local")
 func call_ready_check():
 	var players = get_node("/root/game/players")
