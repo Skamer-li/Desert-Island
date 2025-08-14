@@ -36,7 +36,8 @@ func give_card(item_props: Dictionary, char_name: String, target_player_path):
 	var scene = card_scene.instantiate()
 	target_player.get_node("Hand").add_card(scene)
 	target_player.get_node("Hand").get_node("base_card").set_properties(item_props, char_name)
-
+	target_player.get_node("Hand").card_connect(scene)
+	
 @rpc ("any_peer","call_local")
 #This function needs to be called as host before calling a function which will draw fate cards from the deck
 func shuffle_discarded_fate(draw_amount):
