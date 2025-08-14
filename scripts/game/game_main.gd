@@ -146,17 +146,22 @@ func fate_dealed_info() -> void:
 func fate_resolve():
 	var targets = find_fate_targets()
 	var fate_card = find_fate_card()
+	var fate_card_name = $fate_cards.get_node(fate_card).card_name
 	
 	for current_target in fate_canceled:
 		targets.erase(current_target)
-		GameManager.increase_food_amount.rpc_id(1, $players.get_node(current_target).get_path(), 3)
+		if (fate_card_name != "r"):
+			GameManager.increase_food_amount.rpc_id(1, $players.get_node(current_target).get_path(), 3)
 		
 	print($fate_cards.get_node(fate_card).card_fullname)
 	print(targets)
 	
-	if (!targets.is_empty()):
+	if (!targets.is_empty() || fate_card_name == "r"):
 		$fate_cards.get_node(fate_card).get_node("effect").fate_activated(targets)
-
+	else:
+		await get_tree().create_timer(1.0).timeout
+		$fate_cards.fate_card_resolve.rpc()
+		
 	fate_resolved=1
 	
 func find_fate_targets() -> Array:
@@ -304,6 +309,11 @@ func cancel_fate(character):
 	
 	if (current_fate == "r"):
 			items.erase("blunderbuss")
+			fate_targets.clear()
+			
+			for char in $players.get_children():
+				if (!char.is_dead):
+					fate_targets.append(char.character_name)
 		
 	if (!items.is_empty() && (current_fate == "r" || current_fate == "mk" || current_fate == "b")):
 		var node = scene.instantiate()

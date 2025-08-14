@@ -58,14 +58,15 @@ func draw_fate_card(card):
 
 @rpc("any_peer","call_local")
 func remove_food(number):
+	var game_node = get_node("/root/game")
 	if number%2==0:
 		for char in $"../../players".get_children():
-			if char.food_amount!=0:
+			if char.food_amount!=0 && !game_node.fate_canceled.has(char.character_name):
 				var food_amount = int(food_division[0][str(char.name)])
 				GameManager.decrease_food_amount(char.get_path(),food_amount)
 	else:
 		for char in $"../../players".get_children():
-			if char.food_amount!=0:
+			if char.food_amount!=0 && !game_node.fate_canceled.has(char.character_name):
 				var food_amount = int(food_division[1][str(char.name)])
 				GameManager.decrease_food_amount(char.get_path(),food_amount)
 	$"../../fate_cards".fate_card_resolve.rpc()

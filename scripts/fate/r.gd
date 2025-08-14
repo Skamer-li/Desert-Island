@@ -8,6 +8,8 @@ var targets=[]
 
 func fate_activated(effect_targets: Array):
 	var player_amount = 0
+	var game_node = get_node("/root/game")
+	
 	rat_node=$"../../../actions/rats"
 	for effect_target in effect_targets:
 		targets.append(players.get_node(effect_target))
@@ -22,6 +24,10 @@ func fate_activated(effect_targets: Array):
 	for player in players.get_children():
 		if targets.has(player):
 			GameManager.remove_add_rats.rpc_id(1,false,player.get_path())
+			continue
+		elif game_node.fate_canceled.has(player.character_name):
+			GameManager.remove_add_rats.rpc_id(1,false,player.get_path())
+			GameManager.increase_food_amount.rpc_id(1, player.get_path(), 3)
 			continue
 		else:
 			rat_targets.append(player)
