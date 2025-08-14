@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpippvvydt4ix"]
+
+[ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="1_6uin5"]
+[ext_resource type="Script" path="res://scripts/items/dragging_card.gd" id="1_vo1dj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ynsb"]
+size = Vector2(188, 266)
+
+[node name="dragging_card" type="Node2D"]
+script = ExtResource("1_vo1dj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_6uin5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8ynsb")

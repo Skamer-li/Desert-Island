@@ -54,5 +54,9 @@ func choose_player(name, trade_flag):
 func _on_close_button_pressed() -> void:
 	MenuClick.play()
 	self.hide()
+	
+	for button in buttons:
+		button.pressed.disconnect(choose_player)
+
 	if (!is_trade):
 		$"../basic_actions".disable_buttons(false)

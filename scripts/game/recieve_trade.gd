@@ -38,7 +38,6 @@ func _process(delta: float) -> void:
 		if ($menus.get_node_or_null("item_choice") != null):
 			for item in $menus.get_node("item_choice").get_node("card_spawn_point").get_children():
 				if (item.get_node("CheckBox").button_pressed):
-					MenuClick.play()
 					selected_cards.append(item.card_name)
 		
 		$you_give/choose_cards_you_give/Label.text = str(selected_cards.size()) + "/" + str(closed_cards_to_give)
@@ -49,6 +48,16 @@ func basic_card_menu(items):
 	
 	for item in items:
 		card_scene.add_card(item)
+		
+	for node in get_children():
+		if node != card_scene:
+			node.hide()
+			
+	await card_scene.finish_work
+	
+	for node in get_children():
+		if node != card_scene:
+			node.show()
 
 func checkbox_card_menu(menu_name):
 	if ($menus.get_node(menu_name) == null):
@@ -67,6 +76,16 @@ func checkbox_card_menu(menu_name):
 			card_scene.add_card(item_name)
 	else:
 		$menus.get_node(menu_name).show()
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.hide()
+			
+	await $menus.get_node(menu_name).finish_work
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.show()
 
 func _on_show_cards_you_get_pressed() -> void:
 	MenuClick.play()
@@ -96,6 +115,7 @@ func _on_choose_cards_you_give_pressed() -> void:
 
 func _on_decline_pressed() -> void:
 	MenuClick.play()
+	GameManager.send_message.rpc(offerrer_name + "'s offer was declined")
 	erase_data()
 
 func erase_data():
@@ -133,7 +153,6 @@ func _on_accept_pressed() -> void:
 	if ($menus.get_node("item_choice") != null):
 		for item in $menus.get_node("item_choice").get_node("card_spawn_point").get_children():
 			if (item.get_node("CheckBox").button_pressed):
-				MenuClick.play()
 				selected_cards.append(item.card_name)
 	
 	if (selected_cards.size() != closed_cards_to_give):
@@ -163,6 +182,7 @@ func _on_accept_pressed() -> void:
 	
 	if (self_food_check && target_food_check && closed_cards_to_give_check && closed_cards_to_get_check &&
 		open_cards_to_give_check && open_cards_to_get_check):
+			GameManager.send_message.rpc(offerrer_name + "'s offer was accepted")
 			if (!multiplayer.is_server()):
 				make_a_deal.rpc_id(1, offerrer_name, get_food, give_food, selected_cards, closed_cards_to_get, open_cards_to_give, open_cards_to_get)
 			else:

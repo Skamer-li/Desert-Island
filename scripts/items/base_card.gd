@@ -46,23 +46,24 @@ func set_properties(data: Dictionary, owner: String):
 		$button.hide()
 
 func _on_button_pressed() -> void:
-	if multiplayer.is_server():
-		script_node.item_use()
-		if !can_be_activated:
-			delete_card()
-		else:
-			if(GameManager.is_fight):
-				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
+	script_node.item_use.rpc_id(1)
+	if (!can_be_activated):
+		GameManager.send_message.rpc(card_owner + " used " + card_name.replace("_", " "))
+		delete_card()
+		delete_card.rpc_id(1)
 	else:
-		script_node.item_use.rpc_id(1)
-		if !can_be_activated:
-			delete_card()
-			delete_card.rpc_id(1)
-		else:
-			if(GameManager.is_fight):
-				self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
+		GameManager.send_message.rpc(card_owner + " equiped " + card_name.replace("_", " "))
+		#self.get_node("button").disabled = true
+		self.get_node("button").queue_free()
+		if(GameManager.is_fight):
+			var timer= Timer.new()
+			add_child(timer)
+			timer.wait_time = 0.1
+			timer.start()
+			await  timer.timeout
+			self.get_parent().get_parent().get_parent().get_parent().get_node("fight").get_node("fight_menu").refresh_data.rpc()
 	
-@rpc ("any_peer")
+@rpc ("any_peer", "call_local")
 func delete_card():
 	self.get_parent().get_parent().inventory.erase(card_name)
 	if can_be_activated:
@@ -85,6 +86,8 @@ func delete_card():
 				max_damage = current_damage
 		
 		char_node.fight_strength = char_node.base_strength + max_damage
+		
+
 		char_node.forage_food_amplification -= food_amplification
 	
 	self.get_parent().delete_card_from_array(card_name)

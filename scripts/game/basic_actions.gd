@@ -11,10 +11,19 @@ func _on_forage_button_pressed() -> void:
 	
 	var food = fate_card_value + character.forage_food_amplification
 	
+	if character.character_name == "First Mate":
+		food += 1
+	
 	if (character.current_location == "Spring"):
 		food += 3
+		
+	for card in $"../../locations".get_node(character.current_location).current_cards:
+		if (card == "garden"):
+			food += 2
 
 	give_food_to_char.rpc_id(1, character_name, food)
+	
+	GameManager.send_message.rpc(character_name + " found " + str(food) + " food tokens")
 	
 	disable_buttons(true)
 
@@ -28,6 +37,8 @@ func _on_sfire_button_pressed() -> void:
 	
 	build_signal_fire.rpc_id(1, amount)
 	
+	GameManager.send_message.rpc(character_name + " built " + str(amount) + " signal fire tokens")
+	
 	disable_buttons(true)
 
 func _on_steal_button_pressed() -> void:
@@ -39,7 +50,10 @@ func _on_steal_button_pressed() -> void:
 
 func _on_end_turn_button_pressed() -> void:
 	MenuClick.play()
+	
 	self.hide()
+	
+	character.get_node("SkillButton").disabled = true
 	
 	end_turn.rpc_id(1)
 
@@ -68,6 +82,8 @@ func show_actions(char_name: String, card_value: int) -> void:
 	character_name = char_name
 	fate_card_value = card_value
 	character = $"../../players".get_node(character_name)
+	show_skill_button()
+	
 
 @rpc ("any_peer", "call_local")
 func give_food_to_char(char_name: String, amount: int):
@@ -76,3 +92,26 @@ func give_food_to_char(char_name: String, amount: int):
 @rpc ("any_peer", "call_local")
 func build_signal_fire(amount: int):
 	$"../..".signal_fire += amount
+	
+func show_skill_button():
+	var validator = false
+	
+	match(character.character_name):
+		"Snob":
+			validator = true
+		"The Captain":
+			#check if someone exept The Captain has char_fate
+			for current_character in $"../../players".get_children():
+				if (current_character.character_name != "The Captain" && current_character.char_fate > 0):
+					validator = true
+					break
+		"Milady":
+			if character.char_fate > 0:
+				validator = true
+		"The Kid":
+			validator = true
+		_:
+			validator = false
+	
+	if (validator):
+		character.get_node("SkillButton").disabled = false

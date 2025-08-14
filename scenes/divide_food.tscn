@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/game/divide_food.gd" id="1_dlqtr"]
 
 [node name="divide_food" type="Control"]
+z_index = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,10 +17,20 @@ script = ExtResource("1_dlqtr")
 position = Vector2(960, 540)
 texture = ExtResource("1_0fjft")
 
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = -207.0
+theme_override_font_sizes/font_size = 35
+text = "Divide your food"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="left" type="Label" parent="Sprite2D"]
-offset_left = -333.0
+offset_left = -233.0
 offset_top = -150.0
-offset_right = -267.0
+offset_right = -167.0
 offset_bottom = -101.0
 pivot_offset = Vector2(33, 24)
 theme_override_font_sizes/font_size = 35
@@ -34,9 +45,9 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(33, 15)
 
 [node name="right" type="Label" parent="Sprite2D"]
-offset_left = 256.0
+offset_left = 156.0
 offset_top = -150.0
-offset_right = 344.0
+offset_right = 244.0
 offset_bottom = -101.0
 pivot_offset = Vector2(44, 24)
 theme_override_font_sizes/font_size = 35
@@ -44,9 +55,8 @@ text = "Right"
 
 [node name="box2" type="SpinBox" parent="Sprite2D/right"]
 layout_mode = 0
-offset_left = 11.0
 offset_top = 285.0
-offset_right = 94.0625
+offset_right = 83.0625
 offset_bottom = 316.0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(33, 15)

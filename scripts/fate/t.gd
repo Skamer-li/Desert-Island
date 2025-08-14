@@ -1,6 +1,40 @@
 extends Node
-
-func fate_activated(effect_target: String):
-	var ball = get_parent().card_fullname
-	print(get_parent().card_fullname)
+var game_main
+var fate_cards
+func _ready() -> void:
+	game_main=get_parent().get_parent().get_parent()
 	
+func fate_activated(effect_targets: Array):
+	for card in get_parent().get_parent().get_children():
+		if card.card_name==get_parent().card_name:
+			card.show_fate.rpc()
+	$"../../../sounds/".tsunami.rpc()
+	tsunami.rpc_id(1,GameManager.const_locations,effect_targets)
+	
+@rpc("any_peer","call_local")
+func tsunami(locations,effect_targets):
+	game_main=get_parent().get_parent().get_parent()
+	game_main.signal_fire=0
+	game_main.fire_update()
+	var location_ids=[]
+	var locations_node = get_node("/root/game/locations")
+	for effect_target in effect_targets:
+		var location = $"../../../players/".get_node(effect_target).current_location
+		location_ids.append(GameManager.const_locations.find(location))
+	for i in location_ids.max()+1:
+		for player in $"../../../players/".get_children():
+			var player_path =$"../../../players/".get_node(player.character_name).get_path()
+			if player.current_location==locations[i]:
+				locations_node.get_node(locations[i]).delete_cards_from_location.rpc()
+				GameManager.deal_damage(player_path)
+				GameManager.decrease_food_amount(player_path,player.food_amount)
+				for item in player.inventory_activated:
+					var player_id=player.player_id
+					CardManager.delete_card.rpc_id(player_id,item,player,player_path)
+	await get_tree().create_timer(2).timeout
+	resolved.rpc()
+
+@rpc("any_peer","call_local")
+func resolved():
+	fate_cards=get_parent().get_parent()
+	fate_cards.fate_card_resolve.rpc()

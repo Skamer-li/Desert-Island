@@ -89,6 +89,16 @@ func menu_interaction(menu_name, character_name, open):
 			card_scene.add_card(item_name)
 	else:
 		$menus.get_node(menu_name).show()
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.hide()
+			
+	await $menus.get_node(menu_name).finish_work
+	
+	for node in get_children():
+		if node.name != "menus":
+			node.show()
 
 
 func _on_send_button_pressed() -> void:
@@ -120,13 +130,17 @@ func _on_send_button_pressed() -> void:
 			if (item.get_node("CheckBox").button_pressed):
 				MenuClick.play()
 				open_cards_to_give.append(item.card_name)
-	
-	#$"../recieve_trade".initialize.rpc_id(target_id, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
-	calling.rpc_id(target_id, player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
-	for child in $menus.get_children():
-		child.queue_free()
+				
+	if (give_food != 0 || closed_cards_to_give.size() != 0 || get_food != 0 || closed_cards_to_get != 0):	
+		GameManager.send_message.rpc(sender_name + " wants to trade their " + str(give_food) + " food and " +str(closed_cards_to_give.size()) + " cards from hand on " + player_name + "'s " + str(get_food) + " food and " + str(closed_cards_to_get) + " cards from hand") 
 		
-	self.hide()
+		
+		#$"../recieve_trade".initialize.rpc_id(target_id, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
+		calling.rpc_id(target_id, player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give)
+		for child in $menus.get_children():
+			child.queue_free()
+			
+		self.hide()
 
 @rpc ("any_peer")
 func calling(player_name, sender_name, give_food, get_food, closed_cards_to_get, closed_cards_to_give, open_cards_to_get, open_cards_to_give):

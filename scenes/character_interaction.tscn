@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbkhtg5ub4j2y"]
+[gd_scene load_steps=7 format=3 uid="uid://bbkhtg5ub4j2y"]
 
 [ext_resource type="Script" path="res://scripts/game/character_interaction.gd" id="1_wnb2r"]
 [ext_resource type="Texture2D" uid="uid://1air4pj5nii0" path="res://sprites/characters/cherpack.png" id="2_2w4vs"]
 [ext_resource type="Shader" path="res://scenes/shaders/card.gdshader" id="2_dspgy"]
 [ext_resource type="Texture2D" uid="uid://3wk5j1r7f5qa" path="res://sprites/backpack1.png" id="4_3uti6"]
+[ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="5_d13mv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3s3gh"]
 shader = ExtResource("2_dspgy")
@@ -49,5 +50,10 @@ offset_right = 573.0
 offset_bottom = 575.0
 scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("4_3uti6")
+
+[node name="fate_tokens" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(0, -53)
+script = ExtResource("5_d13mv")
 
 [connection signal="pressed" from="inventory_button" to="." method="_on_inventory_button_pressed"]
