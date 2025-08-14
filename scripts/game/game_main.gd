@@ -226,7 +226,7 @@ func _on_fate_dealing_fate_dealing_finished() -> void:
 		show_actions_as_host.rpc_id(1)
 
 func _on_lookout_ship_spotted() -> void:
-  $sounds.ship_horn.rpc()
+	$sounds.ship_horn.rpc()
 	if multiplayer.is_server():
 		ships+=1
 		$ships.create_ship.rpc(ships)

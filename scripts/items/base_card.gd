@@ -1,5 +1,8 @@
 extends Node2D
 
+signal mouse_entered(card)
+signal mouse_exited(card)
+
 @export var card_name = "Name"
 @export var card_owner = "Name"
 @export var food_amplification = 0
@@ -93,3 +96,13 @@ func itemss_use():
 	var player = self.get_parent().get_parent()
 	
 	player.food_amount += food_gain
+
+
+func _on_area_2d_mouse_entered() -> void:
+	mouse_entered.emit(self)
+	#print("chi")
+
+
+func _on_area_2d_mouse_exited() -> void:
+	mouse_exited.emit(self)
+	#print("nazes")
