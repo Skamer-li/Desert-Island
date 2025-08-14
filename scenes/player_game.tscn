@@ -588,3 +588,4 @@ texture = ExtResource("8_3w0d3")
 [connection signal="pressed" from="trade/recieve_trade/you_give/choose_cards_you_give" to="trade/recieve_trade" method="_on_choose_cards_you_give_pressed"]
 [connection signal="pressed" from="trade/recieve_trade/accept" to="trade/recieve_trade" method="_on_accept_pressed"]
 [connection signal="pressed" from="trade/recieve_trade/decline" to="trade/recieve_trade" method="_on_decline_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_AAAAAAAAAA"]

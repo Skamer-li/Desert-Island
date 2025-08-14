@@ -33,7 +33,8 @@ alignment = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 18
-placeholder_text = "											Welcome to Desert Island"
+placeholder_text = "											Welcome to Desert Island
+				Everything that happens on the island, stays on the island "
 editable = false
 context_menu_enabled = false
 shortcut_keys_enabled = false

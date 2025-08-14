@@ -208,6 +208,7 @@ func fire_update():
 
 func end_game():
 	game_end=true
+	GameScoreVar.game_score_init()
 	for character in $players.get_children():
 		var character_name = character.character_name
 		var enemy_name = character.enemy_name
@@ -218,25 +219,25 @@ func end_game():
 		
 		#Own Survival Points
 		if (character.is_dead == false):
-			GameScoreVar.give_points(character_name, character.survival_points,player)
+			GameScoreVar.give_points(character_name, character.survival_points,player,"Survival")
 
 		#Friend Survival Points
 		if $players.get_node(friend_name).is_dead==false:
-			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points,player)
+			GameScoreVar.give_points(character_name, $players.get_node(friend_name).survival_points,player,"Friend")
 
 		#Enemy Survival Points
 		if $players.get_node(enemy_name).is_dead==true&&enemy_name!=character_name:
-			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength,player)
+			GameScoreVar.give_points(character_name, $players.get_node(enemy_name).base_strength,player,"Enemy")
 			
 		#Psychopath Points
 		if enemy_name==character_name:
 			var characters_dead=$players.get_children().size()-characters_alive()
-			GameScoreVar.give_points(character_name, 2*characters_dead,player)
-			if $players.get_node(friend_name).is_dead == true:
-				GameScoreVar.give_points(character_name, -2,player)
+			GameScoreVar.give_points(character_name, 2*characters_dead,player,"Baller")
+			if $players.get_node(friend_name).is_dead||character.is_dead:
+				GameScoreVar.give_points(character_name, -2,player,"Baller")
 		#Items
 		for item in character.get_node("Hand").get_children():
-			if item.name!="DebugShape":GameScoreVar.give_points(character_name, item.value,player)
+			if item.name!="DebugShape":GameScoreVar.give_points(character_name, item.value,player,"Items")
 	print(GameScoreVar.game_score)
 	show_game_score.rpc()
 	game_ended=1
@@ -245,6 +246,7 @@ func show_game_score():
 	#await $sounds/effects.finished
 	get_tree().change_scene_to_file("res://scenes/game_score.tscn")
 	self.queue_free()
+	
 	
 func _on_shuffle_players_are_ready() -> void:
 	game_loop()
