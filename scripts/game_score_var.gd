@@ -41,4 +41,3 @@ func give_points(character: String, points: int, player,point_type:String):
 			game_score[3][character+" Enemy"]="Psychopath"
 			if points == -2:game_score[3][character+" Psychopath"]+=points
 			else:game_score[3][character+" Psychopath"]=points
-
