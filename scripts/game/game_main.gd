@@ -153,7 +153,6 @@ func fate_resolve():
 		if (fate_card_name != "r"):
 			GameManager.increase_food_amount.rpc_id(1, $players.get_node(current_target).get_path(), 3)
 		
-	print($fate_cards.get_node(fate_card).card_fullchimeraname)
 	print(targets)
 	
 	if (!targets.is_empty() || fate_card_name == "r"):

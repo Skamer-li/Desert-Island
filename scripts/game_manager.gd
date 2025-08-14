@@ -14,8 +14,7 @@ var friends = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The K
 var enemies = ["Cherpack", "First Mate", "Snob", "The Captain", "Milady", "The Kid"]
 var items = ["bananas", "coconut", "crabs", "roasted_iguana", "sprats", "candelabrum", 
 			 "chamber_pot", "cup", "doubloons", "medicine", "boarding_saber", "blunderbuss",
-			 "fishing_rod", "garden", "shovel", "spear", "tent", "trap", "monocle", "spotting_scope",
-			 "trap", "trap", "trap", "trap", "trap", "trap", "trap", "trap", "trap", "trap", "trap"]
+			 "fishing_rod", "garden", "shovel", "spear", "tent", "trap", "monocle", "spotting_scope"]
 var items_database = [
 	{"name": "bananas", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 4, "damage": 0, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": false},
 	{"name": "blunderbuss", "food_amplification": 0, "hunger_food_decrease": 0, "food_gain": 0, "damage": 10, "value": 0, "heal": 0, "build_amplification": 0, "can_be_activated": true},
@@ -94,7 +93,7 @@ func deal_damage(character_path, dmg=1):
 		chars.get_node(character_name).texture_load.rpc(character_name)
 		character.self_texture_load.rpc_id(character.player_id, character_name)
 		character.get_parent().get_parent().get_node("locations").get_node(character.current_location).set_closed_sprite.rpc()
-    
+	
 		if (game.characters_alive() == 1):
 			game.end_game()
 
