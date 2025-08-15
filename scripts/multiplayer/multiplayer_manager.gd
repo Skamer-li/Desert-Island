@@ -105,3 +105,5 @@ func refresh_positions() -> void:
 @rpc("any_peer")
 func send_name(name: String) -> void:
 	GameManager.players_name.append(name)
+	
+#<a href="https://www.flaticon.com/free-icons/island" title="island icons">Island icons created by Freepik - Flaticon</a>

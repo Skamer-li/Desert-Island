@@ -528,7 +528,18 @@ offset_right = 1895.0
 offset_bottom = 1055.0
 border_width = 5.0
 
-[node name="friends&enemies" type="Control" parent="."]
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 44.0
+offset_top = 617.0
+offset_right = 284.0
+offset_bottom = 648.0
+text = "AAAAAAAAAAAAAAAAAAAAAa"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="friends&enemies" type="Control" parent="CanvasLayer"]
 visible = false
 z_index = 735
 layout_mode = 3
@@ -538,11 +549,11 @@ offset_top = 240.0
 offset_right = 1560.0
 offset_bottom = 840.0
 
-[node name="background" type="Sprite2D" parent="friends&enemies"]
+[node name="background" type="Sprite2D" parent="CanvasLayer/friends&enemies"]
 position = Vector2(600, 300)
 texture = ExtResource("9_nk0k3")
 
-[node name="close" type="Button" parent="friends&enemies/background"]
+[node name="close" type="Button" parent="CanvasLayer/friends&enemies/background"]
 z_index = 30
 anchors_preset = 15
 anchor_right = 1.0
@@ -554,7 +565,7 @@ offset_bottom = -825.0
 text = "X"
 script = ExtResource("16_sbveq")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="friends&enemies/background"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/friends&enemies/background"]
 offset_left = -600.0
 offset_top = -16.0
 offset_right = 600.0
@@ -562,26 +573,19 @@ offset_bottom = 24.0
 theme_override_constants/separation = 500
 alignment = 1
 
-[node name="friend" type="Control" parent="friends&enemies/background/HBoxContainer"]
+[node name="friend" type="Control" parent="CanvasLayer/friends&enemies/background/HBoxContainer"]
 layout_mode = 2
 
-[node name="friend" type="Sprite2D" parent="friends&enemies/background/HBoxContainer/friend"]
+[node name="friend" type="Sprite2D" parent="CanvasLayer/friends&enemies/background/HBoxContainer/friend"]
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("7_01cnj")
 
-[node name="enemy" type="Control" parent="friends&enemies/background/HBoxContainer"]
+[node name="enemy" type="Control" parent="CanvasLayer/friends&enemies/background/HBoxContainer"]
 layout_mode = 2
 
-[node name="enemy" type="Sprite2D" parent="friends&enemies/background/HBoxContainer/enemy"]
+[node name="enemy" type="Sprite2D" parent="CanvasLayer/friends&enemies/background/HBoxContainer/enemy"]
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_3w0d3")
-
-[node name="Button" type="Button" parent="."]
-offset_left = 44.0
-offset_top = 617.0
-offset_right = 284.0
-offset_bottom = 648.0
-text = "AAAAAAAAAAAAAAAAAAAAAa"
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TradeButton" to="trade/send_trade" method="_on_trade_button_pressed"]

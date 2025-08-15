@@ -115,3 +115,13 @@ func _on_button_2_pressed() -> void:
 	self.hide()
 	await get_tree().create_timer(0.05).timeout
 	fate_dealing_finished.emit()
+
+
+func _on_show_fate_pressed() -> void:
+	self.show()
+	$"../show_fate".hide()
+
+
+func _on_close_button_pressed() -> void:
+	self.hide()
+	$"../show_fate".show()

@@ -52,9 +52,12 @@ func _on_inventory_button_pressed() -> void:
 		return 
 	
 	var new_inventory = inventory.instantiate()
+	
 	new_inventory.name = inventory_node_name
 	
 	add_child(new_inventory)
+	
+	new_inventory.show_parameters(player_node.character_name)
 	
 	new_inventory.global_position = Vector2(1920/2, 1080/2)
 	

@@ -19,4 +19,22 @@ offset_top = -279.0
 offset_right = 575.0
 offset_bottom = -229.0
 
+[node name="parameters" type="HBoxContainer" parent="."]
+visible = false
+offset_left = -507.0
+offset_top = -283.0
+offset_right = -118.0
+offset_bottom = -227.0
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="parameters"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Wounds:"
+
+[node name="Label2" type="Label" parent="parameters"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Food:"
+
 [connection signal="pressed" from="close_button" to="." method="_on_close_button_pressed"]

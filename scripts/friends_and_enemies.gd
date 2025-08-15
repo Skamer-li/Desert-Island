@@ -5,4 +5,4 @@ func _ready() -> void:
 
 func open_friends_and_enemies():
 	MenuClick.play()
-	$"../../friends&enemies".show()
+	$"../../CanvasLayer/friends&enemies".show()

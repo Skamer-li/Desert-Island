@@ -21,6 +21,7 @@ func eating_init() -> void:
 func eating_phase(char_path) -> void:
 	player_path=char_path
 	var player_node=get_node(player_path)
+	
 	var food_decrease=player_node.base_strength
 	#if player_node.food_amount<food_decrease:
 		#GameManager.change_eating_status.rpc_id(1,false,player_path)

@@ -53,3 +53,13 @@ func _on_close_button_pressed() -> void:
 	
 func make_checkbox_visible() -> void:
 	checkbox_visible = true
+	
+func show_parameters(character):
+	var label1 = $parameters/Label
+	var label2 = $parameters/Label2
+	var players = get_node("/root/game/players")
+	var char = players.get_node(character)
+	label1.text = "Wounds: " + str(char.wound_amount)
+	label2.text = "Food: " + str(char.food_amount) 
+	$parameters.show()
+	

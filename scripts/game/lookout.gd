@@ -23,6 +23,7 @@ func _set_symbols(dict: Dictionary):
 	
 @rpc("any_peer","call_local")
 func start_lookout() -> void:
+	players_not_looking = 0
 	game_node.signal_fire+=1
 	game_node.fire_update()
 	for player in players_node.get_children():

@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cm2k3rg22p6f2" path="res://sprites/fate cards/fate.png" id="17_2bao7"]
 [ext_resource type="Script" path="res://scripts/game/player_choice.gd" id="17_kwyil"]
 [ext_resource type="PackedScene" uid="uid://eobsb08hw0hx" path="res://scenes/close_button.tscn" id="18_1dbih"]
-[ext_resource type="PackedScene" path="res://scenes/lookout.tscn" id="18_u3bg2"]
+[ext_resource type="PackedScene" uid="uid://c3leqq015a64k" path="res://scenes/lookout.tscn" id="18_u3bg2"]
 [ext_resource type="Script" path="res://scripts/game/sounds.gd" id="19_1grsc"]
 [ext_resource type="Script" path="res://scripts/fight/fight.gd" id="19_2w6nd"]
 [ext_resource type="AudioStream" uid="uid://bgbw2y8irdf62" path="res://sounds/Mr. President - Coco Jamboo.ogg" id="19_xdv5i"]
@@ -23,12 +23,12 @@
 [ext_resource type="Script" path="res://scripts/game/ships.gd" id="21_j53tk"]
 [ext_resource type="Texture2D" uid="uid://b7y3q10c27ywh" path="res://sprites/tokens/signal_fire_token.png" id="21_o17qr"]
 [ext_resource type="Texture2D" uid="uid://c7oa5oc8nn7qa" path="res://sprites/items/items.png" id="22_8db47"]
-[ext_resource type="PackedScene" path="res://scenes/eat.tscn" id="22_61d8o"]
+[ext_resource type="PackedScene" uid="uid://q5anppoktplj" path="res://scenes/eat.tscn" id="22_61d8o"]
 [ext_resource type="Script" path="res://scripts/game/fate_tokens_stacking.gd" id="22_acev5"]
 [ext_resource type="Script" path="res://scripts/fight/escape_fight_message.gd" id="24_fw17j"]
 [ext_resource type="Texture2D" uid="uid://cl5cgpr2fsd1k" path="res://sprites/name_back.png" id="30_7whwj"]
 [ext_resource type="AudioStream" uid="uid://bn84few3x7ict" path="res://sounds/ship_horn.ogg" id="30_ohmqi"]
-[ext_resource type="PackedScene" path="res://scenes/chat.tscn" id="34_4a36g"]
+[ext_resource type="PackedScene" uid="uid://didkg8gmlfwps" path="res://scenes/chat.tscn" id="34_4a36g"]
 [ext_resource type="Script" path="res://scripts/game/cards_dealing.gd" id="41_p35d8"]
 [ext_resource type="Texture2D" uid="uid://brsy36ng1hbql" path="res://sprites/items/bananas.png" id="42_2at1j"]
 
@@ -229,7 +229,6 @@ theme_override_font_sizes/font_size = 65
 text = "End your turn "
 
 [node name="fate_dealing" type="Sprite2D" parent="actions"]
-visible = false
 position = Vector2(960, 540)
 scale = Vector2(1.297, 1.297)
 texture = SubResource("CompressedTexture2D_vx2yp")
@@ -268,6 +267,12 @@ theme_override_font_sizes/font_size = 60
 text = "Choose a fate card"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="close_button" parent="actions/fate_dealing" instance=ExtResource("18_1dbih")]
+offset_left = 521.974
+offset_top = -276.793
+offset_right = 571.974
+offset_bottom = -226.793
 
 [node name="choose_player" type="Sprite2D" parent="actions"]
 visible = false
@@ -445,6 +450,14 @@ script = ExtResource("21_7vg4u")
 visible = false
 
 [node name="lookout" parent="actions" instance=ExtResource("18_u3bg2")]
+
+[node name="show_fate" type="Button" parent="actions"]
+visible = false
+offset_left = 1672.05
+offset_top = 307.837
+offset_right = 1814.05
+offset_bottom = 347.837
+text = "Show fate cards"
 
 [node name="fight" type="Node2D" parent="."]
 z_index = 3
@@ -784,6 +797,7 @@ grow_vertical = 1
 [connection signal="fate_dealing_finished" from="actions/fate_dealing" to="." method="_on_fate_dealing_fate_dealing_finished"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button" to="actions/fate_dealing" method="_on_button_pressed"]
 [connection signal="pressed" from="actions/fate_dealing/fate/Button2" to="actions/fate_dealing" method="_on_button_2_pressed"]
+[connection signal="pressed" from="actions/fate_dealing/close_button" to="actions/fate_dealing" method="_on_close_button_pressed"]
 [connection signal="pressed" from="actions/choose_player/close_button" to="actions/choose_player" method="_on_close_button_pressed"]
 [connection signal="pressed" from="actions/steal/open_card" to="actions/steal" method="_on_open_card_pressed"]
 [connection signal="pressed" from="actions/steal/closed_card" to="actions/steal" method="_on_closed_card_pressed"]
@@ -794,6 +808,7 @@ grow_vertical = 1
 [connection signal="pressed" from="actions/steal/menus/food_choice/fight_start" to="actions/steal" method="_on_fight_start_pressed"]
 [connection signal="pressed" from="actions/steal/close_button" to="actions/steal" method="_on_close_button_pressed"]
 [connection signal="ship_spotted" from="actions/lookout" to="." method="_on_lookout_ship_spotted"]
+[connection signal="pressed" from="actions/show_fate" to="actions/fate_dealing" method="_on_show_fate_pressed"]
 [connection signal="pressed" from="fight/fight_message/accept" to="fight" method="_on_accept_pressed"]
 [connection signal="pressed" from="fight/fight_message/decline" to="fight" method="_on_decline_pressed"]
 [connection signal="pressed" from="fight/escape_fight_message/accept" to="fight/escape_fight_message" method="_on_accept_pressed"]

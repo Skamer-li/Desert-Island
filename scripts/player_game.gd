@@ -168,17 +168,17 @@ func _set_friend_name(value: String) -> void:
 	
 	match(friend_name):
 		"Cherpack":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
 		"First Mate":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/first_mate_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/first_mate_f.png")
 		"Snob":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/snob_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/snob_f.png")
 		"The Captain":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_captain_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_captain_f.png")
 		"Milady":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/milady_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/milady_f.png")
 		"The Kid":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_kid_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/the_kid_f.png")
 		_:
 			print("Error character name set")
 
@@ -187,17 +187,17 @@ func _set_enemy_name(value: String) -> void:
 	
 	match(enemy_name):
 		"Cherpack":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/cherpack_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/cherpack_e.png")
 		"First Mate":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/first_mate_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/first_mate_e.png")
 		"Snob":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/snob_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/snob_e.png")
 		"The Captain":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_captain_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_captain_e.png")
 		"Milady":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/milady_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/milady_e.png")
 		"The Kid":
-			$"friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_kid_e.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/enemy/enemy".texture = load("res://sprites/enemies/the_kid_e.png")
 		_:
 			print("Error character name set")
 
@@ -206,7 +206,7 @@ func _on_button_pressed() -> void:
 	
 	match(character_name):
 		"Cherpack":
-			$"friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
+			$"CanvasLayer/friends&enemies/background/HBoxContainer/friend/friend".texture = load("res://sprites/friends/cherpack_f.png")
 		"Snob":
 			if (self.get_node_or_null("skill_scene") == null):
 				var choice_scene = preload("res://scenes/snob_captain_skill.tscn").instantiate()
@@ -261,6 +261,8 @@ func the_kid_action():
 					food_amount += 1
 					break
 
+func set_trade_button_disabled(value):
+	$TradeButton.disabled = value
 
 func _on_AAAAAAAAAA() -> void:
 	GameManager.deal_damage.rpc_id(1,self.get_path(),2)
